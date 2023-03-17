@@ -1,0 +1,44 @@
+=========================================
+Understanding the Role & Usage of Node.js
+=========================================
+
+Node.js is how we run server side code,
+things like databases, authentication, 
+input validation, business logic
+
+In the browser a user might go to your 
+website, which makes a request, then the 
+server sends the response HTML page, 
+but we never want sensitve info to be stored 
+and accessible in the browser
+
+===========================
+A side note
+===========================
+
+Node.js is not limited to 
+a server, it's a runtime, 
+we can execute any JS code 
+
+We often use it for local 
+utility scripts, and 
+build tools
+
+If you've ever used React or Angular,
+and had scripts like 
+npm run build or any run scripts, 
+that is node
+
+========================
+Node.js role in web dev 
+=========================
+
+Run Server - Create server and listen to 
+incoming requests 
+
+Business Logic - Handle requests, validate 
+inputs, connect to databases 
+
+Responses - Return responses, rendered HTML, JSON etc..
+
+
