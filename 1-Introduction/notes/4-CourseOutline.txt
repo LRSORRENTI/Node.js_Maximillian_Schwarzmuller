@@ -60,4 +60,71 @@ make working with Node and MongoDB easier, at this
 point we'll be sticking with NoSQL for the remainder 
 of the course 
 
-Section-12: Sessions and Cookies --- 
+Section-12: Sessions and Cookies --- What they are, 
+why they're used and how they're typically implemented
+
+Section-13: Authentication --- How to ensure users can 
+sign up and sign in with a given application
+
+Section-14: Sending Emails --- How to auto-send emails 
+when a user signs up
+
+Section-15: Advanced Authentication Techniques --- 
+Authorization, like if a user created a product, only 
+that user can edit / modify it 
+
+Section-16: User Input Validation --- This ensures 
+that the data entered by users is correct / valid 
+
+Section-17: Error Handling --- How to handle different 
+types of errors in the correct and best fashion
+
+Section-18: File upload / download --- How are these 
+implemented, and how we can auto-generate pdf docs in 
+this section 
+
+Section-19: Pagination --- How to return data in 
+chunks instead of all at once, which is not ideal 
+for bandwidth
+
+Section-20: Async Requests --- What these are and how 
+best to handle async in node.js
+
+Section-21: Handling payments --- How to accept 
+payments through a service called stripe.js, something 
+necessary for any web shop
+
+Section-22: Rest API --- This section will go over the 
+basics of Rest API's and node.js 
+
+Section-23: Advanced REST API features --- This section 
+will be a more comprehensive look at the features of 
+REST API's 
+
+Section-24: Using Async Await --- This section 
+will be covering Async + Await in a comprehensive 
+manner, how to implement it effectively
+
+Section-25: Websockets and Socket.io --- This 
+technology will allow real-time functionality to 
+be incorporated into a node.js app, like if one 
+user messages another, the receiver of the message 
+will get a notification
+
+Section-26: GraphQL --- GraphQL is a modern and 
+popular way to build API's, it has some 
+advantages over REST API's, we'll go over when 
+GraphQL is a better fit than REST API
+
+Section-27: Deployment --- How can we deploy our 
+app to the web, and ensure it runs there, SSL encryption
+
+Section-28: Beyond web servers --- We can build 
+other things with node.js other than web server 
+applications 
+
+Section-29: TypeScript and Node.js --- This section 
+we'll learn how to use TS and node.js together
+
+Section-30: Deno.js --- Deno is an alternative to node, 
+and is an important thing to learn
