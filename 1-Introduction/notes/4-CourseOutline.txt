@@ -1,0 +1,63 @@
+====================
+Course Outline
+====================
+
+Here's a brief overview of the course's 
+structure, and the general path through 
+Node.js we'll be taking: 
+
+Section-1: JavaScript Refresher --- This 
+section will be mostly review for you, it 
+will not be a comprehensive or wholly complete 
+section covering every nuance of JS, it will serve 
+as a JS warmup or refresher before we get into the 
+full Node.js course 
+
+Section-2: Node.js Basics --- This will 
+be an intro to the basics of Node.js, how 
+it functions, how to work with streams of data, 
+some core Node.js modules, key details on Node.js
+
+
+Section-3: Efficient Development --- Debugging, 
+handling errors, and general best practices in Node 
+Development
+
+Section-4: Express.js --- Express is the most 
+popular framework for Node.js, it represents the 
+'E' in MERN, MEAN, and MEVN stack Development for 
+React.js, Angular.js and Vue.js respectively. We'll 
+learn why we use Express.js, and the details of Express
+
+Section-5: Templating Engines --- These are tools 
+used to generate HTML pages on the server with DYNAMIC
+content within them. 
+
+Section-6: MVC or Model-View-Controller --- What 
+this MVC pattern is, and why we use it, and how to 
+use it Efficiently
+
+Section-7: Advanced Routing and Models --- Routing 
+is something we'll also cover in the Express section-4, 
+but we'll dive much deeper in this section on the models 
+of the MVC pattern
+
+Section-8: Node + SQL/MySQL --- This sections we'll 
+learn how to connect a node app with a SQL database, 
+if your not 100% familiar with SQL it's ok, it will 
+be a useful overview of how to connect to them efficiently 
+even if you've never worked with SQL 
+
+Section-9: Sequelize --- This is a package that 
+makes working with SQL easier 
+
+Section-10: Node + NoSQL databases --- This 
+will go over connecting to relational databases 
+like MongoDB
+
+Section-11: Mongoose --- Using Mongoose to 
+make working with Node and MongoDB easier, at this 
+point we'll be sticking with NoSQL for the remainder 
+of the course 
+
+Section-12: Sessions and Cookies --- 
