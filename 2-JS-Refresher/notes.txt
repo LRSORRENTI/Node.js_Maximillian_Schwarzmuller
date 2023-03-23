@@ -1,0 +1,7 @@
+====================
+JAVASCRIPT REFRESHER
+====================
+
+This section will be a quick refresher 
+on JavaScript, it will be a short section. 
+

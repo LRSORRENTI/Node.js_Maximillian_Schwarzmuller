@@ -1,0 +1,46 @@
+================
+WHAT IS NODE.JS?
+================
+
+WELL NODE JS IS A JAVASCRIPT RUNTIME,
+AND JS IS MOST COMMONLY USED IN THE BROWSER 
+TO CREATE DYNAMIC WEBSITES
+
+BUT JS IS NOT LIMITED TO THE BROWSER, NODE.JS 
+IS BUILT ON JAVASCRIPT, IT TAKES JS AND PUTS 
+IT INTO A DIFFERENT ENVIRONMENT
+
+IT ALLOWS JS CODE TO RUN ON THE SERVER, OR 
+ANYWHERE ELSE REALLY, LIKE NORMAL PROGRAMMING 
+LANGUAGES THAT AREN'T SHACKLED TO THE BROWSER 
+
+===================
+HOW DOES THIS WORK?
+===================
+
+WELL NODE.JS USES V8 JAVASCRIPT ENGINE
+BUILT BY GOOGLE, THAT RUNS JS IN THE BROWSER 
+
+SO V8 IS AN ENGINE, AND V8 TAKES JS AND 
+COMPILES INTO MACHINE CODE
+
+===========
+REPL
+===========
+
+A REPL is an interactive programming environment
+ that allows you to execute code snippets
+  or statements and immediately see their results.
+
+With a Node.js REPL,
+ you can quickly test out code, 
+ experiment with new ideas,
+  or debug issues by executing code
+   one line at a time.
+
+To start a Node.js REPL, 
+you can simply type node 
+into your terminal and press enter. 
+
+This will open up the REPL prompt, 
+where you can start typing in JavaScript code.
