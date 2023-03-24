@@ -1,0 +1,20 @@
+===================
+Node.js Basics
+===================
+
+
+Module Overview
+=================
+
+1. How the web actually works (Refresher), 
+in this course we'll be writing code for 
+servers, web apps so this is an important 
+refresher section
+
+2. Creating a Node.js server 
+
+3. Node core modules 
+
+4. Working with Requests and Responses
+
+5. Asynchronous code and the Event Loop

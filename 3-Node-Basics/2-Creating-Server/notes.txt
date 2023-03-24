@@ -1,0 +1,18 @@
+======================
+Creating a node server
+======================
+
+First create a file called server.js or 
+app.js in a given folder, but first 
+we need to go over modules, we've seen fs 
+already for file system but there are more 
+
+1. HTTP - Launch a server, send requests 
+
+2. HTTPS - Launch SSL server (Secure Socket Layer)
+
+3. fs 
+
+4. path 
+
+5. os 
