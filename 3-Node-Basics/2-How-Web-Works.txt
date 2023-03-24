@@ -1,0 +1,52 @@
+======================
+How does the web work?
+======================
+
+The user or client side (browser) visiting 
+a webpage, so you're entering a URL (uniform 
+resource locator) into your browser
+
+Then the browser reaches out to some Domain 
+Name Servers to look that domain name up, because 
+a name like: https://my-page.com is not 
+the exact address of the server, it's just a 
+human readable version of that address 
+
+So then the browser sends a request to that 
+address belonging to that domain (10.212.212.12)
+
+This is where node comes into play, we write the 
+code that handles functionality on that server, or 
+ip address (10.212.212.12)
+
+Keep in mind node.js isn't the only way to do this, you 
+could use PHP, ASP.net, Ruby on Rails etc.. 
+
+Typically on this server you might reach out to your 
+database 
+
+And you also send back a response to the client, which 
+can be HTML text, but it could also be JSON data, or 
+other types of files like XML
+
+A request and response also have headers, which is 
+meta-info attached to the requests and responses 
+describing the contents of each respectively
+
+This is how the web generally works, and we'll be using 
+Node.js to illustrate these concepts throughout the 
+course
+
+These requests and responses are done through 
+some protocol, typically HTTP or HTTPS, this are 
+sets of rules governing the data and what 
+the data must look like 
+
+HTTPS is the same as HTTP except it includes SSL or 
+Secure Socket Layer which encrypts the data
+
+Since in this course we'll only be working locally, 
+we'll primarily be using HTTP, but we'll thoroughly 
+go over implementing HTTPS as well 
+
+This is how the web works in a nutshell
