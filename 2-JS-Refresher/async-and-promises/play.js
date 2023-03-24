@@ -3,7 +3,7 @@
 // func will execute after a certain amount 
 // of time has passed, the first arg is the code 
 // to be executed, the second arg is the time specification
-// which is expressed in milliseconds, so 2 second 
+// which is expressed in milliseconds, so 2 seconds
 // would be 2000
 
 const { rejects } = require("assert");
@@ -18,8 +18,8 @@ setTimeout(() => {
 
 console.log('I execute before the async func above')
 
-// So we see the above logs immediately and the async 
-// code waits 2 seconds 
+// So we see the above console.log immediately and the async 
+// code: '2 second timer is done' waits 2 seconds befoee logging
 
 // So the callback function setTimeout is the old
 // way and we'll see and use it quite a lot, but 
@@ -32,7 +32,7 @@ const fetchData = (callback) => {
 }
 
 setTimeout(() => {
-    console.log('fetchData 4 second callback timer is now done ');
+    console.log('the fetchData 4 second callback timer is now done ');
     fetchData(text => {console.log(text)})
 }, 6000)
 
@@ -42,7 +42,8 @@ setTimeout(() => {
 const fetchNewData = () => {
     // we create a promise by saving it 
     // to a variable inside of our callback
-    // function
+    // function and we use the 'new' and 'Promise'
+    // keywords
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve('done!');
