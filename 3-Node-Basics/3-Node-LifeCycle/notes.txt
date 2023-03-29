@@ -1,0 +1,85 @@
+====================================
+The Node.js LifeCycle and Event Loop
+====================================
+
+In the last section, we created a server 
+and we logged the request to the console, 
+which returned a huge response object 
+
+But this server isn't doing all it's capable 
+of, it's not returning a response, but it's 
+generally showing how to create server side code 
+
+So how did that all work, well first we: 
+
+ Execute the file with: node server.js, this 
+is where node.js went through the entire file, 
+parsed the code, registered the variables and 
+functions, but something else happened 
+
+WE never left the server (I did use npx kill-port 3000)
+but if I didn't do that the server would still be 
+running on localhost 3000 
+
+============================
+THIS IS AN IMPORTANT
+CONCEPT KNOWN AS THE:
+EVENT LOOP 
+=============================
+
+An event loop is a looped process managed 
+by node.js, which keeps running as long as 
+there are event listeners registered
+
+And if you recall from the file, we set: 
+
+const server = http.createServer((req, res) => {
+    console.log(req)
+})
+
+server.listen(3000);
+
+We passed a function to createServer, which is 
+an event listener we never unregistered from, which 
+is a good thing if we want our server to remain up 
+and running 
+
+And it's important to note that node.js uses the 
+event loop to manage all kinds of processes, not 
+just servers 
+
+This is because node.js executes 'single-threaded 
+JavaScript' 
+
+So node.js should be able to hand hundreds of thousands 
+of incoming requests, and if it were to pause every time 
+with each new request, this would not be ideal, hence it 
+uses the event loop, it will always keep running and 
+will execute code when an event occurs 
+
+We can unregister with: process.exit, so if 
+we go back to our code and add: 
+
+const server = http.createServer((req, res) => {
+    console.log(req)
+    process.exit();
+})
+
+So now after refreshing the running local host 3000, 
+the process exits, we still have that request logged 
+to the console, but as you can see there's no more 
+blinking cursor, the process ended 
+
+Typically you'd never call process.exit() b/c we don't 
+want our server to stop running, users wouldn't be 
+able to reach our web page if we stop the process  
+
+
+=========================================
+Want to quit your running Node.js server?
+=========================================
+
+You can always do that by pressing CTRL + C
+ in the terminal/ command prompt window
+  where you started your server
+  (i.e. where you ran node app.js).
