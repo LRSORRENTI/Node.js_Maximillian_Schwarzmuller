@@ -1,0 +1,105 @@
+=======================
+Understanding Requests 
+=======================
+
+When we console logged that request, inside 
+the console, but we can narrow down what we actually 
+want to log with dot notation: 
+
+
+const server = http.createServer((req, res) => {
+    console.log(req.url, req.method, req.headers)
+})
+
+So now the size of the returned data in the console is 
+more precise, we're only returning the url data, the 
+method and the headers, it does display GET at the top 
+meaning it was a get request
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    console.log(req.url, req.method, req.headers)
+    res.setHeader('Content-Type', 'text/html')
+    // so the above will set a new header, 
+    // and Content-Type is a default header 
+    // which the browser knows and accepts, 
+
+    // and as a second arg. we pass in text/html
+    // and it will attach a header to the response, 
+    // where we pass info, and the type of data 
+    // will be html, but right now, we don't have 
+    // any html to send so let's add some: 
+ 
+// res.write() will be how we add HTML, though later 
+// on we'll learn a much easier way to do this 
+
+    res.write('<html>')
+    res.write('<head><title>My First Page With Node</title></head>')
+    res.write('<body><h1>Hello World From Node.js Server</h1></body>')
+    res.write('</html>')
+    // So now that we've added a very basic 
+    // html to return, we need to call res.end()
+    res.end()
+    // At this point below res.end() we musn't put 
+    // any more code, res.end() ends everything, the 
+    // response is now sent back to the client
+})
+
+server.listen(3000)
+
+And checking the browser the html is rendered to the 
+page and in the network tab of the 
+dev tools we see : 
+
+Headers:
+
+Request URL: http://localhost:3000/
+Request Method: GET
+Status Code: 200 OK
+Remote Address: [::1]:3000
+Referrer Policy: strict-origin-when-cross-origin
+
+and 
+
+Response Headers: 
+
+Connection: keep-alive
+Content-Type: text/html
+Date: Wed, 29 Mar 2023 14:52:47 GMT
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+and 
+
+In the response tab we see: 
+
+<html><head><title
+>My First Page With Node
+</title></head><body>
+<h1>Hello World From Node.js Server
+</h1></body></html>
+
+This is how we send a response, but later 
+we'll learn express.js, which makes things 
+much much easier, but it's very critical to understand 
+how this works 
+
+Request & Response Headers
+
+On both requests and responses, 
+Http headers are added to 
+transport metadata from A to B.
+
+The following article provides 
+a great overview of available
+ headers and their role:
+  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+
+Whilst this article is a
+ great resource, especially
+  to dive deeper, please don't
+   learn this list by heart though!
+   
+    You'll encounter many of these 
+    headers throughout the course and
+    I'll explain them when we need them.
