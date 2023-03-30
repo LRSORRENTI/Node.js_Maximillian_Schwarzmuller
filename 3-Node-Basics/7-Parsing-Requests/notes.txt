@@ -1,0 +1,58 @@
+================
+Parsing Requests
+================
+
+We want to extract the data passed into the 
+input field after the send button is pressed 
+
+How does this work? 
+
+In node.js there are streams of data, and a concept 
+known as: 
+
+===================
+STREAMS AND BUFFERS
+===================
+
+Example: Incoming Request
+
+When we have a request, it's read by node in 
+chunks, in multiple parts along the stream: 
+
+Request body part 1 ------> Request body part 2 -------> 
+Request body part 3 ------> Request body part 4 ------->
+Fully parsed 
+
+This is done so we can work on individual chunks without 
+having to wait for the full request to be read 
+
+Now for a simple request like the one we've seen, this 
+isn't really required, we only have one field of input 
+data
+
+But think about a file being uploaded, it could be 
+a very large file, therefore streaming that data 
+could make logistical sense because it could enable 
+writing to the disk or hard drive where the app runs 
+on the node server while the data is coming in 
+
+That way we don't need to parse the entire file 
+which does take time, and then needing to wait for 
+ the upload to finish before doing anything with it 
+
+ Now in order to be able to work with these chunks of 
+ data, we need to use what's known as a BUFFER 
+
+ ======
+ BUFFER
+ ======
+
+ A buffer is like a bus stop, buses are always transporting 
+ but they also pick up passengers at the bus stops, 
+ and that is what a buffer is 
+
+ A buffer is a bus stop that allows us to work with 
+ the stream of data, or a  bus going along it's route, 
+so we can work with chunks of data before they are released 
+
+Let's see how this works in practice 
