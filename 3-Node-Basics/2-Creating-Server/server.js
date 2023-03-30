@@ -72,7 +72,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000);
 
-// Now if we run node server.js in the terminal, 
+// Now if we run 'node server.js' in the terminal, 
 // we see that the cursor is stuck, that's because 
 // the server is running, it's listening for 
 // requests 
