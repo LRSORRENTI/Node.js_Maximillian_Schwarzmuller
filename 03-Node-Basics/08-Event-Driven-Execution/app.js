@@ -91,3 +91,11 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000)
 
+// The main takeaway here is there with event 
+// driven execution, we can specify when code 
+// should execute based on what we want using 
+// conditional checks, also important to note 
+// when using functions that don't execute 
+// synchronously, node registers them for execution 
+// later, event driven execution is an important 
+// tool in building applications
