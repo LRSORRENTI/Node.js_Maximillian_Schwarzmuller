@@ -1,0 +1,36 @@
+===================
+NODE MODULES SYSTEM
+===================
+
+Let's wrap this node basics module up, and 
+we'll start by modularizing our old app.js from 
+tbe previous sections 
+
+Typically we work with multiple files, so let's create 
+a new file to house our routing logic
+
+So in the routes.js file, at the bottom we added 
+module.exports = requestHandler
+
+but if we wanted to export more we could do: 
+
+module.exports = { 
+    handler: requestHandler,
+    someText: 'Hello World' 
+}
+
+or alternatively the following also works: 
+
+module.exports.handler = requestHandler;
+module.exports.someText = 'Hello World';
+
+I think the module.exports = {} is cleaner 
+
+That is how to export multiple things from a given file 
+but back in app.js we need to change:
+
+const server = http.createServer(routes);
+
+to: 
+
+const server = http.createServer(routes.handler);
