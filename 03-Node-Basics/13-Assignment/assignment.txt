@@ -1,0 +1,34 @@
+============================
+Node Basics Final Assignnemt
+============================
+
+Step 1. Create a new assignment project folder, 
+create a javascript file and spin up 
+a node.js driven on port 3000
+
+================================================
+
+Step 2. Inside that file handle two routes: 
+'/' and '/users'
+
+on '/' return some greeting text like 'hello world' 
+
+on '/users' return an unordered list of dummy users 
+<ul><li>User 1</li></ul>
+
+==================================================
+
+Step 3. Add form with 'username' <input> to the '/'
+page and submit a POST request to '/create-user' upon 
+a button click 
+
+===================================================
+
+Step 4. Add the '/create-user' route and parse the incoming 
+data (i.e the username) and log the passed in name 
+to the console
+
+===================================================
+
+
+
