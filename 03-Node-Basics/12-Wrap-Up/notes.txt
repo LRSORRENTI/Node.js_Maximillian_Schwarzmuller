@@ -1,0 +1,76 @@
+===================
+Node Basics Wrap Up
+===================
+
+=============================
+
+We learned how the web works: 
+
+
+Client -> Request -> Server -> Response -> Client 
+
+====================================================
+
+We learned the program life cycle and event loop: 
+
+Node runs non-blocking JS code and uses event 
+driveb code (Event loop) for running the logic 
+
+Node exits as soon as there's no work left to do 
+
+As a note, the createServer event never finishes by 
+default
+
+====================================================
+
+We learned Asynchronous Code: 
+
+We implemented a callback and event driven approach 
+where we register code to be executed in the future 
+rather than right away
+
+We also learned that JS code is non-blocking meaning
+other code can run while the non-blocking code runs
+
+====================================================
+
+We learned Requests and Responses: 
+
+Parsing request data in chunks (Streams & Buffers)
+streams being sequences of data that can read and 
+write to files, it's a way to process data piece 
+by piece rather than loading it all at once 
+
+Buffers are like bus stops, temporary holding areas 
+for data, which have a fixed capacity, they are used 
+to smooth the flow of data between different parts 
+of an application or between systems 
+
+Avoiding double responses, meaning we ensure that 
+only one response is sent back to the client for 
+each request
+
+====================================================
+
+We learned Node.js core modules: 
+
+Things like http, fs, path, events, and util, and 
+we can import them into any file to use them, 
+import via require("module name")
+
+====================================================
+
+We also learned the module system as a whole: 
+
+import via ('./path-to-file) for custom components 
+ and custom modularized code
+
+ export via module.exports or just exports: 
+
+ module.exports = { 
+    handler: requestHandler,
+    someText: 'Hello World' 
+}
+
+=====================================================
+
