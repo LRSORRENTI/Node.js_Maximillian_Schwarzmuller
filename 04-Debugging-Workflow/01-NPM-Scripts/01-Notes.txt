@@ -1,0 +1,45 @@
+If we look in the package json file: 
+
+{
+  "name": "01-npm-scripts",
+  "version": "1.0.0",
+  "description": "Debugging workflow, Max's Node.js Course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luke Sorrenti",
+  "license": "ISC"
+}
+
+We see there's a scripts section, with one 
+default script, but let's add another below: 
+
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  }
+
+  Now that we added a script to run app.js, that 
+  way we don't need to type node app.js everytime,
+  we just enter: npm start, and it's the equivalent 
+
+  This is good when working with others, that way 
+  they can look in the package json to see which 
+  file is the entry file for the app 
+
+  We can add any scripts we want to our package json
+  the only caveat is that the name "test" or "start" 
+  can never have any whitespace, so if we had a long 
+  script name it would need to be "start-my-server" 
+  or "add-x-y-z" just no whitespace
+
+IMPORTANT TO NOTE HOWEVER, WITH CUSTOM SCRIPTS, THEY 
+MUST BE ENTERED PREFIXED WITH 'run':
+
+npm run add-x-y-z 
+
+or 
+
+npm run start-my-server 
+

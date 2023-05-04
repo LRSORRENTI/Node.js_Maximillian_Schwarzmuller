@@ -1,0 +1,99 @@
+=============================
+INSTALLING 3RD PARTY PACKAGES
+=============================
+
+In Node, we often use the built in packages 
+like 'fs' or 'http' 
+
+When developing applications, it's common to 
+utilize 3rd party packages
+
+Packages that maybe can help parse incoming 
+requests, user input validation, and many other 
+useful functionalities that don't come with Node 
+directly 
+
+In the next few lectures we'll utilize a very 
+popular dependency, Express.js 
+
+body-parser is another package we'll use throughout 
+the course 
+
+These kinds of packages are very commonly used, 
+trying to re-invent the wheel or do everything 
+yourself all the time is not time-efficient
+
+There are many feature-rich, battle-tested packages 
+out there written by skilled developers to help 
+you in your projects, you don't need to always write 
+everything yourself
+
+These packages are available through the npm 
+repository, a cloud package repository where 
+all these packages live and we can conveniently 
+install them when needed via npm
+
+Right now, if we run our server with npm start, 
+but we then  make changes to it, we need to manually 
+restart the server to see the changes take effect 
+
+We want the functionality for the server to update 
+on save, that way we don't need to ctrl + c, then 
+save file, then npm start every single time we make 
+changes 
+
+We first need to know the package name, in our 
+case we're going to use a package called nodemon
+
+And if you google nodemon, you'll see a nice 
+overview of the package on the npm website, 
+configuration, usage instructions, dependencies,
+versions etc.. 
+
+To install our new package we type: 
+
+npm install nodemon --save-dev 
+
+the --save-dev tells npm to install the development 
+dependencies for nodemon
+
+if we just added --save, it would install nodemon 
+as just a production dependency
+
+There's also the -g flag, this stands for global, 
+meaning it will install nodemon, not just inside 
+a given project but system wide, making it available 
+globally 
+
+So now in our package.json we have a "devDependencies" 
+option with nodemon inside
+
+Also make note we have a new package-lock.json, and 
+node_modules folder, both of which are gigantic, 
+rmemeber to add them to .gitignore if you don't want 
+to push those huge files to a remote repo, but 
+the package-lock itself is often used when collaborating 
+because it notates the exact version of every dependency
+
+Also note the "^" in "^2.0.22" this ^ defines 
+how the package will update if we re-run npm install 
+on it's own
+
+It will auto-pick a latest version with this ^ 
+if available
+
+And if we llok inside the node_modules folder, 
+we see nodemon is successfully inside
+
+It's the build version of our nodemon package, and 
+if you expand, you see nodemon folder itself also 
+has a package.json with some dependencies 
+
+You can also just delete the entire node_modules 
+folder, then re-run npm install, and the proper 
+node_modules folder will return 
+
+So if we're not directly working on the project, we 
+can delete the node_modules folder, then re-install 
+with npm install to bring that folder back for 
+development

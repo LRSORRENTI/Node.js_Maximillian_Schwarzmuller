@@ -1,0 +1,15 @@
+{
+  "name": "01-npm-scripts",
+  "version": "1.0.0",
+  "description": "Debugging workflow, Max's Node.js Course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Luke Sorrenti",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
