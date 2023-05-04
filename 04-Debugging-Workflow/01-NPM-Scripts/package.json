@@ -1,13 +1,12 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "01-npm-scripts",
   "version": "1.0.0",
-  "description": "Complete Node.js Guide",
+  "description": "Debugging workflow, Max's Node.js Course",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "start-server": "node app.js"
+    "start": "node app.js"
   },
-  "author": "Maximilian Schwarzmüller",
+  "author": "Luke Sorrenti",
   "license": "ISC"
 }
