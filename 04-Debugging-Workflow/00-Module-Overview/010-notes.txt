@@ -1,0 +1,13 @@
+============================================
+MODULE INTRO - DEBUGGING AND BETTER WORKFLOW
+============================================
+
+This module will cover how we can make our 
+Node.js workflow more streamline, and easier to 
+debug
+
+How to utilize different tools to illuminate what's 
+happening in our Node.js Apps
+
+We'll learn some tips and tricks to help develop
+better, more maintainable Node apps 
