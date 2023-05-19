@@ -1,0 +1,32 @@
+===================================
+UNDERSTANDING DIFFERENT ERROR TYPES
+===================================
+
+Having a solid foundation on how to 
+define and solve an error, which there 
+will always be, errors are a part of 
+programming
+
+How do we dissect and identify the error? 
+
+We first need to understand that errors are 
+not one of a kind, there are different types: 
+
+===============
+TYPES OF ERRORS
+===============
+
+1. Syntax Errors: These errors are due to typo's in 
+   your code, missing brackets, unclosed parens etc..
+
+2. Runtime Errors: These are errors that aren't 
+   typos, but code that breaks when executing
+
+3. Logical Errors: These can be tricky to properly 
+   identify and diagnose, as we may never see any 
+   error message, the code will simply not function 
+   in the manner it should
+
+But like many things in programming, we have tools 
+that can help us diagnose and repair all types of 
+errors
