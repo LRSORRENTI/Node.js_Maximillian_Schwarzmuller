@@ -1,0 +1,35 @@
+==============
+RUNTIME ERRORS
+==============
+
+A good example for this is the 
+res.write method: 
+
+res.setHeader('Content-Type', 'text/html')
+    res.write('<html>')
+    res.write('<head><title>My First Page With Node</title></head>')
+    res.write('<body><h1>Hello World From Node.js Server</h1></body>')
+    res.write('</html>')
+   return res.end();
+
+If we omit the 'return' keyword from the 
+final line above, the code will continue to 
+execute, let's change it to just:
+
+res.end();
+
+In the terminal there's an error: 
+
+_http_outgoing.js:470
+throw new ERR_HTTP_HEADERS_SENT('set');
+
+Error: Cannot set headers after they are send to the 
+client
+
+This error is telling us, the way we've structured 
+our code, we tried to set the headers after they've 
+already been sent, so that's a good hint to check 
+the code block where we're sending those headers. 
+
+We know see that once we prefix the return keyword
+to res.end(), 

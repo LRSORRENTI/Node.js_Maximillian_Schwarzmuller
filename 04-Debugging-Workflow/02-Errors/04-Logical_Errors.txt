@@ -1,0 +1,58 @@
+==============
+LOGICAL ERRORS
+==============
+
+These logical errors can often be the 
+trickiest to find, the app is not behaving 
+in the manner it should, but there 
+aren't any hints, no error messages, not 
+an explcit IDE warning of any kind either
+
+Let's look again at our old routes.js file: 
+
+In the block where we parse our body
+
+    return req.on('end', () => {
+      const parsedBody = Buffer.concat(body).toString();
+      const message = parsedBody.split('=')[1];
+      fs.writeFile('message.txt', message, err => {
+        res.statusCode = 302;
+        res.setHeader('Location', '/');
+        return res.end();
+      });
+    });
+  }
+
+  Let's change   const message = parsedBody.split('=')[1];
+
+       to        const message = parsedBody.split('=')[0];
+
+       Remember the [1] index is where the message the 
+       user entered will be located, because we split 
+       the key value pair, but now we're storing 
+       index 0, the wrong element to store
+
+But now if we input 'test' in the input field and enter,
+look at message.txt, we don't see 'test' we see 
+'message', this is because 'message' is always stored 
+at index 0, we split message above with the parsedBody
+but we're saving the key, not the value to our 
+message.txt file now 
+
+This is a logical error, there's no error message, 
+but the app is not working the way it should, we 
+simply made a human error in saving the incorrect 
+index when we parsedBody
+
+Obviously for this example, we know what we changed 
+to cause this logical error, but let's say you 
+worked on that code for hours, or maybe 
+this is the first time you're working on 
+this code and maybe you made a mistake similar 
+to this, it can be challenging to correctly identify 
+
+How can we make it easier to identify these logical 
+errors? 
+
+NODE.JS DEBUGGER
+
