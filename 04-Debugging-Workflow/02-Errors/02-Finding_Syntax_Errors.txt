@@ -1,0 +1,33 @@
+================================
+FINDING AND FIXING SYNTAX ERRORS
+================================
+
+For example: 
+
+cons server = http.createServer(routes.handler);
+
+VSCODE will underline 'cons' with the error: 
+';' expected, this is because VSCODE thinks 
+cons is a variable name
+
+But if we leave it, and just try to run npm 
+start, we see a different error in the terminal:
+
+SyntaxError: Unexpected Identifier
+cons server 
+
+It doesn't explicitly state we need to add 't' to 
+our variable, we can still infer that the error 
+is stemming from that line specifically 
+
+VSCODE will show a red bar in the right slider 
+for different errors, press the red bar to jump to 
+the error 
+
+If we forget to add an ending '}', VSCODE 
+will return the error '}' expected, this 
+means we need to check all of our blocks to 
+see where we forgot to close with the '}'
+
+Utilizing the IDE to help traverse and locate 
+errors will help enable better error location
