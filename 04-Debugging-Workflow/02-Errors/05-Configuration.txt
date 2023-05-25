@@ -1,0 +1,33 @@
+=============
+CONFIGURATION
+=============
+
+In the 'run' dropdown menu, if we 
+select 'CONFIGURATION' 
+
+we now see the launch.json file, we 
+can add our own configs to extend our 
+needs 
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\04-Debugging-Workflow\\01-NPM-Scripts\\app.js",
+            "restart": true,
+            "runtimeExecutable": "nodemon",
+            "console": "integratedTerminal"
+        }
+    ]
+}
