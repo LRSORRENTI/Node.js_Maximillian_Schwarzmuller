@@ -56,3 +56,62 @@ errors?
 
 NODE.JS DEBUGGER
 
+This debugger has a clean integration into 
+VSCODE, from the main menu, select 'run' then 
+'start debugging' 
+
+And now we have a nice draggable debugger in 
+in the VSCODE application, also notice nodemon,
+nodemon displays: 
+
+Debugger attached.
+[nodemon] 2.0.22
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node app.js`
+Debugger attached.
+Some hard coded text here and here and here
+
+What does 'debugger attached' mean? 
+
+This is how we can 'look' into our code as it's 
+running, but to do this we also need to set breakpoints 
+
+Let's go back to routes.js and select the line:
+
+const message = parsedBody.split('=')[1];
+
+To the left of the line if you hover, you'll see 
+a red dot, clicking this red dot will set a 
+breakpoint on this line specifically
+
+The code execution stops when it reached that 
+breakpoint
+
+Which is cool! We can now analyze the code in the exact 
+moment it's running 
+
+We can also hover over variables and see what's 
+stored inside of them! 
+
+If we hover over parsedBody: 
+
+ const parsedBody = Buffer.concat(body).toString();
+
+ We see: "message=test"
+
+ And if we hover over the (body) in concat we see: 
+
+ 0:
+Buffer(12) [109, 101, 115, 115, 97, 103, 101, 61, 116, 101, 115, 116, buffer: ArrayBuffer(852), byteLength: 12, byteOffset: 840, length: 12]
+length:
+1
+[[Prototype]]:
+Array(0)
+[[Prototype]]:
+Object
+
+It's an array with a buffer that has a length of 12, 
+it even has expansions and dropdowns to look all the 
+way into the __proto__ chain, very cool
