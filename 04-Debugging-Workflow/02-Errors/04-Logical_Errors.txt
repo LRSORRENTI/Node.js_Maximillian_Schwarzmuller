@@ -137,3 +137,20 @@ menu
 You can also look in the call stack dropdown to view 
 the code executing
 
+Utilizing these breakpoints to see what values 
+are being stored inside of any variable throughout 
+code execution assists in finding errors in your code
+
+Practicing using the debugger, and using it to narrow 
+down why certain values are being registered 
+at any point during code execution, will help 
+narrow down causes of different errors 
+
+And in the debug console drawer, next to the 
+terminal, if we input: 
+
+parsedBody.split('=')
+
+then press enter we see: 
+
+(2) ['message', 'MAX']
