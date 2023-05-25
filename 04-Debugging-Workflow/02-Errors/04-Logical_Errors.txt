@@ -115,3 +115,25 @@ Object
 It's an array with a buffer that has a length of 12, 
 it even has expansions and dropdowns to look all the 
 way into the __proto__ chain, very cool
+
+And if you notice the left drawer window in VSCODE, 
+we see 'VARIABLES', 'WATCH', and 'CALL STACK', if 
+you expand the 'VARIABLES' you can see the current 
+variables available in your code
+
+If we set the breakpoint further down, at the line: 
+
+fs.writeFile('message.txt', message, err => {
+
+We see the proper input text value is in the 
+message variable 
+
+Also in the dropdown menu, in the watch option, if 
+you press '+' then input a variable name, 
+like 'message' we can keep an eye on the variables 
+we have a particular interest in in that watch 
+menu
+
+You can also look in the call stack dropdown to view 
+the code executing
+
