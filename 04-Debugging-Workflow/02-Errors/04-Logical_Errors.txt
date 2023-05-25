@@ -56,3 +56,101 @@ errors?
 
 NODE.JS DEBUGGER
 
+This debugger has a clean integration into 
+VSCODE, from the main menu, select 'run' then 
+'start debugging' 
+
+And now we have a nice draggable debugger in 
+in the VSCODE application, also notice nodemon,
+nodemon displays: 
+
+Debugger attached.
+[nodemon] 2.0.22
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node app.js`
+Debugger attached.
+Some hard coded text here and here and here
+
+What does 'debugger attached' mean? 
+
+This is how we can 'look' into our code as it's 
+running, but to do this we also need to set breakpoints 
+
+Let's go back to routes.js and select the line:
+
+const message = parsedBody.split('=')[1];
+
+To the left of the line if you hover, you'll see 
+a red dot, clicking this red dot will set a 
+breakpoint on this line specifically
+
+The code execution stops when it reached that 
+breakpoint
+
+Which is cool! We can now analyze the code in the exact 
+moment it's running 
+
+We can also hover over variables and see what's 
+stored inside of them! 
+
+If we hover over parsedBody: 
+
+ const parsedBody = Buffer.concat(body).toString();
+
+ We see: "message=test"
+
+ And if we hover over the (body) in concat we see: 
+
+ 0:
+Buffer(12) [109, 101, 115, 115, 97, 103, 101, 61, 116, 101, 115, 116, buffer: ArrayBuffer(852), byteLength: 12, byteOffset: 840, length: 12]
+length:
+1
+[[Prototype]]:
+Array(0)
+[[Prototype]]:
+Object
+
+It's an array with a buffer that has a length of 12, 
+it even has expansions and dropdowns to look all the 
+way into the __proto__ chain, very cool
+
+And if you notice the left drawer window in VSCODE, 
+we see 'VARIABLES', 'WATCH', and 'CALL STACK', if 
+you expand the 'VARIABLES' you can see the current 
+variables available in your code
+
+If we set the breakpoint further down, at the line: 
+
+fs.writeFile('message.txt', message, err => {
+
+We see the proper input text value is in the 
+message variable 
+
+Also in the dropdown menu, in the watch option, if 
+you press '+' then input a variable name, 
+like 'message' we can keep an eye on the variables 
+we have a particular interest in in that watch 
+menu
+
+You can also look in the call stack dropdown to view 
+the code executing
+
+Utilizing these breakpoints to see what values 
+are being stored inside of any variable throughout 
+code execution assists in finding errors in your code
+
+Practicing using the debugger, and using it to narrow 
+down why certain values are being registered 
+at any point during code execution, will help 
+narrow down causes of different errors 
+
+And in the debug console drawer, next to the 
+terminal, if we input: 
+
+parsedBody.split('=')
+
+then press enter we see: 
+
+(2) ['message', 'MAX']
