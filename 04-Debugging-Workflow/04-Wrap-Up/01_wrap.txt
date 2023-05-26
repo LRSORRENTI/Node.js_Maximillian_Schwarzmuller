@@ -1,0 +1,77 @@
+==============================================
+WRAP UP FOR DEBUGGING AND DEVELOPMENT WORKFLOW
+==============================================
+
+Now let's wrap this section up with a recap: 
+
+We started with NPM, which allows us to manage 
+our project, and facilitates ease of use for 
+dependencies, it also added a package.json, where 
+we can add custom scripts 
+
+We initialize it with: npm init 
+
+And npm scripts can be defined in the 
+package.json file to give shortcuts 
+for common tasks and commands in your app
+
+====================
+THIRD PARTY PACKAGES
+====================
+
+We also utilize npm for third party packages 
+because node.js projects usually don't exclusively 
+use core modules, but also third party packages 
+
+We install them with npm 
+
+And we can differentiate them between 
+production dependencies(--save) and developer 
+dependencies(--save-dev) in the package json, as well 
+as global dependencies(-g)
+
+
+==============
+ERROR HANDLING
+==============
+
+We also went over errors, different types of errors, 
+syntax errors, runtime and logical errors, can 
+break your app! 
+
+Also syntax and runtime errors usually throw helpful
+hints in the terminal (with line numbers!)
+
+Logical errors can be tricky to identify and fix, but 
+we learned how to step through our code using 
+the built in debugger in this section
+
+=========
+DEBUGGING
+=========
+
+Utilize the VSCODE debugger to step through the 
+code execution step by step
+
+We can analyze the values of variables at run time, 
+maybe a variable we expected to be truthy was not 
+or any unexpected data type, maybe we needed null but 
+got undefined etc.. 
+
+We can also set breakpoints cleverly (always keeping 
+in mind the async / event-driven nature of our 
+application! )
+
+============
+USEFUL LINKS
+============
+
+Useful resources:
+
+More on debugging Node.js:
+
+https://nodejs.org/en/docs/guides/debugging-getting-started/
+
+Debugging Node in Visual Studio Code:
+
+https://code.visualstudio.com/docs/nodejs/nodejs-debugging

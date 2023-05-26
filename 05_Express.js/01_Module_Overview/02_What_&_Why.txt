@@ -1,0 +1,81 @@
+==============================
+Why do we need Express anyway?
+==============================
+
+Writing every single component of 
+our server side logic is complex
+
+Remember in the last module we had 
+to manually listen for the 'data' event,
+'end' event then create a buffer, then covert 
+to a string:
+
+`````````````````````````````````````````````````
+
+  if (url === '/message' && method === 'POST') {
+    const body = [];
+    req.on('data', chunk => {
+      console.log(chunk);
+      body.push(chunk);
+    });
+    return req.on('end', () => {
+      const parsedBody = Buffer.concat(body).toString();
+      const message = parsedBody.split('=')[1];
+      fs.writeFile('message.txt', message, err => {
+        res.statusCode = 302;
+        res.setHeader('Location', '/');
+        return res.end();
+      });
+    });
+  }
+  res.setHeader('Content-Type', 'text/html');
+
+  `````````````````````````````````````````````````
+
+  But what if the data we get is a file, or 
+  data that's not structured in a way we expect, then 
+  we would need to write new logic ourselves to 
+  handle such a task 
+
+  EXPRESS itself doesn't do this, but it allows for 
+  another package to be easily hooked into our 
+  project which then will do the parsing 
+
+  Express allows us to focus on the business logic, 
+  not the nitty-gritty details 
+
+  Express provides helper functions, tools and rules
+  that help streamline the development process, use 
+  express as a tool do perform the heavy lifting!
+
+  =======================
+  ALTERNATIVES TO EXPRESS
+  =======================
+
+  - Vanilla node.js, we can always write these tools 
+    for our app ourselves, this is one approach 
+
+  - Adonis.js, Adonis is another web framework similar 
+    to Laravel if you've used PHP 
+
+  - Koa, developed by the same team behind express, 
+    Koa provides more modern approaches to handling 
+    web framework logic 
+
+  - Sails.js, another web app framework built on node.js,
+    this follows the MVC pattern, and is often preferred 
+    for API first development approaches, Sails.js is 
+    considered to have a steeper learning curve than 
+    Express, Adonis, and Koa
+
+   - And many more! 
+
+   =====================
+   WHY WE'LL USE EXPRESS
+   =====================
+
+   The reason why we'll use express in this course is 
+   because express is widely used, highly flexible, 
+   doesn't add too much bloat out of the box, and it's 
+   extremely extensible, there are thousands of libraries 
+   and packages for Express.js! 

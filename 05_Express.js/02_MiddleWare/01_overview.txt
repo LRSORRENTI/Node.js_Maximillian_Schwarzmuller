@@ -1,0 +1,23 @@
+===============
+GETTING STARTED
+===============
+
+Step one is to run npm init -y, 
+then we also need nodemon saved as a 
+dev dependency again, npm install --save-dev nodemon 
+
+Now let's install EXPRESS! 
+
+npm install --save express 
+
+Why --save flag and not --save-dev? 
+
+Because express is not going to 
+just be used during development like nodemon, 
+express will ship with our application
+
+Now we see Express is a package in our dependencies 
+in the package.json, and we can start using it! 
+
+Let's go back to our app.js file and get started!
+
