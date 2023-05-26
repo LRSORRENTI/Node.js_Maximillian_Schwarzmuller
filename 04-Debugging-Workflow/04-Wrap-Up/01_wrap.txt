@@ -1,0 +1,31 @@
+==============================================
+WRAP UP FOR DEBUGGING AND DEVELOPMENT WORKFLOW
+==============================================
+
+Now let's wrap this section up with a recap: 
+
+We started with NPM, which allows us to manage 
+our project, and facilitates ease of use for 
+dependencies, it also added a package.json, where 
+we can add custom scripts 
+
+We initialize it with: npm init 
+
+And npm scripts can be defined in the 
+package.json file to give shortcuts 
+for common tasks and commands in your app
+
+====================
+THIRD PARTY PACKAGES
+====================
+
+We also utilize npm for third party packages 
+because node.js projects usually don't exclusively 
+use core modules, but also third party packages 
+
+We install them with npm 
+
+And we can differentiate them between 
+production dependencies(--save) and developer 
+dependencies(--save-dev) in the package json, as well 
+as global dependencies(-g)

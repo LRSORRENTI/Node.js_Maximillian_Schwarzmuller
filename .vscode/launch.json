@@ -16,7 +16,8 @@
             ],
             "program": "${workspaceFolder}\\04-Debugging-Workflow\\01-NPM-Scripts\\app.js",
             "restart": true,
-            "runtimeExecutable": "nodemon"
+            "runtimeExecutable": "nodemon",
+            "console": "integratedTerminal"
         }
     ]
 }
