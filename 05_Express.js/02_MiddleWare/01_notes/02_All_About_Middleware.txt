@@ -1,26 +1,51 @@
-const http = require("http");
-// It's common convention to space out the core 
-// modules from the third party ones,
-// as well as our own imports if there, but it's 
-// ultimately up to you
-const expressJS = require('express')
+=======================================
+EXPRESS.JS IS ALL ABOUT THE MIDDLEWARE!
+=======================================
 
-// Go ahead and press 'ctrl' then click 
-// 'express' in the require function above, 
-// you'll be taken to an index.d.ts file for 
-// the source code for that, and in that file ut 
-// exports: export = e;
+Here's a diagram illustrating what express 
+is doing for us: 
 
-// So it exports a function
+Incoming REQUEST -> MIDDLEWARE(next() function, 
+but the logic behind next() is:
+ (req, res, next) => {...})
 
-// Now that we have express, we can 
-// create an express app and save it in 
-// a constant: 
+MIDDLEWARE -> res.send() (the res.send() logic 
+is: (req, res, next) => {...})
+
+MIDDLEWARE -> RESPONSE 
+
+RESPONSE -> 
+
+So when we get an incoming request, it's funneled 
+through functions within Express.js
+
+Instead of having a single request handle, we instead 
+have hooking in multiple functions, which the request 
+will go through, until we send the response
+
+This allows for blocking out our code so that we 
+don't have one single gigantic function responsible 
+for everything
+
+This is the 'pluggable' nature of Express.js 
+
+Where we can easily add third party packages, which 
+can give middleware functions, that can be plugged 
+into Express.js and add functionality
+
+This is a core concept of Express.js, our middleware,
+and we can use tha by going back into our app.js 
+and after the: 
 
 const app = expressJS()
 
-// So a ton of logic is now in inside 
-// the above app constant 
+but before we pass in app to createServer:
+
+app.
+
+const server = http.createServer(app)
+
+
 
 // Now we can call app.use() which allows us 
 // to use a new middleware function, and use 
@@ -77,14 +102,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     console.log("DIFFERENT LOGGED FROM MIDDLEWARE!");
-    next();
 })
-
-app.use((req, res, next) => {
-    console.log("Last middleware log check");
-})
-
-
 
 // now we see both strings logged to the console!, also 
 // remember to actually go to localhost:3000, otherwise 
@@ -93,10 +111,6 @@ app.use((req, res, next) => {
 // and nothing will be logged, just the nodemon messages
 
 
-// app is now a valid request handler, so we 
-// can pass app into our old server variable: 
-// const server = http.createServer()
-const server = http.createServer(app)
-
-server.listen(3000)
-
+This is a crucial concept, any function that uses 
+req, res, and next, IF WE WANT THE REQUEST TO TRAVEL 
+ONWARDS, WE MUST CALL NEXT!
