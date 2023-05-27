@@ -1,0 +1,34 @@
+=======================================
+EXPRESS.JS IS ALL ABOUT THE MIDDLEWARE!
+=======================================
+
+Here's a diagram illustrating what express 
+is doing for us: 
+
+Incoming REQUEST -> MIDDLEWARE(next() function, 
+but the logic behind next() is:
+ (req, res, next) => {...})
+
+MIDDLEWARE -> res.send() (the res.send() logic 
+is: (req, res, next) => {...})
+
+MIDDLEWARE -> RESPONSE 
+
+RESPONSE -> 
+
+So when we get an incoming request, it's funneled 
+through functions within Express.js
+
+Instead of having a single request handle, we instead 
+have hooking in multiple functions, which the request 
+will go through, until we send the response
+
+This allows for blocking out our code so that we 
+don't have one single gigantic function responsible 
+for everything
+
+This is the 'pluggable' nature of Express.js 
+
+Where we can easily add third party packages, which 
+can give middleware functions, that can be plugged 
+into Express.js and add functionality
