@@ -32,3 +32,85 @@ This is the 'pluggable' nature of Express.js
 Where we can easily add third party packages, which 
 can give middleware functions, that can be plugged 
 into Express.js and add functionality
+
+This is a core concept of Express.js, our middleware,
+and we can use tha by going back into our app.js 
+and after the: 
+
+const app = expressJS()
+
+but before we pass in app to createServer:
+
+app.
+
+const server = http.createServer(app)
+
+
+
+// Now we can call app.use() which allows us 
+// to use a new middleware function, and use 
+// accepts an array of request handlers 
+
+// But and easy way to use app.use() is to 
+// pass a function to it
+// app.use(() => {})
+// now this function '() => {}' we're passing 
+// as an argument, will be executed for every single 
+// incoming request, and this function will use 
+// three arguments, req, res, next
+
+// We can rename these args whatever we want, 
+// but what's their purpose? 
+
+// Well we know request and response, but what 
+// is next? 
+
+// next is a function that allows our req argument 
+// to travel onwards to the next middleware 
+
+
+// app.use((req, res, next) => {})
+
+// app.use((req, res, next) => {
+//     console.log("logged from the middleware!!!")
+// })
+
+// Now as it stands, if we run npm start, with 
+// the package.json "start": "nodemon app.js", 
+// then go to localhost3000, we see our 
+// string "logged from the middleware!!!" logged 
+// everytime we refresh the page
+
+
+
+// app.use((req, res, next) => {
+//     console.log("DIFFERENT LOGGED FROM MIDDLEWARE!")
+// })
+
+// The reason why the above isn't logging our second 
+// string, is because we need to call next from the 
+// app.use 
+
+app.use((req, res, next) => {
+    console.log("logged from the middleware!!!");
+     next(); // this allows the request to travel 
+            // onwards to the next app.use
+})
+
+// Now it will go through all the middleware functions
+// but only if we call next
+
+app.use((req, res, next) => {
+    console.log("DIFFERENT LOGGED FROM MIDDLEWARE!");
+})
+
+// now we see both strings logged to the console!, also 
+// remember to actually go to localhost:3000, otherwise 
+// [nodemon] restarting due to changes...
+// [nodemon] starting `node app.js`
+// and nothing will be logged, just the nodemon messages
+
+
+This is a crucial concept, any function that uses 
+req, res, and next, IF WE WANT THE REQUEST TO TRAVEL 
+ONWARDS, WE MUST CALL NEXT!
