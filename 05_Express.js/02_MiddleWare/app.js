@@ -1,4 +1,4 @@
-const http = require("http");
+// const http = require("http");
 // It's common convention to space out the core 
 // modules from the third party ones,
 // as well as our own imports if there, but it's 
@@ -114,7 +114,26 @@ app.use((req, res, next) => {
 // app is now a valid request handler, so we 
 // can pass app into our old server variable: 
 // const server = http.createServer()
-const server = http.createServer(app)
 
-server.listen(3000)
 
+// Let's also re-factor the below a bit: 
+
+// const server = http.createServer(app)
+
+// server.listen(3000)
+
+app.listen(3000)
+
+// And if we look at the application.js file on 
+// express github we see: 
+
+// app.listen = function listen() {
+//     var server = http.createServer(this);
+//     return server.listen.apply(server, arguments);
+//   };
+  
+// so when we call app.listen, it will do the same 
+// thing we did with:
+// const server = http.createServer(app)
+
+// server.listen(3000)
