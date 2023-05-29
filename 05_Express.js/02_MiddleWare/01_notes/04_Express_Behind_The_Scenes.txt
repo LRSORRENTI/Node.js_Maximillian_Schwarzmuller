@@ -1,0 +1,84 @@
+=====================================
+EXPRESS.JS - A LOOK BEHIND THE SCENES
+=====================================
+
+If we go to expressjs/express/blob/master/response.js 
+on expressJS github, then ctrl + f send() 
+
+we see: 
+
+/**
+ * Send a response.
+ *
+ * Examples:
+ *
+ *     res.send(Buffer.from('wahoo'));
+ *     res.send({ some: 'json' });
+ *     res.send('<p>some html</p>');
+ *
+ * @param {string|number|boolean|object|Buffer} body
+ * @public
+ */
+
+res.send = function send(body) {
+  var chunk = body;
+  var encoding;
+  var req = this.req;
+  var type;
+
+  // settings
+  var app = this.app;
+
+  // allow status / body
+  if (arguments.length === 2) {
+    // res.send(body, status) backwards compat
+    if (typeof arguments[0] !== 'number' && typeof arguments[1] === 'number') {
+      deprecate('res.send(body, status): Use res.status(status).send(body) instead');
+      this.statusCode = arguments[1];
+    } else {
+      deprecate('res.send(status, body): Use res.status(status).send(body) instead');
+      this.statusCode = arguments[0];
+      chunk = arguments[1];
+    }
+  }
+
+  // disambiguate res.send(status) and res.send(status, num)
+  if (typeof chunk === 'number' && arguments.length === 1) {
+    // res.send(status) will set status message as text string
+    if (!this.get('Content-Type')) {
+      this.type('txt');
+    }
+
+    deprecate('res.send(status): Use res.sendStatus(status) instead');
+    this.statusCode = chunk;
+    chunk = statuses.message[chunk]
+  }
+
+  switch (typeof chunk) {
+    // string defaulting to html
+    case 'string':
+      if (!this.get('Content-Type')) {
+        this.type('html');
+      }
+      break;
+    case 'boolean':
+    case 'number':
+    case 'object':
+      if (chunk === null) {
+        chunk = '';
+      } else if (Buffer.isBuffer(chunk)) {
+        if (!this.get('Content-Type')) {
+          this.type('bin');
+        }
+      } else {
+        return this.json(chunk);
+      }
+      break;
+  }
+
+
+This is how the send function works under the hood, 
+how .send() is defined internally 
+
+And what we just did, where we need to take a closer 
+look at what something does under the hood
