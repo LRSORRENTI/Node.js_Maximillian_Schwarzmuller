@@ -77,13 +77,31 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     console.log("DIFFERENT LOGGED FROM MIDDLEWARE!");
-    next();
+    next(); // <-- Allows the req to continue to the next 
+            // middleware below
 })
 
 app.use((req, res, next) => {
     console.log("Last middleware log check");
+    // we can chain on another next if we want 
+    // our request to continue into another 
+    // app.use, but this illustrates the concept!
+
+
+    // But now that we have express, we have access
+    // to a nice utility function called send: 
+
+    // .send() allows us to send a response
+    res.send('<h1>Hello There From Express!!</h1>')
+    // And if we look in the network tab, we can 
+    // see that 'Content-Type: text/html;' is auto 
+    // set for us, this is a feature provided by 
+    // the express send method automatically
 })
 
+
+// A key takeaway is that we travel from middleware 
+// to middleware, by calling next()
 
 
 // now we see both strings logged to the console!, also 

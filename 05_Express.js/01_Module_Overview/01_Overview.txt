@@ -1,0 +1,31 @@
+==========
+EXPRESS.JS
+==========
+
+We've now finished the basic intro to node.js, how 
+we can write basic node.js programs, spin up servers,
+requests and responses etc.. 
+
+But now we need to learn and understand why utilizing 
+tools like Express.js so we don't need to re-invent 
+the wheel every time we develop an app 
+
+It's important that we went over how all the code 
+execution works in node in the intro section, that 
+way if you do need to work on things of that nature, 
+there's familiarity there, but for the rest of the 
+course, we'll use tools like Express
+
+==============
+MODULE CONTENT
+==============
+
+- What is Express.js? 
+
+- Utilizing middleware 
+
+- Working with the Request / Response cycle 
+
+- Routing 
+
+- How to return HTML pages (files)
