@@ -214,4 +214,12 @@ app.listen(3000)
 // we see "Hello from '/'"
 
 // And if we go to localhost:3000/contactInfo we see 
-// `Hello from '/
+// `Hello from '/contactInfo'
+
+
+// WHY DID WE NEED TO SPECIFY THE '/' AFTER AND 
+// NOT BEFORE? 
+
+// BECAUSE ON ANY PAGE '/' OR '/PAGETHATDOESNTEXIST' 
+
+// IT WILL ALWAYS RETURN THAT H1 "Hello from '/'"

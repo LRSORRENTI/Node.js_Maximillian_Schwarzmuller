@@ -99,3 +99,20 @@ app.use(function (req, res, next) {
 app.get('/', function (req, res) {
   res.send('Welcome')
 })
+
+===========================
+SO IF WE LEAVE THE DEFAULT 
+'/' argument for app.use 
+
+It will return whatever's inside no 
+matter the path, since it will just see 
+the '/' 
+ 
+
+But if we specify app.use('/contacts')
+
+then we go to localhost:3000/ we see 
+an error 'cannot get' 
+
+BUT if we go to localhost:3000/contacts 
+we see our h1 tag is there 
