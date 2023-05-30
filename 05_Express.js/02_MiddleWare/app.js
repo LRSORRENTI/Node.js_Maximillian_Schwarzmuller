@@ -3,7 +3,7 @@
 // modules from the third party ones,
 // as well as our own imports if there, but it's 
 // ultimately up to you
-const expressJS = require('express')
+// const expressJS = require('express')
 
 // Go ahead and press 'ctrl' then click 
 // 'express' in the require function above, 
@@ -17,7 +17,7 @@ const expressJS = require('express')
 // create an express app and save it in 
 // a constant: 
 
-const app = expressJS()
+// const app = expressJS()
 
 // So a ton of logic is now in inside 
 // the above app constant 
@@ -66,23 +66,23 @@ const app = expressJS()
 // string, is because we need to call next from the 
 // app.use 
 
-app.use((req, res, next) => {
-    console.log("logged from the middleware!!!");
-     next(); // this allows the request to travel 
+// app.use((req, res, next) => {
+//     console.log("logged from the middleware!!!");
+//      next(); // this allows the request to travel 
             // onwards to the next app.use
-})
+// })
 
 // Now it will go through all the middleware functions
 // but only if we call next
 
-app.use((req, res, next) => {
-    console.log("DIFFERENT LOGGED FROM MIDDLEWARE!");
-    next(); // <-- Allows the req to continue to the next 
+// app.use((req, res, next) => {
+//     console.log("DIFFERENT LOGGED FROM MIDDLEWARE!");
+//     next(); // <-- Allows the req to continue to the next 
             // middleware below
-})
+// })
 
-app.use((req, res, next) => {
-    console.log("Last middleware log check");
+//app.use((req, res, next) => {
+   // console.log("Last middleware log check");
     // we can chain on another next if we want 
     // our request to continue into another 
     // app.use, but this illustrates the concept!
@@ -92,12 +92,12 @@ app.use((req, res, next) => {
     // to a nice utility function called send: 
 
     // .send() allows us to send a response
-    res.send('<h1>Hello There From Express!!</h1>')
+   // res.send('<h1>Hello There From Express!!</h1>')
     // And if we look in the network tab, we can 
     // see that 'Content-Type: text/html;' is auto 
     // set for us, this is a feature provided by 
     // the express send method automatically
-})
+//})
 
 
 // A key takeaway is that we travel from middleware 
@@ -122,7 +122,7 @@ app.use((req, res, next) => {
 
 // server.listen(3000)
 
-app.listen(3000)
+// app.listen(3000)
 
 // And if we look at the application.js file on 
 // express github we see: 
@@ -137,3 +137,32 @@ app.listen(3000)
 // const server = http.createServer(app)
 
 // server.listen(3000)
+
+//===========================
+// HANDLING DIFFERENT ROUTES
+//===========================
+
+// How dod we filter requests to go to 
+// '/' 
+
+
+const expressJS = require("express");
+
+const app = expressJS()
+
+// app.use((req, res, next) =>{
+//     console.log("in a new middleware");
+//     res.send(`<h1>I'm an H1 tag from send()</h1>`)
+// });
+
+app.use('/', (req, res, next) => {
+    // so now we pass in the first path 
+    // argument to be just '/'
+    console.log(`Hello from '/'`);
+    res.send(`<h1>Hello from '/' path</h1>`)
+    // and Hello from '/' path is written on 
+    // the page
+});
+
+app.listen(3000)
+
