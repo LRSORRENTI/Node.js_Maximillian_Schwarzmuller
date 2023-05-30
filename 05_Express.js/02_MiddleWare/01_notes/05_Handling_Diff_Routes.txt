@@ -1,0 +1,101 @@
+=========================
+HANDLING DIFFERENT ROUTES
+=========================
+
+To enable different routes / urls 
+
+From  the Express Docs: 
+
+app.use([path,] callback [, callback...])
+
+Mounts the specified middleware function
+ or functions at the specified path:
+  the middleware function is executed
+   when the base of the requested path 
+   matches path.
+
+Arguments
+Description	Default
+
+path:
+
+The path for which the middleware function is invoked; can be any of:
+A string representing a path.
+A path pattern.
+A regular expression pattern to match paths.
+An array of combinations of any of the above.
+For examples, see Path examples.
+
+default: '/' (root path)
+
+
+callback
+
+Callback functions; can be:
+A middleware function.
+A series of middleware functions 
+(separated by commas).
+An array of middleware functions.
+A combination of all of the above.
+
+You can provide multiple callback functions 
+that behave just like middleware, except 
+that these callbacks can invoke next('route')
+ to bypass the remaining route callback(s). 
+ 
+ You can use this mechanism to impose 
+ pre-conditions on a route, then pass
+  control to subsequent routes if there
+   is no reason to proceed with the current route.
+
+Since router and app implement 
+the middleware interface, you can use 
+them as you would any other middleware function.
+
+For examples, see Middleware callback 
+function examples.
+
+A route will match any path that 
+follows its path immediately with a “/”.
+
+ For example: app.use('/apple', ...) will
+  match “/apple”, “/apple/images”, 
+  “/apple/images/news”, and so on.
+
+Since path defaults to “/”,
+ middleware mounted without a path
+  will be executed for every request to the app.
+
+For example, this middleware function will be exec
+uted for every request to the app:
+
+app.use(function (req, res, next) {
+  console.log('Time: %d', Date.now())
+  next()
+})
+NOTE
+
+Sub-apps will:
+
+Not inherit the value of settings 
+that have a default value. You must
+ set the value in the sub-app.
+
+Inherit the value of settings with no default value.
+For details, see Application settings.
+
+Middleware functions are executed sequentially,
+ therefore the order of middleware inclusion 
+ is important.
+
+// this middleware will not allow the request 
+//to go beyond it
+
+app.use(function (req, res, next) {
+  res.send('Hello World')
+})
+
+// requests will never reach this route
+app.get('/', function (req, res) {
+  res.send('Welcome')
+})
