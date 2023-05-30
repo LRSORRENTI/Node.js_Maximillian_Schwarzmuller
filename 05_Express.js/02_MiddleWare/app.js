@@ -146,23 +146,72 @@
 // '/' 
 
 
-const expressJS = require("express");
+// const expressJS = require("express");
 
-const app = expressJS()
+// const app = expressJS()
 
 // app.use((req, res, next) =>{
 //     console.log("in a new middleware");
 //     res.send(`<h1>I'm an H1 tag from send()</h1>`)
 // });
 
-app.use('/', (req, res, next) => {
+// app.use('/', (req, res, next) => {
     // so now we pass in the first path 
     // argument to be just '/'
-    console.log(`Hello from '/'`);
-    res.send(`<h1>Hello from '/' path</h1>`)
+// app.use('/contactInfo', (req, res, next) => { 
+    
+// So if we use the above path argument of 
+// '/contactInfo', we only see hello from 
+// 'contactInfo' if we're on localhost:3000/contactInfo
+// if we just passed in '/' as the path argument,
+// hello from contactInfo would be on every '/' 
+// no matter what
+    // console.log(`Hello from '/contactInfo'`);
+    // res.send(`<h1>Hello from '/' path</h1>`)
     // and Hello from '/' path is written on 
     // the page
-});
+
+    // HOWEVER, if we append a different path: 
+
+    // app.use('/user123) we still see the same 
+    // h1 'Hello from '/' path
+
+    // This means the above middleware is executed 
+    // for both '/' and '/user123'
+
+    // This is because the way we passed in our path 
+    // argument, we're only telling express, if 
+    // the path, any path begins with '/' execute
+    // this, so /user123 or /contactInfo or /whatever 
+    // will always execute or 'hello from /' h1 tag
+    // because that's what we specified in the first 
+    // argument for app.use 
+// });
+
+// app.listen(3000)
+
+// Let's refactor the above to how we would first 
+// specify '/contactInfo' and '/'
+
+const expressJS = require("express");
+
+const app = expressJS();
+
+app.use('/contactInfo', (req, res, next) => {
+    console.log(`logged from '/contactInfo`);
+    res.send(`<h1>Hello from '/contactInfo'</h1>`);
+})
+
+app.use('/', (req, res, next) => {
+    console.log(`logged from '/`);
+    res.send(`<h1>Hello from '/'</h1>`)
+
+})
 
 app.listen(3000)
 
+// And yes as of right now, if we go to localhost:3000/ 
+// we see "Hello from '/'"
+
+// And if we go to localhost:3000/contactInfo we see 
+// `Hello from '/
