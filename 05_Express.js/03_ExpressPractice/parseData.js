@@ -67,7 +67,7 @@ app.use('/product', (req, res, next) => {
     // is much easier than manuallysetting 
     //the status code and location header 
 
-    console.log(req.body);
+    console.log(1, req.body);
     // What happens if we look at request body? 
     // Well we see undefined is logged, why is that?
     // it's because express doesn't auto-parse, we need 
@@ -97,4 +97,4 @@ app.use('/', (req, res, next) => {
     res.send('<h1> H1 sent by express!</h1>');
 })
 
-app.listen(3000)
+ app.listen(3000)
