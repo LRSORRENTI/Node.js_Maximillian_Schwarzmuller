@@ -1,0 +1,21 @@
+==============
+EXPRESS ROUTER
+==============
+
+We've been learning about Express, 
+it's benefits and how we can utilize 
+app.use, app.post, and app.get, and we've 
+been using all of these inside 
+of one main app.js file but typically 
+in the real world, we split our routing code 
+into separate files
+
+So maybe we have our post request logic in one file, 
+and an app.use in another then we import / export 
+that logic for use in our project, rather than 
+inside one gigantic app.js file
+
+But this is where Express Router comes into play, 
+router gifts us with nice functionality for 
+routing into other files 
+
