@@ -8,3 +8,14 @@ Assignment: Time to Practice - Express.js
 We had a look at the basic 
 features of Express.js so let's
  practice what we learned in the last lectures!
+
+Assignment: 
+
+1. Create an NPM project and install express.js 
+
+2. Create an an express.js app, which funnels requests 
+through two middleware functions, log something to the
+console and return a response
+
+3. Handle requests to '/' and '/users' such that 
+each request only has one middleware that does something
