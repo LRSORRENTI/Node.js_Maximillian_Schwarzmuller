@@ -19,3 +19,14 @@ But this is where Express Router comes into play,
 router gifts us with nice functionality for 
 routing into other files 
 
+========================
+ADDING OUR ROUTES FOLDER
+========================
+
+We're going to create a new folder in our 
+main directory called 'routes' this is where we're 
+going to house all of our routing files, files that 
+will execute for different paths and HTTP methods 
+
+The first file we'll create in our routes folder will 
+be admin.js, we'll also add a file called shop.js
