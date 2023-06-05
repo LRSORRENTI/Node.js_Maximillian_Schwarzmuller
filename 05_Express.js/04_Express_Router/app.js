@@ -1,9 +1,14 @@
 // add stuff later 
 
-const app = express();
+
+const express = require("express");
 
 const bodyParser = require("body-parser");
+
+const app = express();
+
 const adminRoutes = require("./routes/admin");
+
 const shopRoutes = require("./routes/shop")
 
 // so our adminRoutes is importing the routes 
