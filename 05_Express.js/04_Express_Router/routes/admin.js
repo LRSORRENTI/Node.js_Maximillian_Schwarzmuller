@@ -1,5 +1,5 @@
 // We need to import express again
-const express = require("express")
+const express = require("express");
 
 // Now we use a feature called 'router' 
 
@@ -25,5 +25,8 @@ router.post('/product', (req, res, next) => {
     console.log(req.body);
     res.redirect('/')
 });
+
+// console.log(router)
+// we can now import this router into the app.js file 
 
 module.exports = router;
