@@ -1,4 +1,6 @@
 // We need to import express again
+const path = require('path')
+
 const express = require("express");
 
 // Now we use a feature called 'router' 
@@ -17,13 +19,16 @@ const router = express.Router();
 // the /admin/add-product from our app.use('/admin', adminRoutes)
 // in the main app.js, we filter through admin
 
-router.get('/add-product', (req, res, next) => {
-    res.send(`<html><body><form action="/admin/product" method="POST"> \
-    <input type="text" \ 
-    name="title"><button type="submit">Add product \
-    </button></form></body></html>`);
-});
+// router.get('/add-product', (req, res, next) => {
+//     res.send(`<html><body><form action="/admin/product" method="POST"> \
+//     <input type="text" \ 
+//     name="title"><button type="submit">Add product \
+//     </button></form></body></html>`);
+// });
 
+router.get('/add-product', (req, res, next) => {{
+    res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'))
+}})
 
 router.post('/product', (req, res, next) => {
     console.log(req.body);

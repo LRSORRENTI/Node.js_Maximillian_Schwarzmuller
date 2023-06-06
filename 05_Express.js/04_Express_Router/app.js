@@ -5,6 +5,8 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 
+const path = require('path')
+
 const app = express();
 
 const adminRoutes = require("./routes/admin");
@@ -40,7 +42,7 @@ at the bottom we add a catch-all middleware
 
 */
 app.use((req, res, next) => {
-     res.status(404).send('<h1>ERROR:404 Page Not Found</h1>')
+     res.status(404).sendFile(path.join(__dirname, './', 'views', 'error.html'));
      
 })
 // WE can chain these method calls together in 
