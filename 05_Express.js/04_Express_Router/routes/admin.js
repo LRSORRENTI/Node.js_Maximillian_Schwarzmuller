@@ -5,6 +5,9 @@ const express = require("express");
 
 // Now we use a feature called 'router' 
 
+const rootDir = require('../utils/path.js')
+
+
 const router = express.Router();
 
 // And we import express router by calling it 
@@ -27,7 +30,8 @@ const router = express.Router();
 // });
 
 router.get('/add-product', (req, res, next) => {{
-    res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'))
+    // res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'))
+      res.sendFile(path.join(rootDir, 'views', 'add-product.html'))
 }})
 
 router.post('/product', (req, res, next) => {

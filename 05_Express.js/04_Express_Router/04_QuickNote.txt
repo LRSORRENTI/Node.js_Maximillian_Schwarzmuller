@@ -1,0 +1,37 @@
+==========
+QUICK NOTE
+==========
+
+In the next lecture, we'll write this code:
+
+module.exports = path.dirname(process.mainModule.filename);
+
+(I explain why we write this code in the next 
+lecture when we write it!)
+
+The important thing is that you
+ might get a deprecation warning 
+ for that code - in that case, you can 
+ simply switch to this code:
+
+module.exports = path.dirname(require.main.filename);
+Quite straightforward :D
+
+ALSO with our routes: 
+
+router.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '../', 'views', 'shop.html'))
+})
+
+we can change the second argument in path.join from 
+'../' to just '..' that way we don't assume the 
+OS path if it's '/' or '\' 
+
+router.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'))
+})
+
+We also can make it even easier with a helper function
+
+Let's create a new folder called utils, where we'll 
+add a path.js file 
