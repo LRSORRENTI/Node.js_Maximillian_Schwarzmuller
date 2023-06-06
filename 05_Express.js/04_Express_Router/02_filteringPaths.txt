@@ -1,0 +1,61 @@
+===============
+FILTERING PATHS
+===============
+
+Often times paths will have a common
+starting path like in our admin.js we can add: 
+
+router.get('/admin/add-product', (req, res, next) => {
+    res.send(`<html><body><form action="/product" method="POST"> \
+    <input type="text" \ 
+    name="title"><button type="submit">Add product \
+    </button></form></body></html>`);
+});
+
+
+router.post('/admin/product', (req, res, next) => {
+    console.log(req.body);
+    res.redirect('/')
+});
+
+// console.log(router)
+// we can now import this router into the app.js file 
+
+module.exports = router;
+
+Also note with our get and post methods above, we could 
+have the same exact path like router.get('/admin/add-product')
+and router.post('/admin/add-product')
+and it will still work, this is because when using 
+different methods
+
+But what we can also do is remove that /admin/product 
+from the above methods, and instead inside of our 
+app.js use it as a filter, so we we have our 
+routes.js: 
+
+router.get('/add-product', (req, res, next) => {
+    res.send(`<html><body><form action="/product" method="POST"> \
+    <input type="text" \ 
+    name="title"><button type="submit">Add product \
+    </button></form></body></html>`);
+});
+
+
+router.post('/product', (req, res, next) => {
+    console.log(req.body);
+    res.redirect('/')
+});
+
+And our app.js to filter: 
+
+app.use('/admin', adminRoutes)
+
+We pass in our admin path as the first argument in 
+app.use, now when we go to localhost:3000/add-product 
+we see our 404 error page, but if we instead go to 
+localhost:3000/admin/add-product, we see the add-product 
+page 
+
+We also need to update the routes for the form action 
+in the router.get, res.send: 

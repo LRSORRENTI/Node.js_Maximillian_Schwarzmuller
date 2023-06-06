@@ -1,7 +1,12 @@
 // We need to import express again
+const path = require('path')
+
 const express = require("express");
 
 // Now we use a feature called 'router' 
+
+const rootDir = require('../utils/path.js')
+
 
 const router = express.Router();
 
@@ -13,13 +18,21 @@ const router = express.Router();
 // pluggable into the other express app, which 
 // we can export: 
 
-router.get('/add-product', (req, res, next) => {
-    res.send(`<html><body><form action="/product" method="POST"> \
-    <input type="text" \ 
-    name="title"><button type="submit">Add product \
-    </button></form></body></html>`);
-});
+// Now the below route is implicitly accessed with 
+// the /admin/add-product from our app.use('/admin', adminRoutes)
+// in the main app.js, we filter through admin
 
+// router.get('/add-product', (req, res, next) => {
+//     res.send(`<html><body><form action="/admin/product" method="POST"> \
+//     <input type="text" \ 
+//     name="title"><button type="submit">Add product \
+//     </button></form></body></html>`);
+// });
+
+router.get('/add-product', (req, res, next) => {{
+    // res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'))
+      res.sendFile(path.join(rootDir, 'views', 'add-product.html'))
+}})
 
 router.post('/product', (req, res, next) => {
     console.log(req.body);

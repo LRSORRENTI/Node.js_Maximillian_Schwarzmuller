@@ -5,6 +5,8 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 
+const path = require('path')
+
 const app = express();
 
 const adminRoutes = require("./routes/admin");
@@ -16,11 +18,34 @@ const shopRoutes = require("./routes/shop")
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(adminRoutes)
+app.use('/admin', adminRoutes)
 // just as before, the order matters, if we put 
 // the above line below the app.use('/')
 // we would never reach it
 
 app.use(shopRoutes)
+// Also note if we were to change the order 
+// of these app.use(adminRoutes), the adminRoutes 
+// would never be reached, the order in which we pass 
+// in the routes matters
+
+/*
+
+=====================
+ADDING 404 ERROR PAGE
+=====================
+
+To include an error page for our shop, 
+at the bottom we add a catch-all middleware
+
+
+
+*/
+app.use((req, res, next) => {
+     res.status(404).sendFile(path.join(__dirname, './', 'views', 'error.html'));
+     
+})
+// WE can chain these method calls together in 
+// the res if we want
 
 app.listen(3000)
