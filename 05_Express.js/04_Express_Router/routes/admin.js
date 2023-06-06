@@ -13,8 +13,12 @@ const router = express.Router();
 // pluggable into the other express app, which 
 // we can export: 
 
+// Now the below route is implicitly accessed with 
+// the /admin/add-product from our app.use('/admin', adminRoutes)
+// in the main app.js, we filter through admin
+
 router.get('/add-product', (req, res, next) => {
-    res.send(`<html><body><form action="/product" method="POST"> \
+    res.send(`<html><body><form action="/admin/product" method="POST"> \
     <input type="text" \ 
     name="title"><button type="submit">Add product \
     </button></form></body></html>`);

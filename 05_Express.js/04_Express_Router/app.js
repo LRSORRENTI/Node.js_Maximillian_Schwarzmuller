@@ -16,7 +16,7 @@ const shopRoutes = require("./routes/shop")
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(adminRoutes)
+app.use('/admin', adminRoutes)
 // just as before, the order matters, if we put 
 // the above line below the app.use('/')
 // we would never reach it
