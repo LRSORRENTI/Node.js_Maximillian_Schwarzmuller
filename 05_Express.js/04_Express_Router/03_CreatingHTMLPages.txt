@@ -1,0 +1,20 @@
+===================
+CREATING HTML PAGES
+===================
+
+Now that we've went over routes, and how to 
+filter paths using middleware, let's actually go 
+over what to serve to the end user
+
+Thus far we've just res.send(dummy HTML tags)
+
+and not real fleshed out HTML content, so let's 
+practice returning actual index.html files to the 
+end user 
+
+Let's create a new folder called views, we'll call 
+it this because towards the end of this project we'll 
+build a Multi-View-Controller or MVC, one component
+of an MVC is what we serve to the end user in 
+the views folder, for now the views folder will house 
+html files 
