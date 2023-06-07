@@ -1,0 +1,68 @@
+==============
+MODULE SUMMARY
+==============
+
+In this module we learned what express.js is, 
+it's a node.js framework that adds utility functions 
+and rules on how the middleware of the app should 
+be built and run, we learned that express is 
+highly extensible and that it can easily have 
+packages plugged into it 
+
+=========================
+MIDDLEWARE, next(), res()
+=========================
+
+We learned that express relies heavily on 
+middleware functions that can be added with 
+use()
+
+Middleware functions handle a request and should 
+call next() to forward the request to the next function 
+in line, or send a response, rememeber we always 
+call next() unless sending a response, in which case 
+next() should not be called, and we can use 
+the middleware to transform a request, read something 
+from it, and send different responses depending on 
+the route 
+
+=======
+ROUTING
+=======
+
+We also learned routing, filtering requests by 
+path and method, app.use(), app.get(), app.post
+
+If filtering by method, paths are matched exactly, 
+otherwise the first segment of the URL is matched 
+
+We can use expess.Router to split routes 
+across files !
+
+=============
+SERVING FILES
+=============
+
+We learned how to serve files to users, using 
+sendFile()
+
+app.use((req, res, next) => {
+     res.status(404).sendFile(path.join(__dirname, './', 'views', 'error.html'));
+     
+})
+
+If a request is directly made for a file, (like css)
+we can enable the static method for those files like: 
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+So if our css files are in the public folder, then 
+in the html href we specify: <link rel="stylesheet" href="main.css" />
+because in the static method we specified the 'public' 
+string argument, this part messed me up at first, I was 
+wondering why my CSS wasn't linking, it's because 
+when we specify in express using express.static, 
+we need to alter the links to CSS or other files in 
+the html 
+
+This is the express.js foundation we'll build on
