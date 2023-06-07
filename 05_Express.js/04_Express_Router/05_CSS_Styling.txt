@@ -1,0 +1,6 @@
+=======================
+ADDING CSS TO OUR PAGES
+=======================
+
+We'll start by adding some style tags in 
+our shop.html file, in the head section

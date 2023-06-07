@@ -1,0 +1,13 @@
+=========================
+END OF SECTION ASSIGNMENT
+=========================
+
+1. Create an npm project and install express.js
+   and nodemon
+
+2. Create an express app which serves two html files,
+   for '/' and '/users' they don't need to be complex 
+   just enough to practice
+
+3. Utilize static files in your project, one of which 
+   must be required by your html 

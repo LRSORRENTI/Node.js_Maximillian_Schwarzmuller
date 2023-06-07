@@ -1,0 +1,44 @@
+========================
+SERVING FILES STATICALLY
+========================
+
+Now that we're moving our CSS files into 
+a public/css/main.css format, we need to be able 
+to serve them, as it stands right now, if we 
+use <link rel="stylesheet" href="/public....main.css"/>
+that won't work, we even see in the developer tools 
+main.css has a status code of 404 
+
+What does STATICALLY mean? This means not handled by 
+express or other middleware, but instead directed to 
+to the file system 
+
+To do this, go back into app.js, and register a new middleware 
+
+
+// how we're going to serve our CSS files below:
+// we use express object and the static method, 
+// then pass in path.join where we want to 
+// grant read access, not read / write, just read
+
+// AN IMPORTANT THING TO NOTE: INSIDE THE shop.html 
+// file, change:  <link rel="stylesheet" href="../public/css/main.css" />
+// to:     <link rel="stylesheet" href="/css/main.css" />
+// because we need to act like we're in the public 
+// folder already, this is what express will do, 
+// express will forward everything to the public 
+// folder, therefore in the html files, we need 
+// to set the css links as if we already are in 
+// the public folder 
+app.use(express.static(path.join(__dirname, 'public')))
+
+So we also need to change the link rel in all the 
+html files inside of views to href="css/main.css"
+we need to act as if we're already inside of public
+
+
+That is how we serve files statically, we pass in 
+the path to the express.static method, then when 
+linking to a file, act as if you're already inside 
+of public or whichever folder 
+
