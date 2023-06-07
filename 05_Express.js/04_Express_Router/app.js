@@ -18,6 +18,22 @@ const shopRoutes = require("./routes/shop")
 
 app.use(bodyParser.urlencoded({extended: false}));
 
+// how we're going to serve our CSS files below:
+// we use express object and the static method, 
+// then pass in path.join where we want to 
+// grant read access, not read / write, just read
+
+// AN IMPORTANT THING TO NOTE: INSIDE THE shop.html 
+// file, change:  <link rel="stylesheet" href="../public/css/main.css" />
+// to:     <link rel="stylesheet" href="/css/main.css" />
+// because we need to act like we're in the public 
+// folder already, this is what express will do, 
+// express will forward everything to the public 
+// folder, therefore in the html files, we need 
+// to set the css links as if we already are in 
+// the public folder 
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.use('/admin', adminRoutes)
 // just as before, the order matters, if we put 
 // the above line below the app.use('/')
