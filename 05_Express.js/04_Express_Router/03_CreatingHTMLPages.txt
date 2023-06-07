@@ -18,3 +18,7 @@ build a Multi-View-Controller or MVC, one component
 of an MVC is what we serve to the end user in 
 the views folder, for now the views folder will house 
 html files 
+
+Now that we've created these HTML pages, how do 
+we serve them? 
+

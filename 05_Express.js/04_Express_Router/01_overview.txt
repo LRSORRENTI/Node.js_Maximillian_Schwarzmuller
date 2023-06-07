@@ -29,4 +29,8 @@ going to house all of our routing files, files that
 will execute for different paths and HTTP methods 
 
 The first file we'll create in our routes folder will 
-be admin.js, we'll also add a file called shop.js
+be admin.js, where we can handle the creation of 
+products which the admin of the sh
+
+ we'll also add a file called shop.js, which will be 
+ what the end user sees 
