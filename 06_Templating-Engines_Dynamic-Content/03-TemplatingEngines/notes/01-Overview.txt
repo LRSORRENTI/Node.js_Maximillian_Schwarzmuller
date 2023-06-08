@@ -1,0 +1,182 @@
+==================
+TEMPLATING ENGINES
+==================
+
+What are templating engines and how do 
+they work? 
+
+We have a rough HTML template, we have a file 
+that has some HTML, some general HTML structure 
+and markup, but there are placeholders 
+
+We also have the node / express.js content in 
+the app like the products array where we added 
+different books:  
+
+shop.js [
+  { title: '' },
+  { title: 'Summa Theologica' },
+  { title: 'The greek plays' }
+]
+
+Then we have the engine itself, which it scans the 
+HTML template and replaces the placeholders with 
+real HTML content, this is done on the fly by the 
+templating engine on the server 
+
+For example we could render that shop.js products 
+array, the current books strings stored inside of it 
+dynamically with the help of the templating engine
+
+Then we send back a completed, placeholder's filled 
+in, HTML file back to our users from the node server 
+
+The end users will never see the placeholders from 
+the template, just the dynamic content we're rendering 
+into those placeholders
+
+=========================
+COMMON TEMPLATING ENGINES
+=========================
+
+Some commonly utilized templating engines are: 
+
+EJS -  EJS is a simple templating language that 
+lets you generate HTML markup with plain JavaScript.
+No religiousness about how to organize things.
+No reinvention of iteration and control-flow. 
+It's just plain JavaScript. EJS syntax looks 
+like: 
+
+<p><%= name %></p> <-- the name variable would be  
+rendered dynamically 
+
+Pug (Jade) - Pug is a high-performance template 
+engine heavily influenced by Haml and implemented
+with JavaScript for Node.js and browsers. Pug looks like:
+
+p #{name} <-- the name variable will be rendered 
+
+Handlebars - Handlebars is a simple templating language.
+It uses a template and an input object to generate 
+HTML or other text formats. Handlebars templates 
+look like regular text with embedded Handlebars 
+expressions. Handlebars looks like: 
+
+<p>{{name}}</p> <-- Again name variable is rendered 
+
+These engines have different syntax and style but 
+the end goal is the same, we get templates where 
+we dynamically render our content into the 
+placeholders, and return HTML files 
+
+====================
+ISTALLING TEMPLATING
+====================
+
+We're going to start this module with 
+Pug, we'll use all three of them and pick 
+one that is best suited for our interests, 
+Pug is up first, then handlebars, and we'll 
+end the module with EJS 
+
+In the terminal enter: 
+
+npm install --save ejs pug express-handlebars 
+
+An important thing to note is that express is what's 
+making this easy, if we were to implement these 
+templating engines without express, it's possible, 
+but utilizing express streamlines the process 
+
+In the main app.js, after the: 
+
+const app = express(); 
+
+app.set(); 
+
+What is app.set()? 
+
+Well it allows us to configure values globally 
+on our express application, there are 
+reserved config names we can use, like 
+view engine 
+
+app.set('view engine', 'pug')
+// we also should explicitly name where our views folder 
+// is: 
+app.set('views', 'views')
+
+// if our views folder was named, templates or anything 
+// else it would be: 
+// app.set('views', 'templates' )
+
+// Now we're telling express, we want to compile 
+// dynamic templates with the pug engine
+
+Now we can go inside our views folder and add one 
+of these templates, inside the views folder: 
+
+touch shop.pug 
+
+<!-- 
+As we see here the HTML boilerplate is different 
+with Pug, keep in mind this is just Pug, it will 
+be compiled to valid HTML markup later 
+
+Also note indentation is how pug functions, 
+proper indenting like in python
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a class="active" href="/">Shop</a></li>
+                <li class="main-header__item"><a href="/admin/add-product">Add Product</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>My Products</h1>
+        <p>List of all the products...</p>
+        <!-- <div class="grid">
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title">Great Book</h1>
+                </header>
+                <div class="card__image">
+                    <img src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png" alt="A Book">
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price">$19.99</h2>
+                    <p class="product__description">A very interesting book about so many even more interesting things!</p>
+                </div>
+                <div class="card__actions">
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </article>
+        </div> 
+    </main>
+</body>
+
+</html>
+
+-->
+
+=============================
+PUG COMMENTS ARE NOT <!-- -->
+THEY ARE //- comment is safe here 
+So it's a //- then write comments 

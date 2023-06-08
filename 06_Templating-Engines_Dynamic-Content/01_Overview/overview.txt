@@ -1,0 +1,28 @@
+===========================
+DYNAMIC CONTENT & TEMPLATES
+===========================
+
+Rendering more than just Static HTML!
+
+Now that the core basics of node.js are set, 
+let's start working more on what the user sees 
+and interacts with, ultimately we want to build 
+an application
+
+So far all we've done is serve static HTML pages, and 
+this is not how most applications run, more common is 
+that we have data on our server / database which we 
+want to dynamically render to the user 
+
+Like for an online shop, our products are coming 
+from our database / server 
+
+======================
+What's in this module?
+======================
+
+- Managing Data (without a database)
+
+- Rendering dynamic content in our views 
+
+- Understand and utilize templating engines 
