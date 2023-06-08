@@ -5,6 +5,15 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.set('view engine', 'pug')
+// we also should explicitly name where our views folder 
+// is: 
+app.set('views', 'views')
+
+// if our views folder was named, templates or anything 
+// else it would be: 
+// app.set('views', 'templates' )
+
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
