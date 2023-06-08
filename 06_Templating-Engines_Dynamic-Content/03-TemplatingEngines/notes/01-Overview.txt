@@ -2,3 +2,35 @@
 TEMPLATING ENGINES
 ==================
 
+What are templating engines and how do 
+they work? 
+
+We have a rough HTML template, we have a file 
+that has some HTML, some general HTML structure 
+and markup, but there are placeholders 
+
+We also have the node / express.js content in 
+the app like the products array where we added 
+different books:  
+
+shop.js [
+  { title: '' },
+  { title: 'Summa Theologica' },
+  { title: 'The greek plays' }
+]
+
+Then we have the engine itself, which it scans the 
+HTML template and replaces the placeholders with 
+real HTML content, this is done on the fly by the 
+templating engine on the server 
+
+For example we could render that shop.js products 
+array, the current books strings stored inside of it 
+dynamically with the help of the templating engine
+
+Then we send back a completed, placeholder's filled 
+in, HTML file back to our users from the node server 
+
+The end users will never see the placeholders from 
+the template, just the dynamic content we're rendering 
+into those placeholders
