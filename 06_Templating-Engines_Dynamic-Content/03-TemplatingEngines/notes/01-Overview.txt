@@ -34,3 +34,30 @@ in, HTML file back to our users from the node server
 The end users will never see the placeholders from 
 the template, just the dynamic content we're rendering 
 into those placeholders
+
+=========================
+COMMON TEMPLATING ENGINES
+=========================
+
+Some commonly utilized templating engines are: 
+
+EJS -  EJS is a simple templating language that 
+lets you generate HTML markup with plain JavaScript.
+No religiousness about how to organize things.
+No reinvention of iteration and control-flow. 
+It's just plain JavaScript.
+
+Pug (Jade) - Pug is a high-performance template 
+engine heavily influenced by Haml and implemented
+with JavaScript for Node.js and browsers.
+
+Handlebars - Handlebars is a simple templating language.
+It uses a template and an input object to generate 
+HTML or other text formats. Handlebars templates 
+look like regular text with embedded Handlebars 
+expressions.
+
+These engines have different syntax and style but 
+the end goal is the same, we get templates where 
+we dynamically render our content into the 
+placeholders, and return HTML files 
