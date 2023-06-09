@@ -1,0 +1,19 @@
+==============
+LAYOUTS IN EJS
+==============
+
+In EJS we can utilize layouts to share across 
+html files, inside of the ejs files we can 
+add:
+
+<%- include('includes/head.ejs') %>
+
+^ note the '-' above and the include('filepath)
+this will take the HTML code and render it where it's 
+added 
+
+This will allow us to utilize the content of 
+head.ejs across our ejs files, we can do the same 
+with end.ejs and navigation.ejs, because these 
+will be shared across all ejs files, to create 
+a cleaner structure 
