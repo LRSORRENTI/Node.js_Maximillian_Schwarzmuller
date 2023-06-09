@@ -1,0 +1,7 @@
+=============================
+EMBEDDED JAVASCRIPT TEMPLATES
+=============================
+
+Lastly we have EJS,  this is the templating 
+engine we'll utilize for the remainder of the 
+course
