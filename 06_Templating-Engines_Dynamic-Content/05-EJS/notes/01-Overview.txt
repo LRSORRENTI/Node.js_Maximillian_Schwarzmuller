@@ -5,3 +5,9 @@ EMBEDDED JAVASCRIPT TEMPLATES
 Lastly we have EJS,  this is the templating 
 engine we'll utilize for the remainder of the 
 course
+
+EJS is nice since it enables us to utilize JavaScript 
+code inside the HTML like Pug, and still it uses 
+normal HTML format like handlebars did, so it's a 
+best of both worlds kind of structure in EJS 
+
