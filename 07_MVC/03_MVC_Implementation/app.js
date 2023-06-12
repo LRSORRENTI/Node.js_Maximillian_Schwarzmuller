@@ -8,13 +8,25 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const adminData = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
+// const adminData = require('./routes/admin');
+// We now need to modify these a bit, since we've 
+// added our controller logic 
+
+const adminRoutes = require('./routes/admin.js')
+
+// const shopRoutes = require('./routes/shop');
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminData.routes);
+// now we also modify the second argument below from
+// app.use('/admin', adminData.routes);
+// to:
+app.use('/admin', adminRoutes)
+
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
