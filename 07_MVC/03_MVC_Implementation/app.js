@@ -12,9 +12,9 @@ app.set('views', 'views');
 // We now need to modify these a bit, since we've 
 // added our controller logic 
 
-const adminRoutes = require('./routes/admin.js')
+const adminRoutes = require('./routes/admin.js');
 
-// const shopRoutes = require('./routes/shop');
+ const shopRoutes = require('./routes/shop.js');
 
 
 
@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // now we also modify the second argument below from
-// app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes.routes);
 // to:
-app.use('/admin', adminRoutes)
+// app.use('/admin', adminRoutes)
 
 app.use(shopRoutes);
 

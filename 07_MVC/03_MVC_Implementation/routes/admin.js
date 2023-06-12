@@ -11,10 +11,9 @@ const productsController = require('../controllers/products.js')
 // of router.get, where we used to house that 
 // core controller functionality
 
+// const postAddProduct = require('../controllers/products.js')
 
 const router = express.Router();
-
-const products = [];
 
 // /admin/add-product => GET
 router.get('/add-product', productsController.getAddPRoduct);
@@ -26,10 +25,13 @@ router.get('/add-product', productsController.getAddPRoduct);
 // then execute
 
 // /admin/add-product => POST
-router.post('/add-product', (req, res, next) => {
-  products.push({ title: req.body.title });
-  res.redirect('/');
-});
+router.post('/add-product', productsController.postAddProduct);
 
 exports.routes = router;
-exports.products = products;
+// we now no longer need to export products since 
+// that is now located in controllers/products.js
+// exports.products = products;
+
+// But we also need to go into our main 
+// app.js and modify the requires for the 
+// adminData and shopRoutes variables 
