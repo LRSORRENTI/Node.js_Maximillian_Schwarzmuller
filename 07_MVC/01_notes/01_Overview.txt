@@ -1,0 +1,91 @@
+===========================
+MVC (Multi-View Controller)
+===========================
+
+This module focuses on a vital aspect of structuring 
+and building web apps, backend apps like the one 
+we're building
+
+We need to follow a pattern to structure our 
+code, how we logically separate our code and 
+how all of it's core functionality ties together 
+
+We'll dive into the MVC pattern now, how it's used, 
+why it's useful, and implement it in our online 
+shop project we've been slowly building over 
+the last few core modules 
+
+============
+What is MVC?
+============
+
+MVC is all about 'separation of concerns', 
+what does that mean? 
+
+It's ensuring that different parts of a project 
+or codebase are responsible for different things 
+and having a fundamental understanding of what 
+each component of the project is responsible for 
+what
+
+We work with Models, Views, and Controllers 
+
+======
+MODELS
+======
+
+Models are essentially objects or a part of your 
+code that's responsible for representing the data 
+present in your code, and enables the handling or 
+working of and with said data (save, fetch etc.. )
+
+This functionality is handled by Models 
+
+=====
+VIEWS
+=====
+
+Views we've worked with already, remember from the 
+last core module, we have our views folder containing 
+the templates, it's what the end user visualizes 
+or views on their client side 
+
+They render the correct content to the end user, they 
+are de-coupled from the core application code and 
+and have light / minor integrations regarding the 
+data we need to pass into the templating engine 
+to generate the views 
+
+===========
+CONTROLLERS 
+===========
+
+Controllers are the connection point acting as a 
+bridge or connection between your Models and Views 
+
+Since the Views shouldn't care about the application 
+logic, but the Models do care how to handle, save and 
+fetch data, the controllers are the component responsible
+for handling that data, and they're responsible for 
+getting the correct data to your views for your end 
+user 
+
+Controllers contain the 'in-between' or middleman 
+logic
+
+Routes are a level above but connected to the 
+Controllers, they define the path for which HTTP 
+method, which controller code should execute 
+
+So Routes --> Controller --> Model to work with and
+ View to Render  
+
+
+This is our pattern, our MVC pattern, the controllers 
+are split across middleware functions 
+
+Let's go back into our project, and implement an 
+MVC pattern!
+
+
+

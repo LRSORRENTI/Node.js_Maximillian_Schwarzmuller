@@ -1,0 +1,62 @@
+==================
+Adding Controllers
+==================
+
+As we've already established our views in the views 
+folder, with all of our templates inside and we'll 
+leave that be for now, we need to add a folder for 
+the controllers and the models, right now it's all 
+intermixed in the routes folder, inside 
+the routes functions
+
+Inside of shop.js: 
+
+const router = express.Router();
+
+router.get('/', (req, res, next) => {
+  const products = adminData.products;
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
+  });
+});
+
+The logic inside of router.get is our controller logic
+we interact with the data inside of adminData.products
+and we're returning a view in the res.render('shop', {...})
+
+It's this inbetween logic:
+
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
+  });
+
+  That makes up a controller.
+
+  Therefore we can say, our routes folder, 
+  specifically our admin and shop.js files 
+  are holding our controllers, and that would be 
+  correct 
+
+  But as an application grows in size if we 
+  put every bit of controller logic inside of 
+  the routes files, those file very quickly become 
+  ginormous
+
+  Better to separate these into their own respective 
+  files, add a new folder called 'controllers' 
+
+  Inside of the controllers folder, we'll create 
+  a products.js file, to house all of the 
+  logic related to products, which is essentially 
+  the entire logic but we'll add more controllers 
+  later 

@@ -17,3 +17,7 @@ head.ejs across our ejs files, we can do the same
 with end.ejs and navigation.ejs, because these 
 will be shared across all ejs files, to create 
 a cleaner structure 
+
+Also note, <%= will render the code as plain text, but 
+if we know for certain that the code is safe, we're 
+good to use <%- 

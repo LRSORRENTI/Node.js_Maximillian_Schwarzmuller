@@ -1,0 +1,35 @@
+
+=================================================
+Assignment: Time to Practice - Templating Engines
+=================================================
+
+We learned a lot about Pug, Handlebars
+ and EJS so let's see if we know how to use 
+ these templating engines now!
+
+ We need to practice using them now, as we're 
+ going to be utilizing them for the remainder 
+ of the course
+
+=======
+STEP 1:
+=======
+
+Create an npm project, install express.js and nodemon,
+and either ejs, pug, or handlebars  
+
+=======
+STEP 2:
+=======
+
+Add two routes:
+
+'/' holds a form that allows users to input their name 
+
+'/users' Outputs an <ul> with the inputted name from the 
+form, or error text 
+
+Make sure you're using layouts / includes even though 
+it's a small project, it facilitates re-usability
+
+

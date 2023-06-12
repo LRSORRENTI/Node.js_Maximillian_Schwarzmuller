@@ -1,0 +1,13 @@
+<%- include('layouts/mainLayout.ejs') %>
+<h1>Users:</h1>
+<% if(myUsers.length > 0) { %>
+<ul>
+  <% myUsers.forEach((user) => { %>
+  <li><%= user.name %></li>
+  <% }); %>
+</ul>
+
+<% } else { %>
+<h1>No users yet!</h1>
+
+<% } %>
