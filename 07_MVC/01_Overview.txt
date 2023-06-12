@@ -1,0 +1,17 @@
+===========================
+MVC (Multi-View Controller)
+===========================
+
+This module focuses on a vital aspect of structuring 
+and building web apps, backend apps like the one 
+we're building
+
+We need to follow a pattern to structure our 
+code, how we logically separate our code and 
+how all of it's core functionality ties together 
+
+We'll dive into the MVC pattern now, how it's used, 
+why it's useful, and implement it in our online 
+shop project we've been slowly building over 
+the last few core modules 
+
