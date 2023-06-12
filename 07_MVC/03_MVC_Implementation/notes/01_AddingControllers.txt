@@ -53,4 +53,10 @@ It's this inbetween logic:
   ginormous
 
   Better to separate these into their own respective 
-  files 
+  files, add a new folder called 'controllers' 
+
+  Inside of the controllers folder, we'll create 
+  a products.js file, to house all of the 
+  logic related to products, which is essentially 
+  the entire logic but we'll add more controllers 
+  later 
