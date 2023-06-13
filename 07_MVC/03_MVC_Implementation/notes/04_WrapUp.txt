@@ -1,0 +1,39 @@
+==============
+MODULE SUMMARY
+==============
+
+That is the MVC pattern implemented
+
+--------
+ MODEL 
+--------
+
+- Responsible for representing the data itself
+
+- Responsible for managing that data(save, fetch etc..)
+
+- Can be managed from memory, files, or databases 
+
+- Contains all data-related logic 
+
+
+-------
+ View 
+-------
+
+- What the end user actually sees on their end 
+
+- Shouldn't contain too much logic (EJS, handlbars!)
+
+----------
+Controller
+----------
+
+- Connecting the model and the view together 
+
+- Should only ensure the model and view can 
+  communicate in either direction
+
+
+
+More on MVC: https://developer.mozilla.org/en-US/docs/Glossary/MVC
