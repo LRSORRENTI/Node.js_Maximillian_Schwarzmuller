@@ -65,17 +65,30 @@ exports.getAddPRoduct = (req, res, next) => {
     // Now inside of getProducts we want to fetch
     // the products we have saved inside of the 
     // products array in models/product.js
-    const products = Product.fetchAll()
+    // const products = Product.fetchAll()
     // we call Product.fetchAll and save it to 
     // the local products variable 
-    res.render('shop', {
-      prods: products,
-      pageTitle: 'Shop',
-      path: '/',
-      hasProducts: products.length > 0,
-      activeShop: true,
-      productCSS: true
+    // we also need to pass in a function to 
+    // fetch all
+
+    Product.fetchAll((products) => {
+        res.render('shop', {
+            prods: products,
+            pageTitle: 'Shop',
+            path: '/',
+            hasProducts: products.length > 0,
+            activeShop: true,
+            productCSS: true
+          });
     });
+    // res.render('shop', {
+    //   prods: products,
+    //   pageTitle: 'Shop',
+    //   path: '/',
+    //   hasProducts: products.length > 0,
+    //   activeShop: true,
+    //   productCSS: true
+    // });
   }
 
   // This is now a finished products controller, it 

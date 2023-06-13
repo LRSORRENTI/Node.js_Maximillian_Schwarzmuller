@@ -56,7 +56,7 @@ module.exports = class Product {
    // from that array, while save makes sense to 
    // call on a concrete instantiated object based 
    // on product so we'll add another method 
-   static fetchAll(){
+   static fetchAll(callback){
      // This is not called on a single instance of 
      // a product, because it needs to fetch all 
      // products and we don't want to create a new 
@@ -66,14 +66,33 @@ module.exports = class Product {
      // Static ensures we can call this fetchAll 
      // method directly on the class itself, and 
      // not on an instantiated object
+
+     // NOTE that the callback argument above will 
+     // refer to: 
+
+     /* 
+        Product.fetchAll((products) => {
+        res.render('shop', {
+            prods: products,
+            pageTitle: 'Shop',
+            path: '/',
+            hasProducts: products.length > 0,
+            activeShop: true,
+            productCSS: true
+          });
+    });
+
+    from the anonymous func inside the controller products.js 
+     */
      const p = path.join(path.dirname(process.mainModule.filename),
      'data',
       'products.json');
      fs.readFile(p, (err, fileContent) =>{
        if(err){
-        return [];
+        // return [];
+        callback([]);
        }
-       return JSON.parse(fileContent);
+       callback(JSON.parse(fileContent));
     })
     //  return products;
    };
