@@ -19,6 +19,31 @@ const path = require('path')
 
 const products = [];
 
+const p = path.join(path.dirname(process.mainModule.filename),
+'data',
+ 'products.json');
+
+// We're going to create a helper function to 
+// improve code efficiency, we have some repetitive 
+// code, which indicates we can refactor!!
+
+const helperGetProdsFromFile = (callback) => {
+    const p = path.join(path.dirname(process.mainModule.filename),
+    'data',
+     'products.json');
+    fs.readFile(p, (err, fileContent) =>{
+      if(err){
+       // return [];
+       callback([]);
+      } else {
+      callback(JSON.parse(fileContent));
+      }
+   })
+   //  return products;
+  };
+
+
+
 module.exports = class Product {
     constructor(t){
         // We then create a property using 
@@ -37,20 +62,27 @@ module.exports = class Product {
 
       // Now we utilize path: 
 
-      const p = path.join(path.dirname(process.mainModule.filename),
-         'data',
-          'products.json');
-         fs.readFile(p, (err, fileContent) => {
-            console.log(err, fileContent)
-            let products = [];
-            if(!err){
-               products = JSON.parse(fileContent);
-            }
-            products.push(this);
-            fs.writeFile(p, JSON.stringify(products), (err) => {
-                console.log('Error inside fs.writeFile line 50')
-            })
-         })
+    //   const p = path.join(path.dirname(process.mainModule.filename),
+    //      'data',
+    //       'products.json');
+    helperGetProdsFromFile((products) => {
+          products.push(this);
+          fs.writeFile(p, JSON.stringify(products), err => {
+            console.log(err)
+          });
+    });
+    // but here we don't forward any callbacks
+       //  fs.readFile(p, (err, fileContent) => {
+            // console.log(err, fileContent)
+            // let products = [];
+            // if(!err){
+            //    products = JSON.parse(fileContent);
+            // }
+            // products.push(this);
+            // fs.writeFile(p, JSON.stringify(products), (err) => {
+            //     console.log('Error inside fs.writeFile line 50')
+            // })
+        // })
    };
    // We also want to be able to retrieve all products 
    // from that array, while save makes sense to 
@@ -84,19 +116,21 @@ module.exports = class Product {
 
     from the anonymous func inside the controller products.js 
      */
-     const p = path.join(path.dirname(process.mainModule.filename),
-     'data',
-      'products.json');
-     fs.readFile(p, (err, fileContent) =>{
-       if(err){
-        // return [];
-        callback([]);
-       }
-       callback(JSON.parse(fileContent));
-    })
-    //  return products;
-   };
+//      const p = path.join(path.dirname(process.mainModule.filename),
+//      'data',
+//       'products.json');
+//      fs.readFile(p, (err, fileContent) =>{
+//        if(err){
+//         // return [];
+//         callback([]);
+//        }
+//        callback(JSON.parse(fileContent));
+//     })
+//     //  return products;
+//    };
+helperGetProdsFromFile(callback)
 };
 
 // Now we can go back into the products.js controller 
 // file
+}
