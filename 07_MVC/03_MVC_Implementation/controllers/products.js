@@ -8,8 +8,16 @@
 // Also note we do need to transfer over 
 // our products array from admin.js route
 
-const products = [];
+// const products = [];
+// we can now comment out the products array, since 
+// we're handling it inside of our models folder, 
+// in product.js 
 
+
+const Product = require("../models/product.js")
+// Now that we've imported our class 
+// from the product.js file, we can use 
+// it inside of postAddProduct
 
 exports.getAddPRoduct = (req, res, next) => {
     res.render('add-product', {
@@ -29,7 +37,17 @@ exports.getAddPRoduct = (req, res, next) => {
   // a new product 
 
   exports.postAddProduct = (req, res, next) => {
-    products.push({ title: req.body.title });
+    // below we now use that class we imported 
+    // call the new keyword, pass in the same 
+    // req.body.title, then we call save to 
+    // save that instantiation to the products array 
+    // inside of the models/product.js file 
+    const product = new Product(req.body.title);
+    product.save();
+    // Can also comment out products.push now since
+    // we're utilizing the product.js file from 
+    // models 
+    // products.push({ title: req.body.title });
     res.redirect('/');
   };
 
@@ -42,6 +60,14 @@ exports.getAddPRoduct = (req, res, next) => {
     // also the above can be commented out, 
     // remember we moved the products array inside 
     // this file
+    
+
+    // Now inside of getProducts we want to fetch
+    // the products we have saved inside of the 
+    // products array in models/product.js
+    const products = Product.fetchAll()
+    // we call Product.fetchAll and save it to 
+    // the local products variable 
     res.render('shop', {
       prods: products,
       pageTitle: 'Shop',

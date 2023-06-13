@@ -1,0 +1,46 @@
+=============
+PRODUCT MODEL
+=============
+
+Now that we've added controllers, we 
+need to add the product model 
+
+We have a products array below, and a product 
+is created on the fly as an object that looks like:
+  products.push({ title: req.body.title });
+  
+In the end that product we push into the products array 
+represents our data, so let's add a model for that 
+data, inside the root dir create a new directory called 
+models 
+
+const products = [];
+
+exports.getAddPRoduct = (req, res, next) => {
+    res.render('add-product', {
+      pageTitle: 'Add Product',
+      path: '/admin/add-product',
+      formsCSS: true,
+      productCSS: true,
+      activeAddProduct: true
+    });
+  };
+
+  exports.postAddProduct = (req, res, next) => {
+    products.push({ title: req.body.title });
+    res.redirect('/');
+  };
+
+  exports.getProducts = (req, res, next) => {
+    res.render('shop', {
+      prods: products,
+      pageTitle: 'Shop',
+      path: '/',
+      hasProducts: products.length > 0,
+      activeShop: true,
+      productCSS: true
+    });
+  }
+
+  Later on in the course we'll use a real database 
+   for grabbing data, rather than using local arrays

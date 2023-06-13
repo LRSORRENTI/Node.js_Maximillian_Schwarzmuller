@@ -13,6 +13,10 @@
 
 // Or we could use classes instead: 
 
+const fs = require('fs')
+const path = require('path')
+
+
 const products = [];
 
 module.exports = class Product {
@@ -26,10 +30,27 @@ module.exports = class Product {
    save(){
       // We use the save method to store the product 
       // in the products array
-      products.push(this)
+    //   products.push(this)
       // We push 'this' into products because 
       // this refers to the object created in the 
       // constructor, based on the class 
+
+      // Now we utilize path: 
+
+      const p = path.join(path.dirname(process.mainModule.filename),
+         'data',
+          'products.json');
+         fs.readFile(p, (err, fileContent) => {
+            console.log(err, fileContent)
+            let products = [];
+            if(!err){
+               products = JSON.parse(fileContent);
+            }
+            products.push(this);
+            fs.writeFile(p, JSON.stringify(products), (err) => {
+                console.log('Error inside fs.writeFile line 50')
+            })
+         })
    };
    // We also want to be able to retrieve all products 
    // from that array, while save makes sense to 
@@ -45,7 +66,16 @@ module.exports = class Product {
      // Static ensures we can call this fetchAll 
      // method directly on the class itself, and 
      // not on an instantiated object
-     return this.products;
+     const p = path.join(path.dirname(process.mainModule.filename),
+     'data',
+      'products.json');
+     fs.readFile(p, (err, fileContent) =>{
+       if(err){
+        return [];
+       }
+       return JSON.parse(fileContent);
+    })
+    //  return products;
    };
 };
 
