@@ -1,0 +1,10 @@
+=================
+ENHANCING OUR APP
+=================
+
+In this module we'll move more in the 
+direction of a realistic online shop
+
+We'll add more controllers and views, 
+as well as clean things up a bit in the 
+project structure

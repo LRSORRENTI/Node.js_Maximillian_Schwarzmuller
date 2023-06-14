@@ -1,0 +1,35 @@
+=========================================
+Storing data inside of files using models
+=========================================
+
+Let's start saving our data inside of files rather 
+than inside of a single array 
+
+To do this we first need to work with the 
+file system, remember from the beginning of the 
+course? 
+
+const fs = require('fs')
+
+Now we can use all the fs methods like writeFileSync
+
+And that file should be created in a path to ensure 
+we make a path accessible by all OS's 
+
+const path = require('path')
+
+const products = [];
+
+module.exports = class Product {
+    constructor(t){
+       this.title = t;
+    };
+   
+   save(){
+      products.push(this)
+   };
+   static fetchAll(){
+     return products;
+   };
+};
+
