@@ -1,0 +1,9 @@
+=================
+ENHANCING THE APP
+================= 
+
+We'll create an admin sub-folder in views and 
+add the add-product.ejs file inside
+
+We'll also add another sub-folder to house all 
+shop related views 

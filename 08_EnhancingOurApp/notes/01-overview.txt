@@ -1,0 +1,28 @@
+=================
+ENHANCING OUR APP
+=================
+
+In this module we'll move more in the 
+direction of a realistic online shop
+
+We'll add more controllers and views, 
+as well as clean things up a bit in the 
+project structure 
+
+And let's think about this app, in the end we 
+want an online shop application 
+
+What we need is a home page or landing page
+
+A products page to peruse and browse available 
+products 
+
+Have admin capabilities for deleting and 
+modifying the products on our site
+
+We want to allow for products to be saved 
+to a shopping cart
+
+We need a checkout page for payment 
+
+And an orders / profile page for a user 
