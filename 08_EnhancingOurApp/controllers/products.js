@@ -20,7 +20,7 @@ const Product = require("../models/product.js")
 // it inside of postAddProduct
 
 exports.getAddPRoduct = (req, res, next) => {
-    res.render('add-product', {
+    res.render('admin/add-product.ejs', {
       pageTitle: 'Add Product',
       path: '/admin/add-product',
       formsCSS: true,
@@ -72,7 +72,7 @@ exports.getAddPRoduct = (req, res, next) => {
     // fetch all
 
     Product.fetchAll((products) => {
-        res.render('shop', {
+        res.render('shop/product-list.ejs', {
             prods: products,
             pageTitle: 'Shop',
             path: '/',
