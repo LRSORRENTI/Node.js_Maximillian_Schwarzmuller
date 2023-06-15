@@ -5,7 +5,7 @@ const express = require('express');
 // const rootDir = require('../util/path');
 // rootDir utility no longer in use
 
-const productsController = require('../controllers/products.js')
+const productsController = require('../controllers/admin.js')
 // and by saving the logic of our exported products.js 
 // file we can now pass that in as an argument inside 
 // of router.get, where we used to house that 
@@ -23,6 +23,9 @@ router.get('/add-product', productsController.getAddPRoduct);
 // we telling express, please store this function, and 
 // when a request reaches the /add-product route, 
 // then execute
+// /admin/add-product => GET
+router.get('/products');
+
 
 // /admin/add-product => POST
 router.post('/add-product', productsController.postAddProduct);

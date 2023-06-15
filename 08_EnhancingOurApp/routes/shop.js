@@ -6,7 +6,7 @@ const express = require('express');
 // const adminData = require('./admin');
 // The above imports can be commented out, as 
 // we've now moved the logic into our controller 
-const productsController = require('../controllers/products.js')
+const productsController = require('../controllers/shop.js')
 
 const router = express.Router();
 
@@ -23,5 +23,11 @@ const router = express.Router();
 //   });
 // });
  );
+
+router.get('/products');
+
+router.get('/cart');
+
+router.get('/checkout')
 
 module.exports = router;
