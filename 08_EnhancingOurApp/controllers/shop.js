@@ -19,15 +19,15 @@ const Product = require("../models/product.js")
 // from the product.js file, we can use 
 // it inside of postAddProduct
 
-exports.getAddPRoduct = (req, res, next) => {
-    res.render('admin/add-product.ejs', {
-      pageTitle: 'Add Product',
-      path: '/admin/add-product',
-      formsCSS: true,
-      productCSS: true,
-      activeAddProduct: true
-    });
-  };
+// exports.getAddPRoduct = (req, res, next) => {
+//     res.render('admin/add-product.ejs', {
+//       pageTitle: 'Add Product',
+//       path: '/admin/add-product',
+//       formsCSS: true,
+//       productCSS: true,
+//       activeAddProduct: true
+//     });
+//   };
 
   // Then since we've now used the exports.function 
   // syntax, we now import that back inside of 
@@ -36,20 +36,20 @@ exports.getAddPRoduct = (req, res, next) => {
   // We can repeat this exact process for adding 
   // a new product 
 
-  exports.postAddProduct = (req, res, next) => {
-    // below we now use that class we imported 
-    // call the new keyword, pass in the same 
-    // req.body.title, then we call save to 
-    // save that instantiation to the products array 
-    // inside of the models/product.js file 
-    const product = new Product(req.body.title);
-    product.save();
-    // Can also comment out products.push now since
-    // we're utilizing the product.js file from 
-    // models 
-    // products.push({ title: req.body.title });
-    res.redirect('/');
-  };
+  // exports.postAddProduct = (req, res, next) => {
+  //   // below we now use that class we imported 
+  //   // call the new keyword, pass in the same 
+  //   // req.body.title, then we call save to 
+  //   // save that instantiation to the products array 
+  //   // inside of the models/product.js file 
+  //   const product = new Product(req.body.title);
+  //   product.save();
+  //   // Can also comment out products.push now since
+  //   // we're utilizing the product.js file from 
+  //   // models 
+  //   // products.push({ title: req.body.title });
+  //   res.redirect('/');
+  // };
 
   // We also grab the logic from shop.js that's also 
   // involved in the products logic, and import 
@@ -74,8 +74,8 @@ exports.getAddPRoduct = (req, res, next) => {
     Product.fetchAll((products) => {
         res.render('shop/product-list.ejs', {
             prods: products,
-            pageTitle: 'Shop',
-            path: '/',
+            pageTitle: 'All Products',
+            path: '/products',
             hasProducts: products.length > 0,
             activeShop: true,
             productCSS: true
@@ -93,3 +93,28 @@ exports.getAddPRoduct = (req, res, next) => {
 
   // This is now a finished products controller, it 
   // controls all of our product related logic 
+
+  exports.getIndex = (req, res, next) => {
+    Product.fetchAll((products) => {
+      res.render('shop/index.ejs', {
+          prods: products,
+          pageTitle: 'Shop',
+          path: '/',
+        });
+  });
+
+  }
+
+  exports.getCart = (req, res, next) => {
+    res.render('shop/cart.ejs',{
+      path: '/cart',
+      pageTitle: 'Your Cart'
+    } )
+  }
+
+  exports.getCheckout = (req, res, next) => {
+    res.render('shop/checkout.ejs', {
+       path: '/checkout',
+       pageTitle: 'Checkout'
+    })
+  }
