@@ -1,0 +1,40 @@
+==================================
+Dynamic Routes and Advanced Models
+==================================
+
+In the previous module, we enhanced the 
+structure of our online shop, we 
+added sub-folders to house all 
+related views, as well as updated the routes 
+to create a more streamline and maintainable / 
+extensible application.
+
+Now we need to try and utilize the features of 
+Dynamic Routes and Advanced Models to 
+dynamically pass in data on the fly to our 
+application, this is how real world apps function, 
+when you log in to a website, your saved info, 
+cart info, wishlist, all of that data is loaded 
+into the browswer dynamically, you don't need 
+to re-save things to your cart everytime you log 
+in, that data is saved, and dynamically rendered 
+client side for you! 
+
+We need to encode some information so we can pass 
+around product id's as part of the URL, this 
+module we'll learn how to structure and send data 
+via URL, when it's ideal to perform this, and when 
+not to.
+
+We'll also improve the structure of our models: 
+
+What we'll learn: 
+
+- Passing Route Parameters 
+
+- Utilizing Query Parameters
+
+- Use those Parameters to enhance the 
+  models in our shop application
+
+

@@ -6,11 +6,11 @@ const express = require('express');
 // const adminData = require('./admin');
 // The above imports can be commented out, as 
 // we've now moved the logic into our controller 
-const productsController = require('../controllers/shop.js')
+const shopController = require('../controllers/shop.js')
 
 const router = express.Router();
 
- router.get('/', productsController.getProducts
+ router.get('/', shopController.getIndex
 // (req, res, next) => {
 //   const products = adminData.products;
 //   res.render('shop', {
@@ -24,10 +24,10 @@ const router = express.Router();
 // });
  );
 
-router.get('/products');
+router.get('/products', shopController.getProducts);
 
-router.get('/cart');
+router.get('/cart', shopController.getCart);
 
-router.get('/checkout')
+router.get('/checkout', shopController.getCheckout)
 
 module.exports = router;
