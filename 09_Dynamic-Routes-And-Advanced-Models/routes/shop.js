@@ -10,6 +10,22 @@ router.get('/', shopController.getIndex);
 
 router.get('/products', shopController.getProducts);
 
+// This where we'll handle our dynamic route
+// We do this by postfixing after /products a 
+// colon and a name, the colon signals to 
+// express.js that anything after the colon 
+// is dynamic, it could be products/14325
+// or products/75234, it's how we'll add dynamic 
+// routes to our app, we use ':' and a name which 
+// will be replaced by a unique value
+router.get('products/:rproductId')
+
+// Important to note, the order of the routes does 
+// matter, if we added below: router.get('products/:rproductId')
+// router.get('products/delete') we would never 
+// reach the /delete route, the code is ran top to 
+// bottom
+
 router.get('/cart', shopController.getCart);
 
 router.get('/orders', shopController.getOrders);
