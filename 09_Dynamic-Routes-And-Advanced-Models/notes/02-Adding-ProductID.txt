@@ -35,12 +35,15 @@ module.exports = class Product {
     // there are better third party packages to 
     // create unique ID's but this will work for 
     // us 
+
     this.id = Math.random().toString();
+    
     // after the above runs, we have a unique ID 
     // saved to the current instance of product 
     // using the 'this' keyword, and we generate 
     // a number with math.random, then convert 
     // it to a string with .toString()
+
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), err => {
@@ -60,11 +63,45 @@ in product-list.ejs, so back in product-list.ejs:
 
     <div class="card__actions">
      <a href="/products/<%= product.id %>" class="btn">Details</a>
+    
      // so the above will now lead to 'products/0.41231'
      // or products/randomIdnumberHere, it will be dynamicaly 
      // rendered for us since we used that instance of this.id 
      // in that save method of the Product class
+      
       <form action="/add-to-cart" method="POST">
         <button class="btn">Add to Cart</button>
                                     </form>
                                 </div>
+
+
+Now we need to ensure we extract that unique ID from the 
+path, in the routes so that the controller can load 
+the correct product, and show the details for it
+
+That's the main takeaway here, we send info as part 
+of the path, to ensure we extract the data we need 
+for a given product inside the controller 
+
+Because we can't send the entire product as part of the 
+URL, but we can send the product.id for that instance 
+of product 
+
+
+router.get('/products', shopController.getProducts);
+
+// This where we'll handle our dynamic route
+// We do this by postfixing after /products a 
+// colon and a name, the colon signals to 
+// express.js that anything after the colon 
+// is dynamic, it could be products/14325
+// or products/75234, it's how we'll add dynamic 
+// routes to our app, we use ':' and a name which 
+// will be replaced by a unique value
+router.get('products/:rproductId')
+
+// Important to note, the order of the routes does 
+// matter, if we added below: router.get('products/:rproductId')
+// router.get('products/delete') we would never 
+// reach the /delete route, the code is ran top to 
+// bottom

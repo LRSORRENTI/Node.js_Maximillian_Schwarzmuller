@@ -18,7 +18,22 @@ router.get('/products', shopController.getProducts);
 // or products/75234, it's how we'll add dynamic 
 // routes to our app, we use ':' and a name which 
 // will be replaced by a unique value
-router.get('products/:rproductId')
+
+// router.get('products/:productId')
+
+// Now we can also connect the controller since 
+// inside of controller/shop.js we added:
+// exports.getProduct = (req, res, next) => {
+//     const prodId = req.params.productId
+//     // remember inside of routes, productId 
+//     // is the name we gave the router.get('/products/productId')
+//      console.log(prodId)
+//      res.redirect('/');
+//   }
+router.get('products/:productId', shopController.getProduct);
+// we pass the shopController.getProduct as the second 
+// argument 
+
 
 // Important to note, the order of the routes does 
 // matter, if we added below: router.get('products/:rproductId')

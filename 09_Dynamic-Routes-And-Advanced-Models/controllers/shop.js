@@ -10,6 +10,17 @@ exports.getProducts = (req, res, next) => {
   });
 };
 
+// Here is where we add the dynamic route controller
+
+exports.getProduct = (req, res, next) => {
+    const prodId = req.params.productId;
+    // remember inside of routes, productId 
+    // is the name we gave the router.get('/products/productId')
+     console.log(prodId)
+     res.redirect('/');
+  }
+
+
 exports.getIndex = (req, res, next) => {
   Product.fetchAll(products => {
     res.render('shop/index', {
