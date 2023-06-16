@@ -45,11 +45,14 @@ const helperGetProdsFromFile = (callback) => {
 
 
 module.exports = class Product {
-    constructor(t){
+    constructor(title, imageURL, description, price){
         // We then create a property using 
         // this.title = t, or the t(title) we're 
         // receiving
-       this.title = t;
+       this.title = title;
+       this.imageURL = imageURL;
+       this.description = description;
+       this.price = price;
     };
    
    save(){
