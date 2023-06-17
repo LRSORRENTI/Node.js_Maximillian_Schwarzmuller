@@ -30,7 +30,7 @@ router.get('/products', shopController.getProducts);
 //      console.log(prodId)
 //      res.redirect('/');
 //   }
-router.get('products/:productid', shopController.getProducts);
+router.get('products/:productId', shopController.getProduct);
 // we pass the shopController.getProduct as the second 
 // argument 
 
