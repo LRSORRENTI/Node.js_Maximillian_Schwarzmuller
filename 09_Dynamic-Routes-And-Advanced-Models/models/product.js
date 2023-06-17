@@ -50,7 +50,8 @@ module.exports = class Product {
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), err => {
-        console.log(err);
+        console.log('this:', this, 'err:',err,'p:', p, 'products:', products, 'null? yes it`s coming from models / \
+        product.js, why is it null?', 'Product.id', products.id);
       });
     });
   }
