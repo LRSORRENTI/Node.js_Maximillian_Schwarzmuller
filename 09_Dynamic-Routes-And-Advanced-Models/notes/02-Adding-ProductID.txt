@@ -105,3 +105,7 @@ router.get('products/:rproductId')
 // router.get('products/delete') we would never 
 // reach the /delete route, the code is ran top to 
 // bottom
+
+Now inside of the controller folder, in shop.js 
+below the getProducts controller, we add another 
+controller: 
