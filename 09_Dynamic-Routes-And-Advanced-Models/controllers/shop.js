@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart');
 
 exports.getProducts = (req, res, next) => {
   Product.fetchAll(products => {
@@ -10,15 +11,16 @@ exports.getProducts = (req, res, next) => {
   });
 };
 
-// Here is where we add the dynamic route controller
-
 exports.getProduct = (req, res, next) => {
-    const prodId = req.params.productid;
-    // remember inside of routes, productId 
-    // is the name we gave the router.get('/products/productId')
-     res.redirect('/');
-  }
-
+  const prodId = req.params.productId;
+  Product.findById(prodId, product => {
+    res.render('shop/product-detail', {
+      product: product,
+      pageTitle: product.title,
+      path: '/products'
+    });
+  });
+};
 
 exports.getIndex = (req, res, next) => {
   Product.fetchAll(products => {
@@ -35,6 +37,14 @@ exports.getCart = (req, res, next) => {
     path: '/cart',
     pageTitle: 'Your Cart'
   });
+};
+
+exports.postCart = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.findById(prodId, product => {
+    Cart.addProduct(prodId, product.price);
+  });
+  res.redirect('/cart');
 };
 
 exports.getOrders = (req, res, next) => {
