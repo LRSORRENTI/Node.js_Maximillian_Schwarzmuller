@@ -18,7 +18,7 @@ router.get('/products', shopController.getProducts);
 // or products/75234, it's how we'll add dynamic 
 // routes to our app, we use ':' and a name which 
 // will be replaced by a unique value
-router.get('products/:prodId', shopController.getProduct);
+router.get('products/:productId', shopController.getProduct);
 // router.get('products/:productId')
 
 // Now we can also connect the controller since 
