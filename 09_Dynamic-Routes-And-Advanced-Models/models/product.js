@@ -75,6 +75,34 @@ module.exports = class Product {
   });
 }
 
+// now we can add a delete method
+static deleteById(id){
+      // all of the deleting a product logic 
+      // will be contained inside here 
+      getProductsFromFile(products => {
+        // now we need to find the index of the 
+        // product we want to delete
+        // const productIndex = products.findIndex(prod => prod.id === id)
+        // another way is to: 
+       
+          const updatedProducts = products.filter(prod => prod.id !== id)
+          // filter works too, it will return all elements 
+          // as part of a new array that don't match the prod.id === id 
+          // criteria, so if prod.id !== id, that element 
+          /// is kept 
+          // now we use fs to save 
+          fs.writeFile(p, JSON.stringify(updatedProducts), err =>{
+           if(!err) {
+            // if we don't throw an error, we want to 
+            // remove that prod from the cart because it 
+            // doesn't exist anymore
+            
+           }
+          })
+      });
+
+}
+
   static fetchAll(cb) {
     getProductsFromFile(cb);
   }
