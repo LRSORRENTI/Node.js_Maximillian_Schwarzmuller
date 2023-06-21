@@ -1,0 +1,51 @@
+==================
+USING QUERY PARAMS
+==================
+ 
+ Now we've worked on the cart model, but 
+ we still need implememnt the view for the 
+ cart as well as the delete functionality 
+
+ But first we need to learn about query parameters 
+
+ Inside of edit-product.ejs, we want to render the 
+ products available to edit, or the ones we want to 
+ edit 
+
+ But since we'll be utilizing the same ejs template 
+ for edit-product, we can re-use the entire template 
+ for edit-product 
+
+ And query parameters look like in the url: 
+
+ \admin\edit-product\12345\?edit=true 
+
+ we can also use & 
+
+ \admin\edit-product\12345\?edit=true&title=new
+
+ We check for these query params inside the 
+ controllers 
+
+so for 
+
+exports.getEditProduct = (req, res, next) => {
+  const editMode = req.query.edit;
+  if(!editMode){
+    res.redirect('/');
+  }
+  res.render('admin/edit-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
+    editing: editMode
+  });
+};
+
+if the url for editmode is true or "true", the 
+extracted valye is always a string, so "true"
+
+If we don't find it, it will be undefined which 
+is false in a boolean check
+
+These are often used for tracking users, or keeping 
+a filter for something set on a page 
