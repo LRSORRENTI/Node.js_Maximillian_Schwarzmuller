@@ -56,6 +56,13 @@ fs.readFile(p, (err, fileContent) => {
           const product = updatedCart.products.find(prod =>{
              prod.id === id
           });
+          // we also need to add a check if we for sure have 
+          // that product
+          if(!product){
+            // so if we don't have a product, return, 
+            // we don't want to continue
+            return;
+          }
             console.log('inside of deleteProduct cart.js, line \
             59:', product)
             const productQty = product.qty;
