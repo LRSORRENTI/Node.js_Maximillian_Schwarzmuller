@@ -1,0 +1,83 @@
+============
+SQL VS NoSQL
+============
+
+SQL or NoSQL, that is the question.
+
+To make an informed decision, we need to 
+learn the differences, the strengths and 
+weaknesses of both to determine which we 
+want to stick with for our use case 
+
+We we'll be learning both, then once we've 
+had some practice with both, choose which 
+one you think is best for the project
+
+The goal is to store data, and make it 
+easy to access, that's why we utilize 
+databases, it enables much faster access 
+than having to work with a file especially 
+as the data inside grows 
+
+In a file, we'd need to read the entire file just 
+to locate a single slice of data we need 
+
+In this course we'll be learning the two 
+most popular, SQL: mySQL and NoSQL: MongoDB
+
+============
+What is SQL?
+============
+
+SQL works with tables, maybe we have a USERS, 
+PRODUCTS and ORDERS tables
+
+In each table we have fields and columns, for 
+users they might have id's, emails, names 
+
+For products maybe it has id's, title, price, and 
+description
+
+And we fill in data by adding them as rows, and 
+columns 
+
+One benefit of tables in SQL is they can be related: 
+
+For Ex, an order table could be a connection of 
+user and product 
+
+These are known as 'relations' is SQL based 
+databases
+
+=================================
+CORE SQL DATABASE CHARACTERISTICS
+=================================
+
+- Data Schema (id, name, age) -> all data in a table 
+  must fit the schema! 
+
+- Data Relations - We related the tables in our 
+  SQL database with these three: 
+    - One-To-One 
+    - One-To-Many
+    - Many-To-Many
+
+  Tables are connected!
+
+===========
+SQL QUERIES
+===========
+
+Queries are command we use to interact with the 
+SQL database: 
+
+SELECT * FROM users WHERE age > 28
+
+This command will select all users over 
+the age of 28
+
+The uppercase are special keywords to structure 
+the command
+
+And the lowercase (*, users, age > 28) represent the 
+parameters of the command 
