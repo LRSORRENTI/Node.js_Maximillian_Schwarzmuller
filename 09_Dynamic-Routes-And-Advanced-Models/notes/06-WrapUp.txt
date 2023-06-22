@@ -1,0 +1,29 @@
+==============
+MODULE SUMMARY 
+==============
+
+In this module we learned: 
+
+- Dynamic Routing 
+
+  - We pass dynamic path segments by 
+    adding a ':' to the express router 
+    path 
+  
+  - The name after the ':' is the name 
+    to extract data on req.params 
+
+  - Optional (query) params can also 
+    be passed (?param=valye&b=2) and 
+    extracted with (req.query.myParam)  
+
+- Worked more with Models 
+ 
+    - We added a Cart model, to house 
+    static methods only 
+    
+    - Interact between models (e.g. delete a 
+        cart item if a product is deleted)
+    
+    - Work with files for data storage is suboptimal
+      for large datasets  

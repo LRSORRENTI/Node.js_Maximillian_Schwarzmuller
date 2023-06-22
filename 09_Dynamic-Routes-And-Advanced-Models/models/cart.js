@@ -37,4 +37,64 @@ module.exports = class Cart {
       });
     });
   }
+
+ static deleteProduct(id, productPrice){
+// first thing we need to do is gather the items 
+// from the cart, we need to real the contents of 
+// current items inside of cart 
+fs.readFile(p, (err, fileContent) => {
+        if(err){
+          console.log('cart doesn`t exist' )
+          // if somehow we can't find the cart, 
+          // we return
+          return
+        }
+        // we'll need to parse the cart from file 
+        // content but for now let's use the 
+        // spread operator
+        const updatedCart = {...JSON.parse(fileContent)};
+          const product = updatedCart.products.find(prod =>{
+             prod.id === id
+          });
+          // we also need to add a check if we for sure have 
+          // that product
+          if(!product){
+            // so if we don't have a product, return, 
+            // we don't want to continue
+            return;
+          }
+            console.log('inside of deleteProduct cart.js, line \
+            59:', product)
+            const productQty = product.qty;
+            // below we'll utilize the filter methd to run over 
+            // all elements in there and keeps the ones that return 
+            // true
+            updatedCart.products = updatedCart.products.filter(prod => {
+              prod !== id;
+            })
+
+            updatedCart.totalPrice = updatedCart.totalPrice - productPrice * productQty;
+    
+              fs.writeFile(p, JSON.stringify(updatedCart), err => {
+                console.log(err, 'err from inside of fs.writeFile, line 72 \
+                of models/cart.js')
+              })
+            
+          });
+  };
+
+// Now we need to implement a way to get all 
+// products currently in the cart 
+
+    static getCart(cb){
+        fs.readFile(p, (err, fileContent) => {
+          const cart = JSON.parse(fileContent);
+          if(err){
+            console.log(err, 'error from models/cart.js line 86');
+            cb(null)
+          } else {
+            cb(cart);
+          };
+        });
+    };
 };

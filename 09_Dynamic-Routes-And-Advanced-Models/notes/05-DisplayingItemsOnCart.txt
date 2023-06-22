@@ -1,0 +1,6 @@
+=============================
+DISPLAYING ITEMS ON CART PAGE
+=============================
+
+To wrap this module up we're going to
+display items on cart.ejs 

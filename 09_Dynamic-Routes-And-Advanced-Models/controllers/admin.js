@@ -79,3 +79,10 @@ exports.getProducts = (req, res, next) => {
     });
   });
 };
+
+// now let's add a new action for deleting a 
+// product: 
+
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+}

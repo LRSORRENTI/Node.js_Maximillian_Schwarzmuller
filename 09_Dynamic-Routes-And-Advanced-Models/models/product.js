@@ -1,6 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
+// We now need to impoort the cart from the same 
+// directory
+
+const Cart = require('./cart.js');
+
 const p = path.join(
   path.dirname(process.mainModule.filename),
   'data',
@@ -80,6 +85,9 @@ static deleteById(id){
       // all of the deleting a product logic 
       // will be contained inside here 
       getProductsFromFile(products => {
+        const product = products.find(prod => {
+          prod.id === id;
+        })
         // now we need to find the index of the 
         // product we want to delete
         // const productIndex = products.findIndex(prod => prod.id === id)
@@ -96,6 +104,7 @@ static deleteById(id){
             // if we don't throw an error, we want to 
             // remove that prod from the cart because it 
             // doesn't exist anymore
+            Cart.deleteProduct(id, product.price)
             
            }
           })

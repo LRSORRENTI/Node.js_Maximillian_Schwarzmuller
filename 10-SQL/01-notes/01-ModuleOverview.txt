@@ -1,0 +1,20 @@
+===============
+MODULE OVERVIEW
+===============
+
+In this module we need to learn about how 
+we store the data we need inside of a database 
+
+This is a more real-world way, storing all data 
+inside of a local json file is not really how 
+things work in an actual developer environment 
+
+Most companies or large scale projects will utilize 
+databases to house data 
+
+We'll first go over two popular database structures, 
+SQL and NoSQL
+
+But first we'll learn SQL, and set up a MySQL 
+database
+
