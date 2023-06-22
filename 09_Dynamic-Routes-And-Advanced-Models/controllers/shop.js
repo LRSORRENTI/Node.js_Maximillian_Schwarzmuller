@@ -47,13 +47,14 @@ exports.getCart = (req, res, next) => {
             // cart products
         }
       }
-    })
+    
     res.render('shop/cart', {
       path: '/cart',
-      pageTitle: 'Your Cart'
+      pageTitle: 'Your Cart',
+      products: cartProducts
     });
    });
-  };
+  });
 
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
@@ -62,6 +63,17 @@ exports.postCart = (req, res, next) => {
   });
   res.redirect('/cart');
 };
+
+exports.postCartDeleteProduct = (req, res, next) => {
+    // inside we need to remove the product 
+    // from the cart BUT ONLY from the cart, 
+    // not the product itself
+    const prodId = req.body.productId;
+    Product.findById(prodId, product => {
+      Cart.deleteProduct(prodId, product.price  );
+      res.redirect('/cart')
+    })
+}
 
 exports.getOrders = (req, res, next) => {
   res.render('shop/orders', {
@@ -75,4 +87,4 @@ exports.getCheckout = (req, res, next) => {
     path: '/checkout',
     pageTitle: 'Checkout'
   });
-};
+}}
