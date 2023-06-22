@@ -52,7 +52,7 @@ fs.readFile(p, (err, fileContent) => {
         // we'll need to parse the cart from file 
         // content but for now let's use the 
         // spread operator
-        const updatedCart = {...cart};
+        const updatedCart = {...JSON.parse(fileContent)};
           const product = updatedCart.products.find(prod =>{
              prod.id === id
           });
@@ -75,4 +75,19 @@ fs.readFile(p, (err, fileContent) => {
             
           });
   };
+
+// Now we need to implement a way to get all 
+// products currently in the cart 
+
+    static getCart(cb){
+        fs.readFile(p, (err, fileContent) => {
+          const cart = JSON.parse(fileContent);
+          if(err){
+            console.log(err, 'error from models/cart.js line 86');
+            cb(null)
+          } else {
+            cb(cart);
+          };
+        });
+    };
 };
