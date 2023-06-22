@@ -1,0 +1,11 @@
+=================
+DELETING PRODUCTS
+=================
+
+Now we should implement delete capabilities, 
+all online shops have a 'remove from cart' or 
+'delete item/s' functionality 
+
+We can first get started with cart.js inside of 
+models sub-directory and adding a new 
+static method called deleteProduct

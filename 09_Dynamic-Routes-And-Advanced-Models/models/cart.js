@@ -37,4 +37,36 @@ module.exports = class Cart {
       });
     });
   }
+
+ static deleteProduct(id, productPrice){
+// first thing we need to do is gather the items 
+// from the cart, we need to real the contents of 
+// current items inside of cart 
+fs.readFile(p, (err, fileContent) => {
+        if(err){
+          console.log('cart doesn`t exist' )
+          // if somehow we can't find the cart, 
+          // we return
+          return
+        }
+        // we'll need to parse the cart from file 
+        // content but for now let's use the 
+        // spread operator
+        const updatedCart = {...cart};
+          const product = updatedCart.products.find(prod =>{
+             prod.id === id
+          });
+            console.log('inside of deleteProduct cart.js, line \
+            59:', product)
+            const productQty = product.qty;
+            // below we'll utilize the filter methd to run over 
+            // all elements in there and keeps the ones that return 
+            // true
+            updatedCart.products = updatedCart.products.filter(prod => {
+              prod !== id;
+            })
+
+            updatedCart.totalPrice = updatedCart.totalPrice - productPrice * productQty;
+    });
+  };
 };
