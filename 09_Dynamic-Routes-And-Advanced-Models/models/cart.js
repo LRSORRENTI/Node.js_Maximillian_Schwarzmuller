@@ -67,6 +67,12 @@ fs.readFile(p, (err, fileContent) => {
             })
 
             updatedCart.totalPrice = updatedCart.totalPrice - productPrice * productQty;
-    });
+    
+              fs.writeFile(p, JSON.stringify(updatedCart), err => {
+                console.log(err, 'err from inside of fs.writeFile, line 72 \
+                of models/cart.js')
+              })
+            
+          });
   };
 };
