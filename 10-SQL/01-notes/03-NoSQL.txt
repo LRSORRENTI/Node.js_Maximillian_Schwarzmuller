@@ -1,0 +1,173 @@
+===============
+NoSQL Databases
+===============
+
+We won't be exploring NoSQL in this module 
+but it's important to have an idea of what 
+they're comprised of as a comparison when 
+we're learning SQL Databases 
+
+In SQL we have tables for users and orders 
+
+In NoSQL tables are called 'collections', but 
+inside of collections we don't find records, 
+but instead 'documents' 
+
+Documents look very similar to JS and JSON objects: 
+
+{name: 'Max', age: 29}
+
+And in NoSQL we aren't bound to rigid schemas, 
+if we wanted another user, but we want to 
+omit the age, in NoSQL we can do this: 
+
+{name: 'Manu'}
+
+We can store multiple documents with different structures 
+in the same collection
+
+One of the benefits is duplicate data in NoSQL, 
+this means if we have an orders collection, and 
+a nested users collection, we don't connect it 
+with some id, instead we duplicate data to 
+be more precise 
+
+This means when we need to update data, it does 
+need to be updated in multiple places, but there's 
+an advantage to this as well, if we were in 
+SQL we'd need to join multiple tables together
+
+One of the main advantages of NoSQL is performance, 
+it can be very fast and efficient
+
+=====================
+NoSQL Characteristics
+=====================
+
+- No Data Schema: mixed data in the same collection
+  {name, id, age}
+  {id, age }
+
+- No structure is required 
+
+- No Data Relations, although it's possible to 
+  do this, but if done queries become much less 
+  performant
+
+- No / Very few connections
+
+
+=================
+Scaling Databases
+=================
+
+As more and more data is needed to be stored, 
+differences in databases can have positive or 
+negative characteristics when it comes time 
+to scale: 
+
+Horizontal Vs. Vertical Scaling 
+
+Horizontal Scaling (Scaling Out):
+
+Horizontal scaling involves adding 
+more machines or nodes to distribute
+the database load across multiple servers. 
+ 
+ In this approach, each additional server
+ contributes to the overall processing power,
+ storage capacity, and throughput of the system.
+   
+The idea is to divide the data across
+multiple nodes, allowing for parallel
+processing and improved performance. 
+      
+It is often achieved through techniques
+such as sharding or partitioning.
+
+
+Advantages of horizontal scaling:
+
+Improved scalability: Adding more servers 
+allows for handling increased traffic and
+ data volume.
+
+Higher availability: If one server fails,
+the others can continue to operate, 
+ensuring better system uptime.
+
+Cost-effective: Horizontal scaling
+can be more cost-effective than
+vertically scaling by utilizing 
+commodity hardware.
+
+Vertical Scaling (Scaling Up):
+
+Vertical scaling involves increasing
+the resources of a single server or
+node in the database system. 
+  
+This typically means upgrading the
+hardware components such as CPU,
+memory, or storage to handle 
+increased workload and data requirements.
+    
+In vertical scaling, the focus is on 
+improving the capacity of a single machine
+rather than distributing the load across
+multiple machines.
+
+Advantages of vertical scaling:
+
+Simplified management: Working with a 
+single server is often easier to manage 
+than a distributed system.
+
+Lower latency: Since the data is stored
+on a single server, accessing it can be
+faster in some cases.
+
+Suitable for smaller workloads: Vertical
+scaling is often more suitable for 
+scenarios with relatively smaller
+databases and moderate traffic.
+
+Choosing between horizontal scaling and
+vertical scaling depends on various
+factors such as the specific database
+system, workload characteristics, 
+budget constraints, and future growth
+expectations. Some systems may even
+employ a combination of both scaling 
+approaches to achieve optimal performance 
+and scalability.
+
+It's important to note that not all
+databases can be easily scaled 
+horizontally or vertically. The 
+scalability options available 
+depend on the specific database
+management system (DBMS) being used.
+
+It's also important to note that SQL
+databases still have their strengths 
+and are typically a better choice in 
+scenarios where data integrity, complex 
+querying, and transactional consistency 
+are critical. 
+
+They have a mature ecosystem and are 
+widely used in applications that require 
+strong relational data modeling and ACID 
+(Atomicity, Consistency, Isolation, Durability) 
+compliance.
+
+Ultimately, the choice between NoSQL 
+and SQL databases depends on the specific 
+requirements of your application and the 
+nature of the data you are dealing with. 
+
+It's common for modern applications to use 
+a combination of both types of databases,
+leveraging each one's strengths for different 
+parts of the system.
