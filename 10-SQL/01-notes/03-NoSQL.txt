@@ -72,18 +72,18 @@ Horizontal Scaling (Scaling Out):
 
 Horizontal scaling involves adding 
 more machines or nodes to distribute
- the database load across multiple servers. 
+the database load across multiple servers. 
  
  In this approach, each additional server
-  contributes to the overall processing power,
-   storage capacity, and throughput of the system.
+ contributes to the overall processing power,
+ storage capacity, and throughput of the system.
    
-    The idea is to divide the data across
-     multiple nodes, allowing for parallel
-      processing and improved performance. 
+The idea is to divide the data across
+multiple nodes, allowing for parallel
+processing and improved performance. 
       
-      It is often achieved through techniques
-       such as sharding or partitioning.
+It is often achieved through techniques
+such as sharding or partitioning.
 
 
 Advantages of horizontal scaling:
@@ -93,29 +93,29 @@ allows for handling increased traffic and
  data volume.
 
 Higher availability: If one server fails,
- the others can continue to operate, 
- ensuring better system uptime.
+the others can continue to operate, 
+ensuring better system uptime.
 
 Cost-effective: Horizontal scaling
- can be more cost-effective than
-  vertically scaling by utilizing 
-  commodity hardware.
+can be more cost-effective than
+vertically scaling by utilizing 
+commodity hardware.
 
 Vertical Scaling (Scaling Up):
 
 Vertical scaling involves increasing
- the resources of a single server or
-  node in the database system. 
+the resources of a single server or
+node in the database system. 
   
-  This typically means upgrading the
-   hardware components such as CPU,
-    memory, or storage to handle 
-    increased workload and data requirements.
+This typically means upgrading the
+hardware components such as CPU,
+memory, or storage to handle 
+increased workload and data requirements.
     
-     In vertical scaling, the focus is on 
-     improving the capacity of a single machine
-      rather than distributing the load across
-       multiple machines.
+In vertical scaling, the focus is on 
+improving the capacity of a single machine
+rather than distributing the load across
+multiple machines.
 
 Advantages of vertical scaling:
 
@@ -124,27 +124,50 @@ single server is often easier to manage
 than a distributed system.
 
 Lower latency: Since the data is stored
- on a single server, accessing it can be
-  faster in some cases.
+on a single server, accessing it can be
+faster in some cases.
 
 Suitable for smaller workloads: Vertical
- scaling is often more suitable for 
- scenarios with relatively smaller
-  databases and moderate traffic.
+scaling is often more suitable for 
+scenarios with relatively smaller
+databases and moderate traffic.
 
 Choosing between horizontal scaling and
- vertical scaling depends on various
-  factors such as the specific database
-   system, workload characteristics, 
-   budget constraints, and future growth
-    expectations. Some systems may even
-     employ a combination of both scaling 
-     approaches to achieve optimal performance 
-     and scalability.
+vertical scaling depends on various
+factors such as the specific database
+system, workload characteristics, 
+budget constraints, and future growth
+expectations. Some systems may even
+employ a combination of both scaling 
+approaches to achieve optimal performance 
+and scalability.
 
 It's important to note that not all
- databases can be easily scaled 
- horizontally or vertically. The 
- scalability options available 
- depend on the specific database
-  management system (DBMS) being used.
+databases can be easily scaled 
+horizontally or vertically. The 
+scalability options available 
+depend on the specific database
+management system (DBMS) being used.
+
+It's also important to note that SQL
+databases still have their strengths 
+and are typically a better choice in 
+scenarios where data integrity, complex 
+querying, and transactional consistency 
+are critical. 
+
+They have a mature ecosystem and are 
+widely used in applications that require 
+strong relational data modeling and ACID 
+(Atomicity, Consistency, Isolation, Durability) 
+compliance.
+
+Ultimately, the choice between NoSQL 
+and SQL databases depends on the specific 
+requirements of your application and the 
+nature of the data you are dealing with. 
+
+It's common for modern applications to use 
+a combination of both types of databases,
+leveraging each one's strengths for different 
+parts of the system.
