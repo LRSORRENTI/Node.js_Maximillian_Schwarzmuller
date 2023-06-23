@@ -1,0 +1,23 @@
+================
+Setting up MySQL
+================
+
+MySQL is one of the most popular SQL databases, 
+and it's free! 
+
+We're going to use the free MySQL Community Server, 
+and we'll also need the MySQL Workbench, both 
+free downloads can be found at: 
+
+https://dev.mysql.com/downloads/
+
+If you're using windows you can use the MySQL 
+installer for Windows download link, which will 
+streamline the installation process, installing 
+separately works fine but this way will save time! 
+
+Okay I ran through the setup process, and set up a new 
+schema for node, I think it's working, but a caveat 
+here is I'm using a mucher newer version of this 
+than Max, hopefully the core fundamentals of 
+learning aren't hampered by differing versions
