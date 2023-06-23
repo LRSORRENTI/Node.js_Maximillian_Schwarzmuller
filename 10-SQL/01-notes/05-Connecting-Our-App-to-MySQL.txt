@@ -1,0 +1,14 @@
+===========================
+Connecting our app to MySQL
+===========================
+
+To interact with mySQL fron inside node we need a 
+new package: 
+
+We must add --save because it's part of production, 
+it's not a dev dependency
+
+npm install --save mysql2
+
+This package enables us to write SQL code and 
+interact with a database 
