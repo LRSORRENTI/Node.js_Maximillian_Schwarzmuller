@@ -22,15 +22,37 @@ exports.getProduct = (req, res, next) => {
   });
 };
 
+// exports.getIndex = (req, res, next) => {
+//   Product.fetchAll(products => {
+//     res.render('shop/index', {
+//       prods: products,
+//       pageTitle: 'Shop',
+//       path: '/'
+//     });
+//   });
+// };
+// Now we restructure the above, because 
+// we're now working with promises 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll(products => {
+  // fetchAll will now return a promise
+  Product.fetchAll()
+  .then( ([rows, fieldData]) => {
+    // now we can use the above vars which hold
+    // our nested arrays 
     res.render('shop/index', {
-      prods: products,
+      prods: rows,
       pageTitle: 'Shop',
       path: '/'
-    });
-  });
-};
+      });
+   
+  })
+  .catch(err => console.log(err))
+  // and yes, if we go to localhost 3000 
+  // we indeed see the product with all 
+  // the correct information from our 
+  // mySQL database 
+  };
+
 
 exports.getCart = (req, res, next) => {
   Cart.getCart(cart => {

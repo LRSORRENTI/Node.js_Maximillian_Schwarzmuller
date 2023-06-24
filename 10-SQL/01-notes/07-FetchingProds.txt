@@ -1,0 +1,16 @@
+=================
+FETCHING PRODUCTS
+=================
+
+Now that we successfully connected to the 
+mySQL database from our app.js, we'll start 
+actually working with MySQL 
+
+So we'll remove the:
+
+ db.execute('SELECT * FROM products')
+.then( (result) => {console.log(result)})
+.catch( (err) => {console.log(err)})
+
+from app.js, and instead go back into our models 
+directory

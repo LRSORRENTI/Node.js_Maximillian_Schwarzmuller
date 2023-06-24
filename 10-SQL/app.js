@@ -49,11 +49,11 @@ const shopRoutes = require('./routes/shop');
 
  // result[0] or result[1]
 
- db.execute('SELECT * FROM products').then((result) => {
-    console.log(result[0])
-}).catch((err) => {
-    console.log(err)
-});
+//  db.execute('SELECT * FROM products').then((result) => {
+//     console.log(result[0])
+// }).catch((err) => {
+//     console.log(err)
+// });
 
 // result[0]:
 // [
