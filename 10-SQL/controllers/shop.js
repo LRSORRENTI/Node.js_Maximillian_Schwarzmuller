@@ -2,13 +2,23 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll(products => {
+  Product.fetchAll()
+  // res.render('shop/product-list', {
+  //   prods: products,
+  //   pageTitle: 'All Products',
+  //   path: '/products'
+  // });
+  .then( ([rows]) => {
+    // now we can use the above vars which hold
+    // our nested arrays 
     res.render('shop/product-list', {
-      prods: products,
+      prods: rows,
       pageTitle: 'All Products',
       path: '/products'
-    });
-  });
+      });
+   
+  })
+  .catch(err => console.log(err))
 };
 
 exports.getProduct = (req, res, next) => {
