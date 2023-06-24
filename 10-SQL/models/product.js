@@ -44,8 +44,8 @@ module.exports = class Product {
   }
 
   static findById(id) {
-
-  }
+    return db.execute('SELECT * FROM products WHERE products.id = ?', [id]);
+   }
 };
 // Above we were fetching data from files, 
 // in the real world, we work with databases,
