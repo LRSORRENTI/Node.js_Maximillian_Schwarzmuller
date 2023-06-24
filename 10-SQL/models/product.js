@@ -13,7 +13,26 @@ module.exports = class Product {
   }
 
   save() {
-   
+   // inside here we need to reach out to our 
+   // MySQL database and save the data there 
+  return  db.execute(
+    'INSERT INTO products (title, price, imageURL, description) VALUES (?, ?, ?, ?)',
+      [this.title, this.price, this.imageUrl, this.description ]
+   );
+   // also not the (title, price, imageURL, description)
+   // these MUST MATCH the fields from the products 
+   // table in MySQL, if they don't match this will not 
+   // work
+
+   // We don't need to specify id before title above, 
+   // because it will be generated and updated automatically
+  
+// TO SAFELY INSERT VALUES, AND NOT FACE THE CONSEQUENCES 
+// OF SQL INJECTION (AN ATTACK PATTERN WHERE SOMEONE CAN 
+// SPECIAL DATA INTO THE INPUT FIELDS IN THE WEBPAGE
+// THAT RUN SQL QUERIES, WE USE ?, ?, ?, ?)
+// ONE QUESTION MARK FOR EACH OF THE FIELDS
+
   }
 
   static deleteById(id) {

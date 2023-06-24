@@ -14,8 +14,18 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
   const product = new Product(null, title, imageUrl, description, price);
-  product.save();
-  res.redirect('/');
+  product.save()
+         .then(() => {
+          // we only want to redirect once 
+          // the insert fully completes 
+          res.redirect('/')
+
+  })
+         .catch(err => console.log(err))
+  // res.redirect('/');
+  // and yes if we now add a product, on the admin/add-product 
+  // page, then go back into MySQL, it works, we now have 
+  // a new row with a new book id, title, price, description
 };
 
 exports.getEditProduct = (req, res, next) => {
