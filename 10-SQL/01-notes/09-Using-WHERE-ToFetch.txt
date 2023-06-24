@@ -1,0 +1,10 @@
+==============================
+FETCHING A PRODUCT USING WHERE
+==============================
+
+Let's now practice finding a single product
+back in product.js add this return promise:
+
+ static findById(id) {
+   return db.execute('SELECT * FROM products WHERE products.id = ?', [id])
+  }
