@@ -1,0 +1,32 @@
+=============================
+RETRIEVING DATA FROM MYSQL DB 
+=============================
+
+In the previous lecture we added one dummy row 
+in our products table, that has an id,title,  price, 
+description, imageURL 
+
+And we added inside of app.js: 
+
+const db = require('./util/database.js')
+
+db.execute('SELECT * FROM products').then().catch()
+
+promise method chaining 
+
+They will execute on whatever the SQL syntax returns 
+
+A promise is a JS object, not specific to node, 
+it's also available in the browser 
+
+This enables us to work with ASYNC code, 
+instead of using callbacks, which we could 
+use, but promises allow us to write more 
+structured code we can also write it like: 
+
+db.execute('SELECT * FROM products')
+.then( (result) => {console.log(result)})
+.catch( (err) => {console.log(err)})
+
+This is clean when we have ASYNC tasks to complete 
+
