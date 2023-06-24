@@ -12,3 +12,9 @@ npm install --save mysql2
 
 This package enables us to write SQL code and 
 interact with a database 
+
+The next step is to actually connect the database 
+from inside our application
+
+Go into the util directory and add a database.js file 
+
