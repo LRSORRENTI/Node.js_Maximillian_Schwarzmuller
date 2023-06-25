@@ -1,3 +1,14 @@
 ==================
 What is Sequelize?
 ================== 
+
+Sequelize is a third party package, to be precise 
+it's a: 
+
+Object-Relational Mapping Library or ORM, so what's 
+an ORM anyway? 
+
+Well it means it does all the heavy lifting behind 
+the scenes for us, and maps it into JavaScript 
+objects with convenience methods, which we 
+can call to execute behind the scenes 
