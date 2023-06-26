@@ -1,0 +1,28 @@
+==================
+Setting up MongoDB
+================== 
+
+We'll set up MongoDB Cloud Atlas, it's free,
+all you need to do is create a free account 
+and you're good to go 
+
+After logging into MongoDB, we need to 
+create a new cluster, choose the free option 
+which is M0 
+
+You can change the cluster name, then press 
+create cluster 
+
+=============================
+Installing the MongoDB Driver
+============================= 
+
+Next we also need to connect using 
+a driver and version, first we install in 
+our app: 
+
+npm install mongodb 
+
+Then add the connection string: 
+
+mongodb+srv://username:<password>@clustername.mppqkhv.mongodb.net/?retryWrites=true&w=majority
