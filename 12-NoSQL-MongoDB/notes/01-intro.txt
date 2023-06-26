@@ -1,0 +1,57 @@
+================
+What is MongoDB?
+================
+
+Well mongo is the name 
+of the company, and DB is for 
+data base. 
+
+Mongo is derived from huMONGOus
+as in humongous database, because 
+it can store huge quanitities of 
+data 
+
+MongoDB is capable of dealing with 
+gigantic datasets, and is very 
+popular in the database world 
+
+In MongoDB there are no schemas like 
+SQL databses, we can have any kind of data 
+structured however we like 
+
+Often you'll end up with a similar structure, 
+but you're not forced into one like in SQL
+
+A document in MongoDB looks like: 
+
+JSON (BSON) DATA FORMAT:
+
+{
+    "name": "Luke",
+    "age": 29,
+    "address": {
+        "state": "Wisconsin",
+        "city": "Fond Du Lac",
+    },
+    "hobbies": [
+        {"name": "Running"},
+        {"name": "Golf"}
+    ]
+}
+
+It looks very similar to JSON doesn't it 
+
+Every single document you store must look like 
+the above, or similar for MongoDB, it follows 
+the JSON format, to be precise it uses 
+What is BSON? BSON is a binary encoded 
+Javascript Object Notation (JSON)
+
+Such a JSON document is essentially the same 
+as a JS Object, nested or embedded documents, 
+arrays that hold multiple documents, strings, 
+numbers etc.. 
+
+There's great flexibility in MongoDB, this 
+also means relations are managed a little 
+differently in the MongoDB world 

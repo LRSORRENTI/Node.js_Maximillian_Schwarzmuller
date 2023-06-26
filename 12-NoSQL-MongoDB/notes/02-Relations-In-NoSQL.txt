@@ -1,0 +1,33 @@
+==================
+Relations in NoSQL
+==================
+
+In NoSQL it's normal to have collections 
+that may have duplicate data, in an embedded 
+in another document, in a different collection 
+
+These are how relations are formed, we can 
+take the information that's needed from another 
+document, and copy that into the place you need 
+
+Then we have that data ready to go, it enables 
+the user to query data in the format needed without 
+any trouble 
+
+There's not a need to do a lot of merging, you 
+can grab the data you need without the need to 
+merge multiple collections behind the scenes 
+on the server 
+
+That being said, you can still do that if needed: 
+
+===================
+Relations - Options
+===================
+
+- Nested / Embedded Documents: 
+
+- References 
+
+There's no schema, no structure required, 
+and we have fewer data relations 

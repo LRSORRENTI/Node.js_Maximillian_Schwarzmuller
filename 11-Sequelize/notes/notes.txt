@@ -11,4 +11,58 @@ an ORM anyway?
 Well it means it does all the heavy lifting behind 
 the scenes for us, and maps it into JavaScript 
 objects with convenience methods, which we 
-can call to execute behind the scenes 
+can call to execute behind the scenes SQL code
+
+Meaning we never have to write the SQL code ourselves, 
+the ORM takes care of it for us
+
+It works like this: 
+
+Say we have a user object:
+
+const user = {
+    name: 'Luke',
+    age: 29,
+    email: 'email@email.com',
+    password: 'password'
+}
+
+This object is mapped, and inside of SQL it looks 
+like a table: 
+
+users
+id  name  age       email         password     
+1  'Luke'  29    'email@email.com'  'password'
+
+So when we create a new user, we simply call a 
+convenience method on that JS object and our 
+ORM does the rest for us, Sequelize will auto 
+call the correct SQL command we need to insert
+
+Sequelize looks like: 
+
+const user = user.create({name: 'Luke',
+                          age: 29, 
+                          email: 'email@email.com',
+                          password: 'password'})
+
+So behind the scenes, user.create will turn the 
+above into: 
+
+INSERT INTO users VALUES (1, 'Luke', 28, 'email@email.com', 'password')
+
+Sequelize enables us to use the Models to work with 
+our SQL database, we can then instantiate these models 
+using instantiation methods 
+
+We can even run queries on that as well
+
+As well as utilize associations
+
+Models: User Product 
+
+Instances: const user = User.build()
+
+Queries: User.findAll()
+
+Associations: User.hasMany(Product)
