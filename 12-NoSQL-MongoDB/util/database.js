@@ -79,8 +79,10 @@ callback();
 //instead of calling client in the callback
 // we'll use a variable
 })
-.catch(err => {console.log(err)});
-throw err;
+.catch(err => {
+    console.log(err)
+    throw err;
+});
 // the connect method also returns a promise, which 
 // we want to log, if we do get an error somewhere 
 };
@@ -92,5 +94,5 @@ const getDb = () => {
     throw 'No DB found'
 }
 
-module.exports = mongoConnect;
-module.exports = getDb;
+exports.mongoConnect = mongoConnect;
+exports.getDb = getDb;
