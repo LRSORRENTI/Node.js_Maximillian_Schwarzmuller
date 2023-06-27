@@ -1,0 +1,52 @@
+==========
+Connection
+==========
+
+Okay I wanted to add this as a note as well, I 
+was having some problems with the .env file 
+which houses my MongoDB Cloud Atlas login 
+
+It has to do with the pathing: 
+
+Below with the const login, + absolute path, 
+that works! but below with the path: '/my.env' and 
+path: './my.env' does not, even though my.env 
+is inside the same local diretory as database.js 
+
+const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
+console.log(login, 'success?')
+
+// OKAY AS A NOTE HERE, THE CONFIG PATH IS WORKING WITH 
+// THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
+// success 
+
+// require('dotenv').config({ path: '/my.env' });
+
+
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+// Using .env file to not expose login credentials, 
+// although since this is just a dummy course and 
+// the login for mongodb is unique, it probably doesn't 
+// matter
+
+/// now that we've brought in mongoDb and 
+// saved mongoclient, we can use the client to 
+// connect to our database 
+
+const mongoConnect = (callback) => {
+// MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
+MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
+.then(client => { 
+console.log('Successful Connection');
+callback(client);
+})
+.catch(err => {console.log(err)});
+// the connect method also returns a promise, which 
+// we want to log, if we do get an error somewhere 
+};
+
+module.exports = mongoConnect;
