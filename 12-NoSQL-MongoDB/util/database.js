@@ -49,11 +49,13 @@ console.log(login, 'success?')
 // THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
 // success 
 
-require('dotenv').config({ path: '/my.env' });
+// require('dotenv').config({ path: '/my.env' });
 
 
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
+
+let _db; 
 
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
@@ -68,14 +70,27 @@ const dbPassword = process.env.DB_PASSWORD;
 
 const mongoConnect = (callback) => {
 // MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
-MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
+MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`)
 .then(client => { 
 console.log('Successful Connection');
-callback(client);
+_db = client.db();
+// callback(client);
+callback();
+//instead of calling client in the callback
+// we'll use a variable
 })
 .catch(err => {console.log(err)});
+throw err;
 // the connect method also returns a promise, which 
 // we want to log, if we do get an error somewhere 
 };
 
+const getDb = () => {
+    if(_db){
+        return _db;
+    }
+    throw 'No DB found'
+}
+
 module.exports = mongoConnect;
+module.exports = getDb;
