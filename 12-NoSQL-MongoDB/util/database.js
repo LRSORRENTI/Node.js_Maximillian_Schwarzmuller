@@ -43,9 +43,14 @@
 // aren't nested callbacks, instead we use 
 // promise method chaining
 
+const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
+console.log(login, 'success?')
+// OKAY AS A NOTE HERE, THE CONFIG PATH IS WORKING WITH 
+// THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
+// success 
 
+require('dotenv').config({ path: '/my.env' });
 
-require('dotenv').config({ path: './my.env' });
 
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
