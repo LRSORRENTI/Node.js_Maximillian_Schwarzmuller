@@ -27,9 +27,11 @@
                                     </p>
                                 </div>
                                 <div class="card__actions">
-                                    <a href="/admin/edit-product/<%= product.id %>?edit=true" class="btn">Edit</a>
+                                    <!-- Same thing below, we need to prefix id with 
+                                          ._id                              -->  
+                                    <a href="/admin/edit-product/<%= product._id %>?edit=true" class="btn">Edit</a>
                                     <form action="/admin/delete-product" method="POST">
-                                        <input type="hidden" value="<%= product.id %>" name="productId">
+                                        <input type="hidden" value="<%= product._id %>" name="productId">
                                         <button class="btn" type="submit">Delete</button>
                                     </form>
 
