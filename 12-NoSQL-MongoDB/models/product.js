@@ -1,3 +1,5 @@
+const mongodb = require('mongodb');
+
 const getDb = require('../util/database').getDb;
 
 // Now we can call the above to gain access to our 
@@ -36,10 +38,10 @@ class Product {
       });
   }
 
-  static findByID(prodId){  
+  static findById(prodId){  
         const db = getDb();
         return db.collection('products')
-        .find({_id: prodId})
+        .find({_id: new mongodb.ObjectId(prodId)})
         .next()
         .then(product => {
           console.log(product);
