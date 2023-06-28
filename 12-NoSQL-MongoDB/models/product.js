@@ -10,7 +10,9 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = new mongodb.ObjectId(id);
+    this._id = id ?  new mongodb.ObjectId(id) : null;
+    // With the addition of the ternary check above, 
+    // that way we won't always create an obejectId object 
   }
   save(){
     const db = getDb();
