@@ -59,6 +59,19 @@ class Product {
         })
         .catch(err => console.log(err));
       };
+
+      // Now we'll add a static method for deleting 
+
+      static deleteById(prodId){
+        const db = getDb();
+         return db.collection('products').deleteOne({_id: new mongodb.ObjectId(prodId)})
+         .then(result => {
+          console.log(`Deleted: ${result}`)
+         } )
+         .catch(err => console.log(err))
+      }
+
+
     };
 
 
