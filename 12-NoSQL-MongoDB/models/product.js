@@ -35,7 +35,19 @@ class Product {
         console.log(err);
       });
   }
-}
+
+  static findByID(prodId){  
+        const db = getDb();
+        return db.collection('products')
+        .find({_id: prodId})
+        .next()
+        .then(product => {
+          console.log(product);
+          return product;
+        })
+        .catch(err => console.log(err));
+      };
+    };
 
 
 

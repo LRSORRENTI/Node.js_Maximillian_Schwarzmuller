@@ -25,4 +25,7 @@ npm install mongodb
 
 Then add the connection string: 
 
-mongodb+srv://username:<password>@clustername.mppqkhv.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://username:<password>@clustername.mppqkhv.mongodb.net/?retryWrites=true&w=majority 
+
+We also need to go into our entry point for the 
+app, which is app.js
