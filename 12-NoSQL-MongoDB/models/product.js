@@ -5,12 +5,13 @@ const getDb = require('../util/database').getDb;
 // Now we can call the above to gain access to our 
 // mongoDB cloud atlas database
 class Product {
-  constructor(title, price, description, imageUrl, id){
+  constructor(title, price, description, imageUrl, id, userId){
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
     this._id = id ?  new mongodb.ObjectId(id) : null;
+    this.userId = userId;
     // With the addition of the ternary check above, 
     // that way we won't always create an obejectId object 
   }
