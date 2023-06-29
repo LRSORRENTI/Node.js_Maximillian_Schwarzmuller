@@ -22,7 +22,8 @@
                             <p class="product__description"><%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                                <a href="/products/<%= product.id %>" class="btn">Details</a>
+                            <!-- We need to add '_' before id below, because in mongoDB it's _id-->
+                                <a href="/products/<%= product._id %>" class="btn">Details</a>
                             <%- include('../includes/add-to-cart.ejs', {product: product}) %>
                         </div>
                     </article>

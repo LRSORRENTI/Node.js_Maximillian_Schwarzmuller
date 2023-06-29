@@ -9,6 +9,7 @@ const errorController = require('./controllers/error');
 
 const mongoConnect = require('./util/database').mongoConnect;
 
+const User = require('./models/user');
 
 const app = express();
 
@@ -74,9 +75,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use((req, res, next ) => {
-
-
-    next();
+    User.findById('649c45ea5a1ee1f5f921ee5b')
+    .then(user => {
+        req.user = new User(user.name,
+                             user.email,
+                             user.cart,
+                             user._id);
+        next()
+    })
+    .catch(err => console.log(err))
+    // next();
 });
 
 app.use('/admin', adminRoutes);
