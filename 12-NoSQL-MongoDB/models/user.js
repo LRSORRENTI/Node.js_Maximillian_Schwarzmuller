@@ -52,7 +52,8 @@ addToCart(product){
     // the above is how we add properties on 
     // the fly in JavaScript, we can also 
     // add it below:
-    const updatedCart = {items: [{...product, quantity: 1}]};
+    // const updatedCart = {items: [{...product, quantity: 1}]};
+    const updatedCart = {items: [{productId: new ObjectId(product._id), quantity: 1}]};
     const db = getDb();
     return db.collection('users').updateOne({_id: new ObjectId(this._id)},
     // The below will not merge the old cart with the 
