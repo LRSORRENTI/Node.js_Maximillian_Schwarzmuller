@@ -137,6 +137,32 @@ addToCart(product){
 
   }
 
+  // Here's where we'll add a new method 
+  // for deleting cart items 
+
+  deleteItemFromCart(productId){
+    // We'll use the filter method to define a 
+    // criteria for filtering items in a given 
+    // array, and returns a new array with all 
+    // the filtered items 
+    const updatedCartItems = this.cart.items.filter(item =>{
+      // So we want to keep all items, except the item 
+      // we're deleting
+      return item.productId.toString() !== productId.toString();
+      // So the above should return false in order 
+      // to get rid of it
+    })
+    // Now we should have the updated cart items after
+    // deletion
+    const db = getDb();
+    return db.collection('users').updateOne({_id: new ObjectId(this._id)},
+    // The below will not merge the old cart with the 
+    // updated cart, it will overwrite the old cart 
+    // with the new cart after deletion
+    {$set: {cart: {items: updatedCartItems}}});
+    
+  }
+
   static findById(userId){
     const db = getDb();
      return db.collection('users')

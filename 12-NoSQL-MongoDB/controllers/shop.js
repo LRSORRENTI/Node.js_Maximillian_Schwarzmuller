@@ -233,17 +233,24 @@ exports.postCart = (req, res, next) => {
 //     res.redirect('/cart');
 //   });
 // };
+
+
+// Now let's work on deleting items from the 
+// cart, to delete items we should work on 
+// it in the user.js model
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .getCart()
-    .then(cart => {
-      return cart.getProducts({ where: { id: prodId } });
-    })
-    .then(products => {
-      const product = products[0];
-      return product.cartItem.destroy();
-    })
+    // .getCart()
+    // Now we can call the method from cart.js
+    .deleteItemFromCart(prodId)
+    // .then(cart => {
+    //   return cart.getProducts({ where: { id: prodId } });
+    // })
+    // .then(products => {
+    //   const product = products[0];
+    //   return product.cartItem.destroy();
+    // })
     .then(result => {
       res.redirect('/cart');
     })
