@@ -163,6 +163,29 @@ addToCart(product){
     
   }
 
+// Here we'll add an addOrder method: 
+addOrder(){
+  // In here we'll work with a new collection
+  const db = getDb();
+  // We'll do this by passing in an 'orders' 
+  // argument, and the order will be the 
+  // cart we have
+  db.collection('orders').insertOne(this.cart)
+  // Before we clear the cart we insert it 
+  // into the orders collection
+  .then(result => {
+    this.cart = {items: []}
+    // At this point we empty the cart
+    return db.collection('users')
+    .updateOne({_id: new ObjectId(this._id)},
+    {$set: {cart: {items: []}}});
+    // So now we've cleared the cart in both 
+    // the user object and the database by setting 
+    // it to an empty array
+  })
+}
+
+
   static findById(userId){
     const db = getDb();
      return db.collection('users')

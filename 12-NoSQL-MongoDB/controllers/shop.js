@@ -258,30 +258,40 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 
+// Let's work on adding orders, and we're going 
+// to store orders on users
+
+
 exports.postOrder = (req, res, next) => {
   let fetchedCart;
   req.user
-    .getCart()
-    .then(cart => {
-      fetchedCart = cart;
-      return cart.getProducts();
-    })
-    .then(products => {
-      return req.user
-        .createOrder()
-        .then(order => {
-          return order.addProducts(
-            products.map(product => {
-              product.orderItem = { quantity: product.cartItem.quantity };
-              return product;
-            })
-          );
-        })
-        .catch(err => console.log(err));
-    })
-    .then(result => {
-      return fetchedCart.setProducts(null);
-    })
+  .addOrder()
+  // WE now can comment out the below, and 
+  // utilize our addOrder method
+    // .getCart()
+    // .then(cart => {
+    //   fetchedCart = cart;
+    //   return cart.getProducts();
+    // })
+    // .then(products => {
+    //   return req.user
+    //     .createOrder()
+    //     .then(order => {
+    //       return order.addProducts(
+    //         products.map(product => {
+    //           product.orderItem = { quantity: product.cartItem.quantity };
+    //           return product;
+    //         })
+    //       );
+    //     })
+    //     .catch(err => console.log(err));
+    // })
+    // .then(result => {
+    //   return fetchedCart.setProducts(null);
+    // })
+
+
+
     .then(result => {
       res.redirect('/orders');
     })
