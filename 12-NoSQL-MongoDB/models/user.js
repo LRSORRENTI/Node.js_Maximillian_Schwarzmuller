@@ -209,6 +209,10 @@ return this.getCart().then(products => {
 getOrders(){
   const db = getDb();
   return db.collection('orders')
+  .find({'user._id': new ObjectId(this._id) })
+  // Inside here we can use the find method to 
+  // return an array of orders for that given user
+  .toArray()
 }
 
   static findById(userId){
