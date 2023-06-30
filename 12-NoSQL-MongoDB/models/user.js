@@ -86,6 +86,17 @@ addToCart(product){
     {$set: {cart: updatedCart}})
   }
 
+  // Now let's imlement a getCart method: 
+
+  getCart(){
+    // Ideally we want to return the cart items 
+    // the cart items should exist on the 
+    // user who has this property, this is the 
+    // mongoDB way of thinking about things, 
+    // we don't need to reach out to some cart 
+    //collection we just
+    return this.cart;
+  }
 
   static findById(userId){
     const db = getDb();
