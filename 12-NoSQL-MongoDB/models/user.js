@@ -170,7 +170,24 @@ addOrder(){
   // We'll do this by passing in an 'orders' 
   // argument, and the order will be the 
   // cart we have
-  db.collection('orders').insertOne(this.cart)
+// we can now call get cart and .then to 
+// work with the data getCart returns
+return this.getCart().then(products => {
+
+  const order = {
+    items: products, 
+    user:{
+      _id: new ObjectId(this._id),
+      name: this.name
+      // email: this.email
+    }
+  };
+  return db.collection('orders').insertOne(order)
+})
+    // We can add this because for processed or 
+    // old orders, it doesn't really matter 
+    // if the user email changed
+ 
   // Before we clear the cart we insert it 
   // into the orders collection
   .then(result => {
@@ -185,6 +202,14 @@ addOrder(){
   })
 }
 
+// Now that we have our order storage functionality
+// for a user, let's add a method for grabbing thpse 
+// orders 
+
+getOrders(){
+  const db = getDb();
+  return db.collection('orders')
+}
 
   static findById(userId){
     const db = getDb();
