@@ -155,19 +155,24 @@ exports.getIndex = (req, res, next) => {
 exports.getCart = (req, res, next) => {
   req.user
     .getCart()
-    .then(cart => {
-      return cart
-        .getProducts()
-        .then(products => {
-          res.render('shop/cart', {
-            path: '/cart',
-            pageTitle: 'Your Cart',
-            products: products
-          });
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+    // .then(cart => {
+    //   return cart
+    //     .getProducts()
+    //     .then(products => {
+    //       res.render('shop/cart', {
+    //         path: '/cart',
+    //         pageTitle: 'Your Cart',
+    //         products: products
+    //       });
+    //     })
+    .then(products => {
+      res.render('shop/cart', {
+               path: '/cart',
+                pageTitle: 'Your Cart',
+               products: products
+    });
+  })
+        .catch(err => console.log(err))
 };
 
 
@@ -183,9 +188,11 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
   Product.findById(prodId).then(product => {
-    return req.user.addToCart(product);
+   return req.user.addToCart(product);
+  
   }).then(result => {
     console.log(result)
+    res.redirect('/cart')
   });
   // let fetchedCart;
   // let newQuantity = 1;
@@ -226,17 +233,24 @@ exports.postCart = (req, res, next) => {
 //     res.redirect('/cart');
 //   });
 // };
+
+
+// Now let's work on deleting items from the 
+// cart, to delete items we should work on 
+// it in the user.js model
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .getCart()
-    .then(cart => {
-      return cart.getProducts({ where: { id: prodId } });
-    })
-    .then(products => {
-      const product = products[0];
-      return product.cartItem.destroy();
-    })
+    // .getCart()
+    // Now we can call the method from cart.js
+    .deleteItemFromCart(prodId)
+    // .then(cart => {
+    //   return cart.getProducts({ where: { id: prodId } });
+    // })
+    // .then(products => {
+    //   const product = products[0];
+    //   return product.cartItem.destroy();
+    // })
     .then(result => {
       res.redirect('/cart');
     })
@@ -244,30 +258,40 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 
+// Let's work on adding orders, and we're going 
+// to store orders on users
+
+
 exports.postOrder = (req, res, next) => {
   let fetchedCart;
   req.user
-    .getCart()
-    .then(cart => {
-      fetchedCart = cart;
-      return cart.getProducts();
-    })
-    .then(products => {
-      return req.user
-        .createOrder()
-        .then(order => {
-          return order.addProducts(
-            products.map(product => {
-              product.orderItem = { quantity: product.cartItem.quantity };
-              return product;
-            })
-          );
-        })
-        .catch(err => console.log(err));
-    })
-    .then(result => {
-      return fetchedCart.setProducts(null);
-    })
+  .addOrder()
+  // WE now can comment out the below, and 
+  // utilize our addOrder method
+    // .getCart()
+    // .then(cart => {
+    //   fetchedCart = cart;
+    //   return cart.getProducts();
+    // })
+    // .then(products => {
+    //   return req.user
+    //     .createOrder()
+    //     .then(order => {
+    //       return order.addProducts(
+    //         products.map(product => {
+    //           product.orderItem = { quantity: product.cartItem.quantity };
+    //           return product;
+    //         })
+    //       );
+    //     })
+    //     .catch(err => console.log(err));
+    // })
+    // .then(result => {
+    //   return fetchedCart.setProducts(null);
+    // })
+
+
+
     .then(result => {
       res.redirect('/orders');
     })
@@ -283,7 +307,7 @@ exports.postOrder = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
   req.user
-    .getOrders({include: ['products']})
+    .getOrders()
     .then(orders => {
       res.render('shop/orders', {
         path: '/orders',

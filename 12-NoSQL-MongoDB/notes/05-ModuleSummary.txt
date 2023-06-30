@@ -1,0 +1,18 @@
+==============
+Module Summary
+==============
+
+In this module we learned about NoSQL databases, 
+specifically mongoDB 
+
+- Alternative to SQL databases 
+
+- No strict schemas 
+
+- Reference based relations are viable.
+  but there's more flexibility
+
+- Relations are oftne created by 
+  embedding documents / data 
+
+
