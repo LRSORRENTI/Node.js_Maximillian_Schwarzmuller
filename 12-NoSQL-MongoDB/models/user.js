@@ -94,8 +94,47 @@ addToCart(product){
     // user who has this property, this is the 
     // mongoDB way of thinking about things, 
     // we don't need to reach out to some cart 
-    //collection we just
-    return this.cart;
+    //collection we can return a populated cart: 
+
+    const db = getDb();
+    // so we want to reach out the products collection
+    // then we can use the .find() method to 
+    // find all products in the cart, and in find
+    // we can use special query syntax, we can 
+    // say please find all products where _id is 
+    // using special syntax with an object, we're 
+    // looking for the $in: operator, this mongo operator 
+    // takes an array of ID's and will return a cursor 
+    // that contains references to every id in the array
+    const productIds = this.cart.items.map((i) => {
+      // in here we're mapping an array of items 
+      // in the cart,that are objects into an array 
+      // of just strings, saved into the productIds 
+      // constant, then we pass that into the find method below
+      return i.productId;
+    })
+    return db.collection('products')
+    .find({_id: {$in: [productIds]}})
+    .toArray()
+    .then(products => {
+      // in here we'll use a promise to 
+      // return a mapped version of our data fresh 
+      // from  MongoDB 
+      return products.map(p => {
+        // WE also want to return the quantity so 
+        // we can use arrow funcs because they natively 
+        // refer to the current state of 'this'
+
+        return {...p, quantity: this.cart.items.find(i => {
+          // what's going on here is we're comparing 
+          // the product id to the product Id we get 
+          // back from mongoDB
+          return i.productId.toString() === p._id.toString();
+        }).quantity
+        }
+      })
+    })
+
   }
 
   static findById(userId){
