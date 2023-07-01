@@ -3,7 +3,7 @@ Module Summary
 ==============
 
 In this module we learned about NoSQL databases, 
-specifically mongoDB 
+specifically MongoDB 
 
 - Alternative to SQL databases 
 
@@ -12,7 +12,24 @@ specifically mongoDB
 - Reference based relations are viable.
   but there's more flexibility
 
-- Relations are oftne created by 
+- Relations are often created by 
   embedding documents / data 
 
+====================
+Working with MongoDB
+====================
+
+- Use the official MongoDB driver 
+
+- Commands like insertOne(), find(), 
+  updateOne(), and deleteOne() make CRUD 
+  operations simple
+
+- Check the MongoDB docs for a more in depth 
+  guide on available operations and configuration
+  operators 
+
+- All operations are promise-based .then(), .catch(),
+  and you can easily chain these methods for more 
+  involved control flows
 

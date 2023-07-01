@@ -1,0 +1,95 @@
+======================
+Mongoose - What is it?
+======================
+
+Mongoose is to MongoDB what Sequelize was 
+to mySQL
+
+Mongoose has a similar purpose to Sequelize, 
+it wants to enable you to have an easier time 
+working with the data, and now having to worry 
+about the queries quite as much 
+
+
+Mongoose is commonly referred to as
+an ODM (Object Data Modeling) library 
+for MongoDB, it does exhibit some similarities
+to ORMs in terms of its functionality
+and the way it interacts with the database.
+
+Mongoose provides a mapping layer between
+JavaScript objects and MongoDB
+documents, allowing you to define schemas,
+create models, perform CRUD operations,
+and define relationships between data.
+  
+These features are similar to what you would 
+find in an ORM. However, since MongoDB 
+is a NoSQL database, and Mongoose is 
+specifically designed for MongoDB, 
+it is more accurate to classify it as 
+an ODM rather than an ORM.
+
+So, while the term "ORM" is typically 
+associated with SQL databases, Mongoose 
+behaves in a similar manner by 
+abstracting away some of the database-related 
+complexities and providing a more object-oriented 
+way to work with MongoDB.
+
+===============================
+The main idea remains the same: 
+===============================
+
+We have data, let's say a user document: 
+
+User: name, age, email, password 
+
+And we want to save that user data into a collection,
+we want to map that data
+
+So the user object could be mapped like: 
+
+id: 1
+name: "Luke"
+age: 28
+email: mongoose123@mongoose.com
+password: wasda123
+
+And we could hard write the query which would 
+look like: 
+
+db.collection('users').insertOne(
+    { name: 'Luke', 
+      age: 28,
+      email: mongoose123@mongoose.com,
+      password: wasda123
+    }
+)
+
+But the ODM approach is more akin to: 
+
+const user = User.create({
+    name: 'Luke', 
+    age: 28,
+    email: mongoose123@mongoose.com,
+    password: wasda123
+})
+
+Mongoose let's us define the models, and it 
+will take care of the queries for us behind 
+the scenes 
+
+We can always modify the queries if needed but 
+mongoose will make life easier when working 
+with MongoDB
+
+=============
+Core Concepts
+=============
+
+Schemas and models ----> eg. User, Product
+
+Instantiations --------->  const user = new User()
+
+Queries ----------------> User.find()
