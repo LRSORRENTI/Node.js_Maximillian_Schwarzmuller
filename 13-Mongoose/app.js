@@ -32,13 +32,40 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoose
-  .connect(
-    'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/test?retryWrites=true'
-  )
-  .then(result => {
-    app.listen(3000);
+// mongoose
+//   .connect(
+//     'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/test?retryWrites=true'
+//   )
+//   .then(result => {
+//     app.listen(3000);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+// const mongoConnect = (callback) => {
+  // MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
+  const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
+require('dotenv').config({ path: '/util/my.env' });
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+
+  console.log(login, 'success?')
+// OKAY AS A NOTE HERE, THE CONFIG PATH IS WORKING WITH 
+// THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
+// success 
+  mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`)
+  .then(client => { 
+  console.log(client, 'Successful Connection');
+  app.listen(3000)
+  // callback(client);
+  // callback();
+  //instead of calling client in the callback
+  // we'll use a variable
   })
   .catch(err => {
-    console.log(err);
+      console.log(err)
+      throw err;
   });
+  // the connect method also returns a promise, which 
+  // we want to log, if we do get an error somewhere 
+  // };

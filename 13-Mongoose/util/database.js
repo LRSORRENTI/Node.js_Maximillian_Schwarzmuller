@@ -43,8 +43,8 @@
 // aren't nested callbacks, instead we use 
 // promise method chaining
 
-const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
-console.log(login, 'success?')
+// const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
+// console.log(login, 'success?')
 // OKAY AS A NOTE HERE, THE CONFIG PATH IS WORKING WITH 
 // THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
 // success 
@@ -52,13 +52,9 @@ console.log(login, 'success?')
 // require('dotenv').config({ path: '/my.env' });
 
 
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
+// const mongodb = require('mongodb');
+// const MongoClient = mongodb.MongoClient;
 
-let _db; 
-
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
 // Using .env file to not expose login credentials, 
 // although since this is just a dummy course and 
 // the login for mongodb is unique, it probably doesn't 
@@ -68,31 +64,31 @@ const dbPassword = process.env.DB_PASSWORD;
 // saved mongoclient, we can use the client to 
 // connect to our database 
 
-const mongoConnect = (callback) => {
+// const mongoConnect = (callback) => {
 // MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
-MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`)
-.then(client => { 
-console.log('Successful Connection');
-_db = client.db();
+// MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`)
+// .then(client => { 
+// console.log('Successful Connection');
+// _db = client.db();
 // callback(client);
-callback();
+// callback();
 //instead of calling client in the callback
 // we'll use a variable
-})
-.catch(err => {
-    console.log(err)
-    throw err;
-});
+// })
+// .catch(err => {
+//     console.log(err)
+//     throw err;
+// });
 // the connect method also returns a promise, which 
 // we want to log, if we do get an error somewhere 
-};
+// };
 
-const getDb = () => {
-    if(_db){
-        return _db;
-    }
-    throw 'No DB found'
-}
+// const getDb = () => {
+//     if(_db){
+//         return _db;
+//     }
+//     throw 'No DB found'
+// }
 
-exports.mongoConnect = mongoConnect;
-exports.getDb = getDb;
+// exports.mongoConnect = mongoConnect;
+// exports.getDb = getDb;
