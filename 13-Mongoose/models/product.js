@@ -76,3 +76,25 @@
 // }
 
 // module.exports = Product;
+
+
+const mongoose = require('mongoose');
+
+// The below constructor allows us to create 
+// new schemas 
+const Schema = mongoose.Schema;
+
+
+// Then we can pass in a JS object to the 
+// constructor new Schema, and inside of the 
+// object we define how the product should 
+// blueprint
+const productSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+        // What we're doing here is saying
+        // every product requires a title, 
+        // and the title must be a string
+    }
+});
