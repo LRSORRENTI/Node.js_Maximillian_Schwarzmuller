@@ -96,5 +96,29 @@ const productSchema = new Schema({
         // What we're doing here is saying
         // every product requires a title, 
         // and the title must be a string
-    }
-});
+    },
+    price: {
+    type: Number,
+    required: true
+},
+    description: {
+        type: String,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: true
+     }
+   }
+);
+
+// The above defines our product blueprint
+// but now we need to use a method that 
+// mongoose has called model() and what 
+// model does is behind the scenes is 
+// connect a blueprint like the one above 
+// with a name, we'll pass in 'Product', the 
+// second argument is our schema, which is 
+// productSchema from above
+
+module.exports = mongoose.model('Product', productSchema)
