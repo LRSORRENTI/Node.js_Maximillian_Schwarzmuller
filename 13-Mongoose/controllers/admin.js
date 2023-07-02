@@ -72,15 +72,28 @@ exports.postEditProduct = (req, res, next) => {
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
 
-  const product = new Product(
-    updatedTitle,
-    updatedPrice,
-    updatedDesc,
-    updatedImageUrl,
-    prodId
-  );
-  product
-    .save()
+  // const product = new Product(
+  //   updatedTitle,
+  //   updatedPrice,
+  //   updatedDesc,
+  //   updatedImageUrl,
+  //   prodId
+  // );
+  // So instead of the above, where we create 
+  // a product, then call .save, we'll find the 
+  // product
+  Product.findById(prodId)
+  .then(product => {
+    product.title = updatedTitle;
+    product.price = updatedPrice;
+    product.description = updatedDesc;
+    product.imageUrl = updatedImageUrl;
+    return product.save()
+    // now we have a setup where we find 
+    /// a product, and get back a full mongoose 
+    // object, we then call save on it, then 
+     // redirect after save is executed
+  })
     .then(result => {
       console.log('UPDATED PRODUCT!');
       res.redirect('/admin/products');
@@ -89,7 +102,10 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
+  // Product.fetchAll()
+  // Again we change fetchAll to 
+  // find since we're using mongoose
+  Product.find()
     .then(products => {
       res.render('admin/products', {
         prods: products,
