@@ -1,6 +1,49 @@
 // const mongodb = require('mongodb');
 // const getDb = require('../util/database').getDb;
 
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+// now that we have mongoose, let's work 
+// on the user schema
+
+const userSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String, 
+        required: true
+    },
+    cart: {
+        items: [
+                {
+                productId: {
+                    // Inside here we need to use 
+                    // special mongoose types.ObjectId
+                    // this tells mongooose this value 
+                    // needs to be ObjectId, a reference
+                    // to a product
+                    type: Schema.Types.ObjectId,
+                    required: true
+
+                },
+                quantity: {
+                    type: Number,
+                    required: true
+                }
+            }
+        ]
+    }
+})
+
+// And now we export that schema with the same 
+// export syntax we used in product.js
+module.exports = mongoose.model('User', userSchema)
+
+
+
 // const ObjectId = mongodb.ObjectId;
 
 // class User {
@@ -126,3 +169,4 @@
 // }
 
 // module.exports = User;
+
