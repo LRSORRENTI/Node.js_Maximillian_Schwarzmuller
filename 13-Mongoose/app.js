@@ -55,7 +55,7 @@ const dbPassword = process.env.DB_PASSWORD;
 // THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
 // success 
   mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`)
-  .then(client => {
+  .then(result => {
     User.findOne().then(user => {
       // so if user is not set !user
       if(!user){

@@ -108,6 +108,18 @@ const productSchema = new Schema({
     imageUrl: {
         type: String,
         required: true
+     },
+     userId: {
+        type: Schema.Types.ObjectId,
+        // note that what we pass into 
+        // ref below must match
+        // module.exports = mongoose.model('User', userSchema)
+        // the argument for mongoose.model from user schema
+        ref: 'User',
+        required: true
+        // And now we have a relation set up, now 
+        // we can go back into user.js and add 
+        // a reference to the items array, productId
      }
    }
 );

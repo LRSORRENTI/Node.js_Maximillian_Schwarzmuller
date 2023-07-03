@@ -29,7 +29,9 @@ exports.postAddProduct = (req, res, next) => {
     title: title,
     price: price,
     description: description,
-    imageUrl: imageUrl
+    imageUrl: imageUrl,
+    // below gives access to user id and assigns it
+    userId: req.user
   });
   product
     .save()
