@@ -26,6 +26,7 @@ const userSchema = new Schema({
                     // needs to be ObjectId, a reference
                     // to a product
                     type: Schema.Types.ObjectId,
+                    ref: 'Product',
                     required: true
 
                 },
