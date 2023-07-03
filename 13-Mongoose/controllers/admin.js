@@ -107,8 +107,60 @@ exports.getProducts = (req, res, next) => {
   // Product.fetchAll()
   // Again we change fetchAll to 
   // find since we're using mongoose
-  Product.find()
+  // Product.find()
+  // Mongoose has a useful utility method
+  // we can implement called populate, 
+  // which populates a field with all info,
+  // instead of just the id
+  // .populate('userId')
+  //   .then(products => {
+  //     console.log(products)
+      /* 
+      [
+  {
+    _id: 64a2cecf1d156b25d41f069b,
+    title: 'A nice book',
+    price: 24.99,
+    description: 'Lorem ipsum',
+    imageUrl: 'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
+    userId: {
+      cart: [Object],
+      _id: 64a1947fb3829883c8589d0e,
+      name: 'Luke',
+      email: 'email@myNewEmail.com',
+      __v: 0
+    },
+    __v: 0
+  }
+]
+// Now we have all the data, instead of writing 
+// nested queries 
+*/
+Product.find()
+// after find we can also call .select(), 
+// maybe we just want the title and the price, 
+// but we don't care for any other fields, and 
+// we can even exclude fields by prefixing a '-'
+// like -_id
+.select('title price -_id')
+.populate('userId', 'name')
+// now we see in the console: 
+/*
+[
+  {
+    title: 'A nice book',
+    price: 24.99,
+    userId: { _id: 64a1947fb3829883c8589d0e, name: 'Luke' }
+  },
+  {
+    title: 'A nice book',
+    price: 24.99,
+    userId: { _id: 64a1947fb3829883c8589d0e, name: 'Luke' }
+  }
+]
+*/
     .then(products => {
+      console.log(products)
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
