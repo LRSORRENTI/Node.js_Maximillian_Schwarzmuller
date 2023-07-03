@@ -142,8 +142,8 @@ Product.find()
 // but we don't care for any other fields, and 
 // we can even exclude fields by prefixing a '-'
 // like -_id
-.select('title price -_id')
-.populate('userId', 'name')
+// .select('title price -_id')
+// .populate('userId', 'name')
 // now we see in the console: 
 /*
 [
