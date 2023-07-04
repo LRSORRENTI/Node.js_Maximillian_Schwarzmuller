@@ -64,8 +64,12 @@ exports.getCart = (req, res, next) => {
     // can use that mongoose method 
     // .populate again
     .populate('cart.itmes.productId')
-    .then(products => {
-      console.log(products)
+    // But we need to method chain to get a promise
+    // we use .execPopulate
+    .execPopulate()
+    .then(user => {
+      // console.log(user.cart.items);
+      const products = user.cart.items;
       res.render('shop/cart', {
         path: '/cart',
         pageTitle: 'Your Cart',
@@ -90,7 +94,9 @@ exports.postCart = (req, res, next) => {
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .deleteItemFromCart(prodId)
+    // .deleteItemFromCart(prodId)
+    // we now use the updated method:
+    .removeFromCart(prodId)
     .then(result => {
       res.redirect('/cart');
     })

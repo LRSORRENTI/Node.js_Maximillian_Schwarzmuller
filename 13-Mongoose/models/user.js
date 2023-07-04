@@ -93,6 +93,20 @@ userSchema.method.addToCart = function(product) {
           }
 
 
+
+    // Now we'll utilize another method for deleting 
+    // just like we did above for add to cart
+
+    userSchema.method.removeFromCart = function(productID) {
+        const updatedCartItems = this.cart.items.filter(item => {
+                 return item.productId.toString() !== productId.toString();
+               });
+        this.cart.items = updatedCartItems;
+        return this.save();
+        // Now we have a method we can call to 
+        // remove an item from the cart 
+    }
+
 // And now we export that schema with the same 
 // export syntax we used in product.js
 module.exports = mongoose.model('User', userSchema)
