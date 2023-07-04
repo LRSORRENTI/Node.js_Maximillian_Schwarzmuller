@@ -39,6 +39,45 @@ const userSchema = new Schema({
     }
 })
 
+// Now we can relate data and store products 
+// we need to work on the shopping cart
+
+// To do this we can use the mongoose methods
+// key:
+
+userSchema.method.addToCart = function(product) {
+    // important to note the function needs 
+    // to be written like the above, so that 
+    // 'this' refers to the schema and not 
+    // something else 
+    const cartProductIndex = this.cart.items.findIndex(cp => {
+              return cp.productId.toString() === product._id.toString();
+            });
+            let newQuantity = 1;
+            const updatedCartItems = [...this.cart.items];
+        
+            if (cartProductIndex >= 0) {
+              newQuantity = this.cart.items[cartProductIndex].quantity + 1;
+              updatedCartItems[cartProductIndex].quantity = newQuantity;
+            } else {
+              updatedCartItems.push({
+                productId: new ObjectId(product._id),
+                quantity: newQuantity
+              });
+            }
+            const updatedCart = {
+              items: updatedCartItems
+            };
+            const db = getDb();
+            return db
+              .collection('users')
+              .updateOne(
+                { _id: new ObjectId(this._id) },
+                { $set: { cart: updatedCart } }
+              );
+          }
+
+
 // And now we export that schema with the same 
 // export syntax we used in product.js
 module.exports = mongoose.model('User', userSchema)
