@@ -61,8 +61,16 @@ userSchema.method.addToCart = function(product) {
               updatedCartItems[cartProductIndex].quantity = newQuantity;
             } else {
               updatedCartItems.push({
-                productId: new ObjectId(product._id),
-                quantity: newQuantity
+                    // The below won't work,
+                    // productId: new ObjectId(product._id), but we can 
+                    // store it with:
+                    productId: product._id,
+                    // now monggose will auto-wrap it in 
+                    // an object for us
+                    quantity: newQuantity
+                    // NOTE: the names we define 
+                    // above inside of userSchema must 
+                    /// match down here 
               });
             }
             const updatedCart = {
