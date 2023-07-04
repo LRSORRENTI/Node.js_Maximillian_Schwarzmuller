@@ -76,13 +76,20 @@ userSchema.method.addToCart = function(product) {
             const updatedCart = {
               items: updatedCartItems
             };
-            const db = getDb();
-            return db
-              .collection('users')
-              .updateOne(
-                { _id: new ObjectId(this._id) },
-                { $set: { cart: updatedCart } }
-              );
+            // const db = getDb();
+            // we don't need to get access to the 
+            // database like this anymore
+            // return db
+            //   .collection('users')
+            //   .updateOne(
+            //     { _id: new ObjectId(this._id) },
+            //     { $set: { cart: updatedCart } }
+            //   );
+            // And instead of the above we'll just call: 
+            this.cart = updatedCart;
+            return this.save();
+            // This is now a utlity method where the object 
+            // saves itself, where we update the cart
           }
 
 

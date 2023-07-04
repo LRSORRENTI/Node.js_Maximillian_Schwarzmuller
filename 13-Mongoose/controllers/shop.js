@@ -59,8 +59,13 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   req.user
-    .getCart()
+    // .getCart()
+    // Instead of calling getCart, we 
+    // can use that mongoose method 
+    // .populate again
+    .populate('cart.itmes.productId')
     .then(products => {
+      console.log(products)
       res.render('shop/cart', {
         path: '/cart',
         pageTitle: 'Your Cart',
