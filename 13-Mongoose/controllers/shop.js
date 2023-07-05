@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Order = require('../models/order')
 
 exports.getProducts = (req, res, next) => {
     Product.find()
@@ -104,7 +105,27 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
-  let fetchedCart;
+  // let fetchedCart;
+  req.user.populate('cart.items.productId')
+  .execPopulate()
+  .then(user => {
+    const products = user.cart.items.map(i => {
+      // We use map to store them in products array,
+      // and map will still have quantity, and product
+      // field will have all product data
+      return {quantity: i.quantity,
+              product: i.productId}
+    });
+    const order = new Order({
+      user: {
+        name: req.user.name,
+        // we can just use the entire user and 
+        // mongoose will select the userId
+        userId: req.user
+      },
+      products: 
+    });
+  });
   req.user
     .addOrder()
     .then(result => {
