@@ -107,6 +107,16 @@ userSchema.method.addToCart = function(product) {
         // remove an item from the cart 
     }
 
+// Now we'll implement a method for clearing the 
+// cart
+
+userSchema.methods.clearCart = function(){
+  this.cart = {
+    items: []
+  }
+  return this.save()
+}
+
 // And now we export that schema with the same 
 // export syntax we used in product.js
 module.exports = mongoose.model('User', userSchema)

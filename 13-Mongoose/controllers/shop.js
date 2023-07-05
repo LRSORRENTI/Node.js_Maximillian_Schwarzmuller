@@ -1,6 +1,5 @@
 const Product = require('../models/product');
 const Order = require('../models/order')
-const user = require('../models/user')
 
 exports.getProducts = (req, res, next) => {
     Product.find()
@@ -144,14 +143,16 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  req.user
-    .getOrders()
-    .then(orders => {
-      res.render('shop/orders', {
-        path: '/orders',
-        pageTitle: 'Your Orders',
-        orders: orders
-      });
-    })
+  // now we can use the find method to find 
+  // all orders where the userId is equal to 
+  // the id of the logged in user
+  Order.find({"user.userId": req.user._id})
+  .then(orders => {
+    res.render('shop/orders', {
+      path: '/orders',
+      pageTitle: 'Your Orders',
+      orders: orders
+    });
+  })
     .catch(err => console.log(err));
 };
