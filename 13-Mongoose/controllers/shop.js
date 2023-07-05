@@ -114,7 +114,11 @@ exports.postOrder = (req, res, next) => {
       // and map will still have quantity, and product
       // field will have all product data
       return {quantity: i.quantity,
-              product: i.productId}
+              product: {...i.productId._doc}}
+              // we also add the spread operator 
+              // and the ._doc which grabs the 
+              // document data and store it inside 
+              // of a new product object above
     });
     const order = new Order({
       user: {
@@ -123,12 +127,12 @@ exports.postOrder = (req, res, next) => {
         // mongoose will select the userId
         userId: req.user
       },
-      products: 
+      products: products
     });
-  });
-  req.user
-    .addOrder()
-    .then(result => {
+    return order.save()
+    // We then user order.save to save that order 
+    // to the database 
+    }).then(result => {
       res.redirect('/orders');
     })
     .catch(err => console.log(err));
