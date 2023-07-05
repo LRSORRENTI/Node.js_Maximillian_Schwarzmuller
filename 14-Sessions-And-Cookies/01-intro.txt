@@ -1,0 +1,40 @@
+====================
+Sessions and Cookies
+====================
+
+Let's explore some mechanisms for storing 
+data in memory, and the client side 
+
+We'll go in depth into what cookies and 
+sessions are, why they are used, and how 
+they are used together 
+
+=================
+What is a cookie?
+=================
+
+If we have a user on the client side, and a 
+server where our node app lives, the user 
+interacts with the front-end views we have 
+rendering 
+
+And from that view maybe we have an input field, 
+when the user submits we send a request to our 
+node server, let's say this request needs us to store 
+some kind of data in the browser
+
+If the user logs in successfully, we need a way 
+to remember that the user is logged in, so 
+if the user refreshes the page, it doesn't ask 
+them to log in again
+
+So we can send back a cookie, user submits login, 
+login is successful, we send back a response, 
+which could be a new view, but we also include 
+our cookie
+
+And that cookie is important for storing that info 
+that the user is validly logged in, and we 
+can store that information in the browser
+
+Cookies are stored on the client side!

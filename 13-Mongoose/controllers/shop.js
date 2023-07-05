@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Order = require('../models/order')
 
 exports.getProducts = (req, res, next) => {
     Product.find()
@@ -59,8 +60,17 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   req.user
-    .getCart()
-    .then(products => {
+    // .getCart()
+    // Instead of calling getCart, we 
+    // can use that mongoose method 
+    // .populate again
+    .populate('cart.itmes.productId')
+    // But we need to method chain to get a promise
+    // we use .execPopulate
+    .execPopulate()
+    .then(user => {
+      // console.log(user.cart.items);
+      const products = user.cart.items;
       res.render('shop/cart', {
         path: '/cart',
         pageTitle: 'Your Cart',
@@ -85,7 +95,9 @@ exports.postCart = (req, res, next) => {
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .deleteItemFromCart(prodId)
+    // .deleteItemFromCart(prodId)
+    // we now use the updated method:
+    .removeFromCart(prodId)
     .then(result => {
       res.redirect('/cart');
     })
@@ -93,24 +105,54 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
-  let fetchedCart;
-  req.user
-    .addOrder()
-    .then(result => {
+  // let fetchedCart;
+  req.user.populate('cart.items.productId')
+  .execPopulate()
+  .then(user => {
+    const products = user.cart.items.map(i => {
+      // We use map to store them in products array,
+      // and map will still have quantity, and product
+      // field will have all product data
+      return {quantity: i.quantity,
+              product: {...i.productId._doc}}
+              // we also add the spread operator 
+              // and the ._doc which grabs the 
+              // document data and store it inside 
+              // of a new product object above
+    });
+    const order = new Order({
+      user: {
+        name: req.user.name,
+        // we can just use the entire user and 
+        // mongoose will select the userId
+        userId: req.user
+      },
+      products: products
+    });
+    return order.save()
+    // We then user order.save to save that order 
+    // to the database 
+    }).then(result => {
+      return req.user.clearCart()
+      // res.redirect('/orders');
+    })
+    .then(() => {
       res.redirect('/orders');
     })
     .catch(err => console.log(err));
 };
 
 exports.getOrders = (req, res, next) => {
-  req.user
-    .getOrders()
-    .then(orders => {
-      res.render('shop/orders', {
-        path: '/orders',
-        pageTitle: 'Your Orders',
-        orders: orders
-      });
-    })
+  // now we can use the find method to find 
+  // all orders where the userId is equal to 
+  // the id of the logged in user
+  Order.find({"user.userId": req.user._id})
+  .then(orders => {
+    res.render('shop/orders', {
+      path: '/orders',
+      pageTitle: 'Your Orders',
+      orders: orders
+    });
+  })
     .catch(err => console.log(err));
 };
