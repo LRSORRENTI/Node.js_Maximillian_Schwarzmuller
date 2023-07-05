@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Order = require('../models/order')
+const user = require('../models/user')
 
 exports.getProducts = (req, res, next) => {
     Product.find()
@@ -133,6 +134,10 @@ exports.postOrder = (req, res, next) => {
     // We then user order.save to save that order 
     // to the database 
     }).then(result => {
+      return req.user.clearCart()
+      // res.redirect('/orders');
+    })
+    .then(() => {
       res.redirect('/orders');
     })
     .catch(err => console.log(err));
