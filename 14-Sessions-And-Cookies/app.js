@@ -14,14 +14,16 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const authRoutes = require('./routes/auth')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('5bab316ce0a7c75f783cb8a8')
+  User.findById('64a1947fb3829883c8589d0e')
     .then(user => {
       req.user = user;
+      // req.user = new User(user.name, user.email, user.cart, user._id);
       next();
     })
     .catch(err => console.log(err));
@@ -29,10 +31,26 @@ app.use((req, res, next) => {
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+// So we don't pass in a filter like we did with 
+// 'admin' because anything not found in shopRoutes
+// will auto go inside of authRoutes to find it
+app.use(authRoutes);
 
 app.use(errorController.get404);
 
-const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
+// mongoose
+//   .connect(
+//     'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/test?retryWrites=true'
+//   )
+//   .then(result => {
+//     app.listen(3000);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+// const mongoConnect = (callback) => {
+  // MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
+  const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
 require('dotenv').config({ path: '/util/my.env' });
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
@@ -57,7 +75,21 @@ const dbPassword = process.env.DB_PASSWORD;
       }
     });
     app.listen(3000);
-  })
-  .catch(err => {
-    console.log(err)
-  })
+  // .then(client => { 
+  // console.log(client, 'Successful Connection');
+  // callback(client);
+  // callback();
+  //instead of calling client in the callback
+  // we'll use a variable
+  // })
+  // .catch(err => {
+  //     console.log(err)
+  //     throw err;
+  // });
+})
+.catch(err => {
+  console.log(err)
+})
+  // the connect method also returns a promise, which 
+  // we want to log, if we do get an error somewhere 
+  // };
