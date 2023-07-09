@@ -6,7 +6,7 @@
 
 const express = require('express');
 
-const adminController = require('../controllers/admin');
+const authController = require('../controllers/auth')
 
 const router = express.Router();
 
@@ -14,8 +14,6 @@ const router = express.Router();
 // we also need to register the route in the main
 // app.js
 
-router.get('/login', (req, res, next) => {
-
-})
+router.get('/login', authController.getLogin)
 
 module.exports = router;
