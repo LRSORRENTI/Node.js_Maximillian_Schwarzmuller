@@ -1,0 +1,19 @@
+===============================
+Adding the Request Driven Logic
+===============================
+
+Now that we've added the basic login route, 
+and added a little styling to it, we'll not 
+implement authentication right now, we'll 
+have an entire module, but we'll take a dive into
+sessions and cookies!
+
+Let's say when the user presses 'login' button
+we'll send a request to the backend form, which 
+is what we stored in auth login, we send a POST 
+request to /login 
+
+In a real scenario, we'd need to validate email 
+and password, which we'll look at later, but for 
+learning purposes in this module we'll assume 
+the input is valid   
