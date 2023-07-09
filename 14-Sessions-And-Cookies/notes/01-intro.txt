@@ -38,3 +38,11 @@ that the user is validly logged in, and we
 can store that information in the browser
 
 Cookies are stored on the client side!
+
+We're going to create a dummy login page, and 
+there'll be a complete module focusing on 
+authentication
+
+We'll create a new route that will navigate to 
+/login 
+
