@@ -1,0 +1,26 @@
+====================
+Manipulating Cookies
+====================
+
+In the last section we learned how to set 
+a cookie, as well as how we extract the 
+true value from it 
+
+There are also third party packages available
+that make handling cookies easier, but the way we 
+extracted the value works  
+
+BUT THERE'S A BIG FLAW
+
+Inside of the dev tools we can easily just change 
+the cookie Value from true to false 
+
+That's the rub, we can manipulate it from inside 
+the browser, and we don't want the users of our website 
+to log in by Manipulating a cookie value
+
+That leads to an important point, sensitive data 
+should never be accessible inside the browser, 
+since users can access and edit it
+
+That's where Sessions can assist us 
