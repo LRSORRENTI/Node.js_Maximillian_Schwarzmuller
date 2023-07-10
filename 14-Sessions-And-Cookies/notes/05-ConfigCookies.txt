@@ -1,0 +1,40 @@
+===================
+Configuring Cookies
+===================
+
+We learned cookies can be easily manipulated, 
+so storing sensitive data inside of a cookie is 
+not something we're going to want to do 
+
+But for tracking users, cookies can be useful
+
+We can also add addtional values to our cookie: 
+
+exports.postLogin = (req, res, next) => {
+    res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=3600')
+    // with Max-Age=3600  our cookie 
+    //will expire after 3600 seconds, or 1 hour
+    res.redirect('/');
+}
+
+exports.postLogin = (req, res, next) => {
+    res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=3600'; Secure)
+    // We can also set Secure as a value, meaning the 
+    // page will only be served via HTTPS not HTTP
+    res.redirect('/');
+}
+
+exports.postLogin = (req, res, next) => {
+    res.setHeader('Set-Cookie', 'loggedIn=true; HttpOnly')
+    // we can also add HttpOnly, which protects us from 
+    // malicious scripting attacks, or XSS attacks 
+    // with the HttpOnly value, we can't access the cookie 
+    // client side, the cookie value cannot be read client side 
+    // We'll learn more about this in the authentication
+    // module
+    res.redirect('/');
+}
+
+Often we won't directly set cookies ourself, we 
+typically utilize well tested authentication packages 
+which will assist us in managing cookies 
