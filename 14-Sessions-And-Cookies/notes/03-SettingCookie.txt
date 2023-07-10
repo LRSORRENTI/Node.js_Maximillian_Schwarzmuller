@@ -1,0 +1,21 @@
+================
+Setting a Cookie
+================
+
+We learned that after the req res cycle, 
+the req.isLogged: true, doesn't persist 
+
+Which is not ideal, making users log back 
+in constantly
+
+That's what cookies will assist us with, 
+a cookie will store data, for one user, in 
+the client browser just for them 
+
+This personal cookie will have no effect 
+on any other logged in users on our site, 
+since they all will have unique cookies 
+
+The job of the cookie is to say: 'I am already 
+logged in, and authenticated' 
+
