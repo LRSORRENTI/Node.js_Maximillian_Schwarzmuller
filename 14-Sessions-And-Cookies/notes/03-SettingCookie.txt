@@ -19,3 +19,39 @@ since they all will have unique cookies
 The job of the cookie is to say: 'I am already 
 logged in, and authenticated' 
 
+So how do we set a cookie? 
+
+Well we start by adding a header: 
+  
+
+  exports.postLogin = (req, res, next) => {
+
+    // We set the header in our response,
+// and we pass in 'Set-Cookie'
+    // this 'Set-Cookie' is reserved, it's 
+    // a special phrase which... sets a cookie!
+
+    res.setHeader('Set-Cookie', 'loggedIn=true' );
+
+    // and the second arg is the value of the header, 
+    // which is a key value pair
+
+    res.redirect('/');
+}
+// And yes, if we look at the dev tools, 
+// and in the application tab, scroll down 
+// to cookies, we see our cookie!
+
+// Name: loggedIn
+// Value: true
+
+// And now that our cookie is set, the browser 
+// sends it to the server for every request that's 
+// now made 
+
+// and now let's click on the products link, 
+// which takes us to the product page, then 
+// look at the network tab in dev tools, 
+// we see the 200 ok  GET request, 
+// and if we scroll down to request 
+// headers, we see our cookie!! loggedIn=true
