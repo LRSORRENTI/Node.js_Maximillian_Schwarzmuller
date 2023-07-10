@@ -17,3 +17,33 @@ In a real scenario, we'd need to validate email
 and password, which we'll look at later, but for 
 learning purposes in this module we'll assume 
 the input is valid   
+
+So back inside of our controllers/auth.js 
+let's add another controller method
+
+  exports.postLogin = (req, res, next) => {
+   res.redirect('/');
+  };
+  
+  The most important thing to note is that 
+  every request is unique, we can work on a 
+  request
+
+  Requests made from the same ip address, or 
+  same exact user are treated as unique Requests
+
+  This is a deliberate design, if we do send the 
+  response back, that request cycle is over, 
+  it's done
+
+  exports.postLogin = (req, res, next) => {
+    req.isLoggedIn = true;
+    res.redirect('/')
+};
+
+the req.isLoggedIn = true; does not persist, 
+it's gone!! 
+
+Which means the user would need to re-login 
+every time!
+
