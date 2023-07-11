@@ -1,0 +1,34 @@
+=====================================
+Actually using the session middleware
+=====================================
+
+How do we actually use the session middleware? 
+
+We can utilize it inside of our auth.js controller, 
+in setHeader, instead of setting a cookie:
+
+ exports.postLogin = (req, res, next) => {
+    res.setHeader('Set-Cookie', 'loggedIn=true' );
+    res.redirect('/');
+}
+
+We can instead: 
+
+exports.postLogin = (req, res, next) => {
+    req.session.isLoggedIn = true;
+    res.redirect('/');
+}
+
+Now if we save, and look in the browser dev tools 
+application tab, we instead see the connect.sid 
+
+sid being short for session id, we look at the value 
+next to sid, we see a very long value of letters and 
+numbers 
+
+This is our session cookie!
+
+It will expire when we close the browser, this session
+cookie will identify the user, or the current running 
+instance of the web app where they're browsing
+
