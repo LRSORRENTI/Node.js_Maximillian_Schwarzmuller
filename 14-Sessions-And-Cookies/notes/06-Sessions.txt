@@ -1,0 +1,25 @@
+========
+SESSIONS
+========
+
+To impelement a session we'll need another package, 
+express-session 
+
+So inside of the directory run: 
+
+npm install --save express-session 
+
+We want to initialize the session early on, 
+when we spool up the server we want to initilize 
+the session middleware, that way the session can be 
+used for every incoming request 
+
+
+Then inside of app.js: 
+
+const path = require('path');
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const session = require('express-session')
