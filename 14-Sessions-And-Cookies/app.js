@@ -19,6 +19,24 @@ const authRoutes = require('./routes/auth')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+// Below is where we'll register our session, inside 
+// we pass in a JS object where we configure the 
+// session setup, we first set up a secret key, which 
+// in production should be a long string of chars and 
+// nums but for learning purposes we'll keep it simple
+
+// Also set the resave key to false, meaning the session 
+// won't save on every request / response, it will only 
+// save if something changed in the session
+
+// also pass in the saveUnitialized set to false, 
+// which ensures no session gets saved for a req 
+// where it doesn't need to be
+app.use(session({secret: 'my secret',
+                resave: false,
+                saveUninitialized: false
+              }))
+
 
 app.use((req, res, next) => {
   User.findById('64a1947fb3829883c8589d0e')
