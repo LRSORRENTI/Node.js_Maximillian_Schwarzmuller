@@ -1,0 +1,39 @@
+===============================
+Using MongoDB to store sessions
+===============================
+
+The problem we have right now is that our sessions 
+are stored in memory, and memory is not infinite 
+
+So for learning purposes it's okay but for a real 
+application it wouldn't be viable 
+
+If we have 100,000 or more users, our memory would 
+very quickly overflow
+
+And from a security perspective it's also not ideal 
+
+So we want to store our sessions, and if we look at the 
+express-session package docs, we see all kinds of 
+stores are supported, like 
+
+connect-mysql-session, connect-session-firebase, 
+dynamoDB-store, and of course:
+
+ connect-mongodb-session 
+
+ so inside the terminal enter: 
+
+ npm install --save connect-mongodb-session 
+
+ And to setup our new store functionality
+ back inside of app.js we bring in the 
+ package 
+
+ const MongoDBStore = require('connect-mongodb-session')
+
+But we also want to pass in session as an argument like 
+this: 
+
+const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session)

@@ -4,11 +4,32 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session')
+// add the new session store below
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
+const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/14-Sessions-And-Cookies/util/my.env'});
+require('dotenv').config({ path: '/util/my.env' });
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+console.log(login, ':success?')
+// Let's also store the connection string from below 
+// inside of a variable for easier use 
+
+// const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`
+// As a note the above was not working, need to remove retryWrites: 
+
+const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
+
 const app = express();
+// now initialize the store: 
+const store = new MongoDBStore({
+  url: MONGODB_URI,
+  collection: 'sessions'
+})
+
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -34,7 +55,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // where it doesn't need to be
 app.use(session({secret: 'my secret',
                 resave: false,
-                saveUninitialized: false
+                saveUninitialized: false,
+                store: store
               }))
 
 
@@ -69,16 +91,16 @@ app.use(errorController.get404);
 //   });
 // const mongoConnect = (callback) => {
   // MongoClient.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/?retryWrites=true&w=majority`)
-  const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
-require('dotenv').config({ path: '/util/my.env' });
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
+//   const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/12-NoSQL-MongoDB/util/my.env'});
+// require('dotenv').config({ path: '/util/my.env' });
+// const dbUser = process.env.DB_USER;
+// const dbPassword = process.env.DB_PASSWORD;
 
-  console.log(login, 'success?')
+  // console.log(login, 'success?')
 // OKAY AS A NOTE HERE, THE CONFIG PATH IS WORKING WITH 
 // THE ACTUAL PATH WHEN  path: '/my.env' or path:'./my.env' no 
 // success 
-  mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`)
+  mongoose.connect(MONGODB_URI)
   .then(result => {
     User.findOne().then(user => {
       // so if user is not set !user
