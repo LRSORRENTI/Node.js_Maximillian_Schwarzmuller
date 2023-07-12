@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const session = require('express-session')
 // add the new session store below
 // const MongoDBStore = require('connect-mongodb-session')(session);
-const MongoDBStore = require('connect-mongodb-session')
+const MongoDBStore = require('connect-mongodb-session')(session);
+
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
@@ -24,7 +25,7 @@ console.log(login, MONGODB_URI, ':success?')
 
 const app = express();
 // now initialize the store: 
-const Store = new MongoDBStore({
+const store = new MongoDBStore({
   url: MONGODB_URI,
   collection: 'sessions'
 })
@@ -52,12 +53,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // also pass in the saveUnitialized set to false, 
 // which ensures no session gets saved for a req 
 // where it doesn't need to be
+
 app.use(session({secret: 'my secret',
                 resave: false,
                 saveUninitialized: false,
-                store: Store
+                store: store
               }))
-
 
 app.use((req, res, next) => {
   User.findById('64a1947fb3829883c8589d0e')
