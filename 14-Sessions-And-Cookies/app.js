@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session')
 // add the new session store below
-const MongoDBStore = require('connect-mongodb-session')(session);
-
+// const MongoDBStore = require('connect-mongodb-session')(session);
+const MongoDBStore = require('connect-mongodb-session')
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
@@ -14,18 +14,17 @@ const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming
 require('dotenv').config({ path: '/util/my.env' });
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
-console.log(login, ':success?')
+const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
+console.log(login, MONGODB_URI, ':success?')
 // Let's also store the connection string from below 
 // inside of a variable for easier use 
 
 // const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`
-// As a note the above was not working, need to remove retryWrites: 
-
-const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
+// As a note the above was not working, need to remove retryWrites:
 
 const app = express();
 // now initialize the store: 
-const store = new MongoDBStore({
+const Store = new MongoDBStore({
   url: MONGODB_URI,
   collection: 'sessions'
 })
@@ -56,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret: 'my secret',
                 resave: false,
                 saveUninitialized: false,
-                store: store
+                store: Store
               }))
 
 
