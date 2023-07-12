@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session')
 // add the new session store below
+// const MongoDBStore = require('connect-mongodb-session')(session);
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const errorController = require('./controllers/error');
@@ -14,14 +15,13 @@ const login = require('dotenv').config({path:'C:/Users/lrsor/Desktop/Programming
 require('dotenv').config({ path: '/util/my.env' });
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
-console.log(login, ':success?')
+const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
+console.log(login, MONGODB_URI, ':success?')
 // Let's also store the connection string from below 
 // inside of a variable for easier use 
 
 // const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop?retryWrites=true&w=majority`
-// As a note the above was not working, need to remove retryWrites: 
-
-const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
+// As a note the above was not working, need to remove retryWrites:
 
 const app = express();
 // now initialize the store: 
@@ -53,12 +53,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // also pass in the saveUnitialized set to false, 
 // which ensures no session gets saved for a req 
 // where it doesn't need to be
+
 app.use(session({secret: 'my secret',
                 resave: false,
                 saveUninitialized: false,
                 store: store
               }))
-
 
 app.use((req, res, next) => {
   User.findById('64a1947fb3829883c8589d0e')
