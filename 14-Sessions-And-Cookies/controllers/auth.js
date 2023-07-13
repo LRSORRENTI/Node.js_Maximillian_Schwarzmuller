@@ -1,3 +1,5 @@
+const User = require('../models/user')
+
 exports.getLogin = (req, res, next) => {
   // console.log(req.get('Cookie'));
   // Now that below we added our cookie, let's 
