@@ -71,6 +71,23 @@ console.log(req.session.isLoggedIn)
 // Now let's use the session package instead
 
 exports.postLogin = (req, res, next) => {
-  req.session.isLoggedIn = true;
-  res.redirect('/');
+  User.findById('64a1947fb3829883c8589d0e')
+  .then(user => {
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+    res.redirect('/')
+  })
+.catch(err => console.log(err))
+}
+
+exports.postLogout = (req, res, next) => {
+  // inside here is where we'll clear out 
+  // our session
+  req.session.destroy((err) => {
+    console.log(err)
+    res.redirect('/')
+  });
+  // we can call a method called destroy, a method 
+  // offered by the package we're using
+
 }
