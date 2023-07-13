@@ -21,6 +21,7 @@ exports.getLogin = (req, res, next) => {
 //         .trim()
 //         .split('=')[1];
 // console.log(isLoggedIn) // true
+console.log(req.session.isLoggedIn)
        res.render('auth/login', {
           path: '/login',
           pageTitle: 'Login',
