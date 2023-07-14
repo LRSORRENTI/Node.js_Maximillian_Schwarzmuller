@@ -45,7 +45,13 @@ app.use(session({secret: 'my secret',
               }));
 
               app.use((req, res, next) => {
-                User.findById('64a1947fb3829883c8589d0e')
+                // User.findById('64a1947fb3829883c8589d0e')
+                // instead of finding a user like above we'll
+                // instead: 
+                if(!req.session.user){
+                 return next();
+                }
+                User.findById(req.session.user._id)
                   .then(user => {
                     req.user = user;
                     // req.user = new User(user.name, user.email, user.cart, user._id);

@@ -1,0 +1,36 @@
+==============
+MODULE SUMMARY
+==============
+
+In this modules we learned about cookies: 
+
+Cookies are: 
+
+- Great for storing data on the client side 
+
+- Don't store any sensitive data here, as it 
+  can be easily viewed and manipulated
+
+- Cookies can be configured to expire when the 
+  browser is closed or when an expiry date is 
+  reached
+
+- Works well along with sessions
+
+
+We also learned about sessions: 
+
+- Stored on the server, not the client
+
+- Great for storing sensitive data that must 
+  persist across requests 
+
+- Anything can be stored inside sessions !
+
+- Often used for authentication purposes
+
+- Identified via Cookie, which is different than 
+  'Session Cookie' 
+
+- Possible to use different storage techniques for 
+  saving sessions on the server 
