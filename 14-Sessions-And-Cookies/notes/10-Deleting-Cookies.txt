@@ -1,3 +1,14 @@
 ================
 Deleting Cookies 
 ================
+
+Now that we've started using sessions, 
+regarding the logout, we just delete the session cookie 
+to demonstrate what happens when we access something 
+stored in a deleted session cookie, it fails 
+
+Because the session cookie used to identify the correct 
+session is absent 
+
+There is a way is to use a method provided by the 
+session middleware 
