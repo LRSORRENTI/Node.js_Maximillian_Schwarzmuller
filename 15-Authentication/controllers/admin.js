@@ -1,12 +1,6 @@
 const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
-  if(!req.session.isLoggedIn){
-    // so if the above is true, the user 
-    // is not logged in, and this page 
-    // should not be reachable
-    return res.redirect('/login')
-  }
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
