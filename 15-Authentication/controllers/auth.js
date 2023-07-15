@@ -19,15 +19,71 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  User.findById('64a1947fb3829883c8589d0e')
-    .then(user => {
-      req.session.isLoggedIn = true;
-      req.session.user = user;
-      req.session.save(err => {
-        console.log(err);
-        res.redirect('/');
-      });
+  // Now we need to do some updating to how 
+  // we find users, instead we want to find 
+  // them by email
+  const email = req.body.email;
+  const password = req.body.password;
+  // User.findById('64a1947fb3829883c8589d0e')
+  User.findOne({email: email})
+  // so if we find an email by comparing the 
+  // email key to the extracted email above
+  .then(user => {
+    if(!user){
+      // so if we make it into this block, it means 
+      // a user was not found we redirect back to 
+      // login
+      return res.redirect('/login')
+    }
+    // So if we make it past the above check we know 
+    // that the email is inside mongoDB, we use 
+    // the bycrypt method compare, first arg is the 
+    // password we extract, second is the user.password 
+    // field
+    bcrypt.compare(password, user.password)
+    // the above also returns a promise, it takes 
+    // some time to compare the values
+    .then(doMatch => {
+      // important to note, if the password check fails
+      // we make it inside here, we also make it inside 
+      // here if we're successful
+      if(doMatch){
+        // if we're good to go, passwords match, 
+        // we redirect to home page
+        req.session.isLoggedIn = true;
+        req.session.user = user;
+        // also need to add the return block 
+        // since this is a promise, otherwise 
+        // it will auto return res.redirect('/login')
+        return req.session.save(err => {
+          console.log(err);
+          res.redirect('/')
+        });
+      }
+      // if they don't match back to login
+      res.redirect('/login')
     })
+    .catch(err => {
+      // if we make it inside here, we want to redirect
+      // back to login
+      console.log(err)
+      res.redirect('/login')
+    })
+    // req.session.isLoggedIn = true;
+    // req.session.user = user;
+    // req.session.save(err => {
+    //   console.log(err);
+    //   res.redirect('/');
+    // });
+  })
+    // .then(user => {
+    //   req.session.isLoggedIn = true;
+    //   req.session.user = user;
+    //   req.session.save(err => {
+    //     console.log(err);
+    //     res.redirect('/');
+    //   });
+    // })
     .catch(err => console.log(err));
 };
 
