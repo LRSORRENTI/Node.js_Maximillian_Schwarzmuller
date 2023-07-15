@@ -63,18 +63,21 @@ app.use(errorController.get404);
 mongoose
   .connect(MONGODB_URI)
   .then(result => {
-    User.findOne().then(user => {
-      if (!user) {
-        const user = new User({
-          name: 'Luke',
-          email: 'email@myNewEmail.com',
-          cart: {
-            items: []
-          }
-        });
-        user.save();
-      }
-    });
+    // User.findOne().then(user => {
+    //   if (!user) {
+    //     const user = new User({
+    //       name: 'Luke',
+    //       email: 'email@myNewEmail.com',
+    //       cart: {
+    //         items: []
+    //       }
+    //     });
+    //     user.save();
+    //   }
+    
+    // We can now comment out the above, because, 
+    // we have our signup, auth and user creation
+    // flow
     app.listen(3000);
   })
   .catch(err => {

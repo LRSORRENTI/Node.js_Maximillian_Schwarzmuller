@@ -1,0 +1,53 @@
+==============
+AUTHENTICATION
+==============
+
+Now that we've learned about sessions and cookies, 
+we can dive into real authentication, allowing 
+users to sign up, sign in, and ensure resources 
+can only be accessed by authorized users, really 
+lock down access to users that are authenticated
+
+We'll learn: 
+
+- What authentication actually is 
+
+- Storing and using credentials 
+
+- Protecting routes
+
+
+So what is authentication? 
+
+If we have a web app, we have a client side user, 
+and if they're authenticated, they can interact with 
+products, place orders, view cart items, and they 
+do all this on the client side, while we have our 
+server and database to house that data
+
+The caveat is that not all of these actions are 
+accessible, if they're not logged in, we don't want 
+them to be able to have certain functionalities, 
+if they are logged in and authenticated then they 
+will have access
+
+Anyone, logged in or not, should be able to browse 
+products, but managing a cart, and placing orders 
+should only be available to the authenticated users 
+
+How do we implement authentication? 
+
+Well if we have a user that's signed up, and they 
+login, a login request is sent, if the login 
+credentials are correct in our database, we then 
+create a session for this user 
+
+Remember why sessions are important, if we 
+didn't create a session, with every request the 
+user would need to log back in 
+
+Then we send back a success response 200 ok, 
+we can store the session ID in a cookie, and 
+now that the session ID is stored in the cookie, 
+our user has access to all features available to 
+logged in users 

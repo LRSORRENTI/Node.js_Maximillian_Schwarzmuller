@@ -1,0 +1,49 @@
+================
+ROUTE PROTECTION
+================
+
+Now we have a problem if we logout, and the session 
+is gone, we still inside the address bar enter 
+/admin/add-product and reach that page
+
+This shouldn't be available, the user is not logged 
+in, it shouldn't have access to the page by 
+manually entering /admin/add-product
+
+That page shouldn't be able to be loaded if we're 
+not logged in
+
+To protect routes, we want to ensure the user 
+is authenticated, before render the add-product page
+
+We can do this check inside the controllers
+
+We ideally want to add these checks for every route
+that requireds being authenticated to view, 
+but adding these checks one by one to all the 
+ controllers is a bit cumbersome 
+
+There's a way to use middleware to protect routes
+
+exports.getAddProduct = (req, res, next) => {
+  if(!req.session.isLoggedIn){
+    // so if the above is true, the user 
+    // is not logged in, and this page 
+    // should not be reachable
+    return res.redirect('/login')
+  }
+  res.render('admin/edit-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
+    editing: false,
+    isAuthenticated: req.session.isLoggedIn
+  });
+};
+
+Now if we logout, then manually, inside the address 
+bar enter /admin/add-product, we don't have access anymore, 
+it redirects to /login
+
+But if we log back in, then go back to /add-product, 
+we're good to go, we made it past the check since we 
+are actually logged in
