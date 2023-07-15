@@ -72,13 +72,12 @@ User.findOne({email: email})
   // takes time to hash the password, we'll utilize 
   /// promise chaining to resolve
  return bcrypt.hash(password, 12)
-})
-.then(hashedPassword => {
-  const user = new User({
-    email: email,
-    password: hashedPassword,
-    cart: { items: [] }
-  })
+    .then(hashedPassword => {
+        const user = new User({
+          email: email,
+          password: hashedPassword,
+          cart: { items: [] }
+  });
   // and after updating user model, we can call
   // .save() to save this user
   return user.save();
@@ -88,7 +87,8 @@ User.findOne({email: email})
   res.redirect('/login')
 })
 .catch(err => console.log(err))
-};
+  });
+}
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
