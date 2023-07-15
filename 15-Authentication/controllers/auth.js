@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs')
+
 const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
@@ -51,20 +53,37 @@ User.findOne({email: email})
   if(userDoc){
     // should also display a message to the user, 
     // right now we only have it redirecting
-    res.redirect('/signup')
+   return res.redirect('/signup')
   }
   // Now if we make it here, we've confirmed that 
   // the email input is valid, it doesn't yet exist
   // in our mongoDB atlas, so we can create a new one
+
+
+  // Now we'll also utilize bcrypt to encrypt our password
+  // bcrypt.hash is a method that takes in two arguments, 
+  // first we'll pass in our password, second is the 
+  // salt value, basically how many rounds of hashing 
+  // will be applied, the higher the value the longer it 
+  // will take, but the more secure it will be, currently
+  // 12-20 is accepted as secure
+
+  // Note though. this is an async function since it 
+  // takes time to hash the password, we'll utilize 
+  /// promise chaining to resolve
+ return bcrypt.hash(password, 12)
+})
+.then(hashedPassword => {
   const user = new User({
     email: email,
-    password: password,
+    password: hashedPassword,
     cart: { items: [] }
   })
   // and after updating user model, we can call
   // .save() to save this user
   return user.save();
-}).then(result => {
+})
+.then(result => {
   // we'll also chain another promise, where we redirect
   res.redirect('/login')
 })

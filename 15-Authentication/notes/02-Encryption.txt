@@ -1,0 +1,13 @@
+==========
+ENCRYPTION
+==========
+
+We saw in the last lecture how to extract email and 
+password from the signup page, and store it inside of 
+mongoDB, but there's a big problem, it's in plain text
+
+We need to implement an an ENCRYPTION technique to 
+safely store passwords, we can use a package called 
+bcrpytjs
+
+in the terminal run: npm install --save bcryptjs
