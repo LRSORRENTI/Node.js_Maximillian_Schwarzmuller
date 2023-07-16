@@ -10,4 +10,6 @@ We need to implement an an ENCRYPTION technique to
 safely store passwords, we can use a package called 
 bcrpytjs
 
-in the terminal run: npm install --save bcryptjs
+in the terminal run: npm install --save bcryptjs 
+
+Then in the auth Controller we can use bcrpytjs
