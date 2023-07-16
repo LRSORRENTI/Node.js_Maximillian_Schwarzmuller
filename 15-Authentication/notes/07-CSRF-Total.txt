@@ -1,0 +1,36 @@
+==========
+CSRF TOTAL
+==========
+
+We saw in the last lecture how to add CSRF tokens 
+to an individual getIndex method inside of 
+shop.js controller, but adding that CSRF field 
+for every method everywhere is a bit cumbersome 
+
+We want to tell Express.js that have data that needs 
+to be present in every rendered view 
+
+app.js:
+
+app.use(csrfProtection)
+
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then(user => {
+      req.user = user;
+      next();
+    })
+    .catch(err => console.log(err));
+});
+
+// After we get the user, but before the routes
+// is where we'll use CSRF 
+
+app.use(req, res, next){
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+}

@@ -60,6 +60,15 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
+// After we get the user, but before the routes
+// is where we'll use CSRF 
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+})
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
