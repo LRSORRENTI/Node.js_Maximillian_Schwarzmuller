@@ -1,0 +1,26 @@
+=======================
+Protecting against CSRF
+=======================
+
+So we'll install a package called csurf
+
+npm install --save csurf 
+
+This package will allow us to generate a CSRF 
+token, which is a string value we'll embed 
+into our forms, for every request that 
+changes the users state 
+
+Like ordering something, or anything sensitive 
+
+Then on the server, this package will check if 
+that request does have a valid token
+
+This means that the fake sites can send requests, 
+but none of those requests will have a valid token
+
+And guessing the token isn't feasible, as it's a 
+random hashed value, and only one value is valid 
+
+And a new token is generated for every page that's 
+rendered
