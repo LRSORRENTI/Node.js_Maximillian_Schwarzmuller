@@ -1,0 +1,66 @@
+==========================
+Understanding CSRF attacks
+==========================
+
+Now that we have our authentication flow, and 
+route protection in place, let's talk more about 
+security, specifically CSRF attacks
+
+CSRF or Cross-Site Request Forgery is an 
+attack pattern, where people can try to abuse 
+sessions, and trick users of your app into
+executing malicious code  
+
+Let's break it down, you have a user that's logged 
+in, we have our node app and database which we render 
+in our frontend views, where the user interacts 
+
+We have a session for that user, and a cookie belonging 
+to that session
+
+In our shop app, let's say the user can order a product 
+and enter in details in a checkout process
+
+In this kind of attack, the user is tricked into 
+clicking a link, maybe in an email, and that site 
+can look like your own page, but underneath it's not 
+
+On that fake version of your site, there could 
+be a link leading to your actual real page, 
+executing some request there, maybe a form that 
+sends a POST request to your page, to the node 
+server 
+
+Where we added some fields that contain sensitive
+information, like processing a payment
+
+For the user, it's invisiible, maybe the page looks 
+identical to the view rendered on your app
+
+Why does this work? 
+
+Since we have a valid session for a user, if 
+we send something to your server, your session 
+is used for that user 
+
+Therefore the behind the scenes data, that configures
+the payment, in a certain way , the valid session 
+gets used for it, because your server is used 
+
+It's a pattern that steals sessions, it abuses the 
+fact that users are logged in, then the users are 
+tricked into making requests they may not notice
+
+How can we protect against this kind of attack? 
+
+We want to ensure that anyone can only work with 
+a session, if they are working with your views 
+
+That way any fake pages, that are not your views 
+specifically, the sessions are not available on anything 
+other than your views 
+
+To do this kind of protection, we'll used a 
+CSRF token
+
+
