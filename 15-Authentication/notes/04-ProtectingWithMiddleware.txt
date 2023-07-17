@@ -1,0 +1,25 @@
+==================================
+USING MIDDLEWARE TO PROTECT ROUTES
+================================== 
+
+Remember from the last lecture we manually added 
+the check to
+exports.getAddProduct = (req, res, next) => {
+  if(!req.session.isLoggedIn){
+    // so if the above is true, the user 
+    // is not logged in, and this page 
+    // should not be reachable
+    return res.redirect('/login')
+  }
+  res.render('admin/edit-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
+    editing: false,
+    isAuthenticated: req.session.isLoggedIn
+  });
+};
+
+we could add the if(!req.session.isLoggedIn)
+manually, but that's not ideal, we can instead 
+add a middleware, we'll actually create a brand 
+new folder in the root dir called 'middleware'

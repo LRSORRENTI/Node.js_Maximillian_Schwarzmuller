@@ -63,4 +63,3 @@ other than your views
 To do this kind of protection, we'll used a 
 CSRF token
 
-
