@@ -16,7 +16,6 @@ const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
-// const MONGODB_URI = `mongodb+srv://mongomaxnode:PyKhZVx3DcedrdtQ@maxnode.mppqkhv.mongodb.net/shop`
 const app = express();
 const store = new MongoDBStore({
   uri: MONGODB_URI,
