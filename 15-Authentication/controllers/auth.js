@@ -7,6 +7,14 @@ exports.getLogin = (req, res, next) => {
     path: '/login',
     pageTitle: 'Login',
     // isAuthenticated: false
+    // amd inside here we'll include an
+    // error key:
+    errorMessage: req.flash('error')
+    // and the argument passed in is the 
+    // key we used below inside of 
+    // req.flash('error', 'Invalid login credentials' )
+    // the key must match, could be changed to 
+    // 'err' but must be updated in both places 
   });
 };
 
@@ -30,6 +38,15 @@ exports.postLogin = (req, res, next) => {
   // email key to the extracted email above
   .then(user => {
     if(!user){
+      // And this is also where we want to flash 
+      // an error message with our newly added 
+      // connect-flash package
+      // and we call req.flash() which takes 
+      // in a key, then the message 
+      req.flash('error', 'Invalid login credentials' )
+      // req.flash('')
+
+
       // so if we make it into this block, it means 
       // a user was not found we redirect back to 
       // login
