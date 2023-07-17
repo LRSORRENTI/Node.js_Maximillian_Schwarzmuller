@@ -1,0 +1,26 @@
+=======================
+Providing User Feedback
+=======================
+
+There's a problem we have right now, 
+if we want to pass in data into the rendered view 
+if we're redirecting 
+
+We also learned that if we need to share data across 
+requests, we need a session
+
+We'll use a session, but we don't want to store 
+error messages for the end user inside permanently
+
+We can implement a way to show the error message, 
+then remove it from the session, so for any 
+requests made after, that error message is not 
+present
+
+For this we'll use another package to help 
+streamline this process
+
+npm install --save connect-flash
+
+And connect-flash is simple to use, back inside 
+of app.js 

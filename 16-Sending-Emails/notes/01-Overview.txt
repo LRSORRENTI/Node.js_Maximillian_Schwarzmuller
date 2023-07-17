@@ -1,0 +1,42 @@
+==============
+Sending Emails
+==============
+
+This module will focus on how we can send 
+emails from our node app 
+
+Sending emails is an essential task in modern 
+web applications 
+
+A good example is when a user successfully signs up, 
+sending them a confirmation email is standard 
+practice everywhere 
+
+How does this work? 
+
+Well we have our node server, and an end user, 
+and we want to send an email to that user 
+
+But with node, it's not easy to trivially create 
+a dedicated mailing server 
+
+Handling mails is different than handling req, res 
+cycles, it's a totally different setup 
+
+Therefore in reality, you'll likely never hard code 
+build your own unique mailing server, it's a complex 
+task, creating a mailing server that is capable of 
+sending thousands, tens of thousands of emails 
+simultaneously, and doing it securely 
+is way beyond the scope of this course 
+
+Which is why we continue our trend of using 
+third party packages, and in this case a 
+third party mail server 
+
+Many large web apps, including Udemy, don't have 
+an in house mail server team, they outsource 
+it to a dedicated third party service 
+
+And for learning purposes we'll use a service 
+called SendGrid

@@ -3,18 +3,40 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
+  console.log(req.flash('error'));
+  let message = req.flash('error');
+  if(message.length > 0){
+    message = message[0]
+  } else {
+    message = null;
+  }
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
-    isAuthenticated: false
+    // isAuthenticated: false
+    // amd inside here we'll include an
+    // error key:
+    errorMessage: message
+    // and the argument passed in is the 
+    // key we used below inside of 
+    // req.flash('error', 'Invalid login credentials' )
+    // the key must match, could be changed to 
+    // 'err' but must be updated in both places 
   });
 };
 
 exports.getSignup = (req, res, next) => {
+  let message = req.flash('error');
+  if(message.length > 0){
+    message = message[0]
+  } else {
+    message = null;
+  }
   res.render('auth/signup', {
     path: '/signup',
     pageTitle: 'Signup',
-    isAuthenticated: false
+    // isAuthenticated: false
+    errorMessage: message
   });
 };
 
@@ -30,6 +52,15 @@ exports.postLogin = (req, res, next) => {
   // email key to the extracted email above
   .then(user => {
     if(!user){
+      // And this is also where we want to flash 
+      // an error message with our newly added 
+      // connect-flash package
+      // and we call req.flash() which takes 
+      // in a key, then the message 
+      req.flash('error', 'Invalid login credentials' )
+      // req.flash('')
+
+
       // so if we make it into this block, it means 
       // a user was not found we redirect back to 
       // login
@@ -61,6 +92,7 @@ exports.postLogin = (req, res, next) => {
         });
       }
       // if they don't match back to login
+      req.flash('error', 'invalid login credentials')
       res.redirect('/login')
     })
     .catch(err => {
@@ -107,6 +139,7 @@ User.findOne({email: email})
   // needs to use a different email
   // so if UserDoc return a redirect back to signup
   if(userDoc){
+    req.flash('error', 'Email already exists, choose another')
     // should also display a message to the user, 
     // right now we only have it redirecting
    return res.redirect('/signup')
