@@ -1,0 +1,27 @@
+==============
+Module Summary
+==============
+
+In this module, we learned about the basics of 
+authentication: 
+
+- Authentication means that not every user 
+  has the ability to view and interact with 
+  everything
+
+- Authentication has to happen server-side and 
+  builds on sessions
+
+- We can protect routes by checkeing the 
+  session-controlled login status before 
+  accessing a controller action
+
+Security and UX: 
+
+- Passwords should be stored in a hashed form
+
+- CSRF attacks are a real issue and web apps must 
+  include CSRF protection! 
+
+- For better UX, include ways of flashing error 
+  messages that can be displayed in views 
