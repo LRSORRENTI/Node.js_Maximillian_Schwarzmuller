@@ -11,6 +11,10 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 
 const csrf = require('csurf')
 
+const flash = require('connect-flash');
+// now we need to register our error session package
+// connect-flash
+
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
@@ -47,6 +51,9 @@ app.use(
 );
 
 app.use(csrfProtection);
+// important to note, these packages need to be 
+// initialized after the session is created 
+app.use(flash)
 
 app.use((req, res, next) => {
   if (!req.session.user) {
