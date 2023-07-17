@@ -1,14 +1,17 @@
+require('dotenv').config({path: 'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/16-Sending-Emails/util/my.env'})
+
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
 
+const sendGridAPI = process.env.SEND_GRID_API;
+
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key:
-        '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'
+      api_key: sendGridAPI
     }
   })
 );
