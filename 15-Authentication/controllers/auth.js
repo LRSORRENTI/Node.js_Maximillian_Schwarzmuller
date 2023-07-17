@@ -3,13 +3,20 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
+  console.log(req.flash('error'));
+  let message = req.flash('error');
+  if(message.length > 0){
+    message = message[0]
+  } else {
+    message = null;
+  }
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
     // isAuthenticated: false
     // amd inside here we'll include an
     // error key:
-    errorMessage: req.flash('error')
+    errorMessage: message
     // and the argument passed in is the 
     // key we used below inside of 
     // req.flash('error', 'Invalid login credentials' )
