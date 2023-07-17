@@ -1,0 +1,9 @@
+==============
+Sending Emails 
+==============
+
+First up we run: 
+
+npm install --save nodemailer 
+npm install --save nodemailer-sendgrid-transport
+
