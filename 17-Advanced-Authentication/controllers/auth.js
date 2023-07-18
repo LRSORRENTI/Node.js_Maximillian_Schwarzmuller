@@ -131,9 +131,9 @@ exports.getReset = (req, res, next) => {
   } else {
     message = null;
   }
-  res.render('auth/reset'), {
+  res.render('auth/reset', {
     path: '/reset',
     pageTitle: 'Reset Password',
     errorMessage: message
-  }
+  })
 }
