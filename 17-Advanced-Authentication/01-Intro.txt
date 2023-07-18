@@ -14,3 +14,12 @@ and in general improve overall security of our app
 
 We'll also ensure that only users who've created 
 a post, are able to edit it 
+
+Resetting passwords is a common functionality across 
+web applications 
+
+People forget passwords, they need a way of resetting 
+them 
+
+To implement this we'll need to add a new view
+and some new routes 
