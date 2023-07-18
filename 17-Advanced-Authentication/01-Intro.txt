@@ -1,0 +1,16 @@
+=======================
+Advanced Authentication
+=======================
+
+In this module we'll learn: 
+
+- Resetting Passwords 
+
+- Authorization
+
+
+We can improve our authentication workflow, 
+and in general improve overall security of our app 
+
+We'll also ensure that only users who've created 
+a post, are able to edit it 
