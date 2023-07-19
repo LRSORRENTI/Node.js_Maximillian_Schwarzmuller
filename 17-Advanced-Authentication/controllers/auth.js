@@ -1,4 +1,6 @@
-require('dotenv').config({path: 'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/16-Sending-Emails/util/my.env'})
+require('dotenv').config({path: './util/my.env'})
+
+const crypto = require('crypto');
 
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
@@ -136,4 +138,24 @@ exports.getReset = (req, res, next) => {
     pageTitle: 'Reset Password',
     errorMessage: message
   })
+}
+
+exports.postReset = (req, res, next) => {
+  // this action will be triggered once the reset 
+  // button is clicked 
+
+  // and we'll use the randomBytes method which is 
+  // a callback function, first arg is 32 for 32 bytes
+  // second arg is our callback
+  crypto.randomBytes(32, (err, buffer) => {
+    if(err){
+      console.log(`Error from randomBytes 151: ${err}`);
+          return  res.redirect('/reset')
+    }
+    // so if we make it in here, we've got a valid buffer 
+    const token = buffer.toString('hex')
+    // we also pass in hex to the toString method, 
+    // this argument is necessary for toString to 
+    // convert hex to normal ASCII characters 
+  } )
 }
