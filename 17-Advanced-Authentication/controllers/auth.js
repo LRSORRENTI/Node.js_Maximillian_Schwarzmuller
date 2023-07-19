@@ -161,5 +161,35 @@ exports.postReset = (req, res, next) => {
     // And if we're good, this token should be added to 
     // the user object, and we can use this token to 
     // verify and authenticate 
+    User.findOne({email: req.body.email})
+    .then(user => {
+      if(!user){
+        req.flash('error', 'Invalid email' );
+        return res.redirect('/reset')
+      }
+      // if we make it past the above, we know 
+      // that it's a valid email that exists in our 
+      // database
+      user.resetToken = token;
+      user.resetTokenExpiration = Date.now() + 3600000;
+      // so above we use three million, six hundred thousand 
+      // milliseconds, or One Hour. 60 minutes 
+      return user.save()
+    })
+    .then(result => {
+      res.redirect('/');
+       transporter.sendMail({
+        to: req.body.email,
+        from: 'shop@node-complete.com',
+        subject: 'Reset Password',
+        html: `
+          <p>You requested a password reset</p>
+          <p>Click this link <a href="/localhost:3000/reset/${token}"></a>to create a new password</p>
+        `
+      });
+    })
+    .catch(err => {
+      console.log(err)
+    })
   } )
 }
