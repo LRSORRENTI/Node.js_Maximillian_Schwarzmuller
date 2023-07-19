@@ -198,10 +198,13 @@ exports.postReset = (req, res, next) => {
       res.redirect('/');
       const msg = {
         to: req.body.email, // Change to your recipient
-        from: 'MongoMaxNode@protonmail.com', // Change to your verified sender
-        subject: 'Sending with SendGrid is Fun',
+        from: 'shop@node-complete.com', // Change to your verified sender
+        subject: 'Reset Password',
         text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        html: `
+        //     <p>You requested a password reset</p>
+        //     <p>Click this link <a href="/localhost:3000/reset/${token}"></a>to create a new password</p>
+        //   `
       }
       sgMail
         .send(msg)
@@ -227,3 +230,37 @@ exports.postReset = (req, res, next) => {
     })
   } )
 }
+
+
+exports.getNewPassword = (req, res, next) => {
+  const token = req.params.token;
+  User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+  .then(user => {
+    let message = req.flash('error');
+    if(message.length > 0){
+      message = message[0];
+    } else{
+      message = null;
+    }
+    res.render('auth/new-password'), {
+      path: '/new-password',
+      pageTitle: 'New Password',
+      errorMessage: message,
+      userId: user._id.toString()
+    }
+  })
+  .catch((err) => console.log(err))
+  // above we check if the token is valid, and we use the special 
+  // $gt or greater than check to see if it's expired
+  // let message = req.flash('error');
+  // if(message.length > 0){
+  //   message = message[0];
+  // } else{
+  //   message = null;
+  // }
+  // res.render('auth/new-password'), {
+  //   path: '/new-password',
+  //   pageTitle: 'New Password',
+  //   errorMessage: message
+  // }
+} 
