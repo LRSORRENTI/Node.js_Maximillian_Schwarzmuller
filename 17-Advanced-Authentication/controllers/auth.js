@@ -10,6 +10,24 @@ const User = require('../models/user');
 
 const sendGridAPI = process.env.SEND_GRID_API;
 
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SEND_GRID_API)
+// const msg = {
+//   to: 'test@example.com', // Change to your recipient
+//   from: 'test@example.com', // Change to your verified sender
+//   subject: 'Sending with SendGrid is Fun',
+//   text: 'and easy to do anywhere, even with Node.js',
+//   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+// }
+// sgMail
+//   .send(msg)
+//   .then(() => {
+//     console.log('Email sent')
+//   })
+//   .catch((error) => {
+//     console.error(error)
+//   })
+
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
@@ -178,15 +196,31 @@ exports.postReset = (req, res, next) => {
     })
     .then(result => {
       res.redirect('/');
-       transporter.sendMail({
-        to: req.body.email,
-        from: 'shop@node-complete.com',
-        subject: 'Reset Password',
-        html: `
-          <p>You requested a password reset</p>
-          <p>Click this link <a href="/localhost:3000/reset/${token}"></a>to create a new password</p>
-        `
-      });
+      const msg = {
+        to: req.body.email, // Change to your recipient
+        from: 'MongoMaxNode@protonmail.com', // Change to your verified sender
+        subject: 'Sending with SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      }
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Email sent')
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      
+      //  transporter.sendMail({
+      //   to: req.body.email,
+      //   from: 'shop@node-complete.com',
+      //   subject: 'Reset Password',
+      //   html: `
+      //     <p>You requested a password reset</p>
+      //     <p>Click this link <a href="/localhost:3000/reset/${token}"></a>to create a new password</p>
+      //   `
+      // });
     })
     .catch(err => {
       console.log(err)
