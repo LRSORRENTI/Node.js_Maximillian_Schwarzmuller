@@ -1,4 +1,6 @@
-require('dotenv').config({path: 'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/16-Sending-Emails/util/my.env'})
+require('dotenv').config({path: './util/my.env'})
+
+const crypto = require('crypto');
 
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
@@ -7,6 +9,24 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 const User = require('../models/user');
 
 const sendGridAPI = process.env.SEND_GRID_API;
+
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SEND_GRID_API)
+// const msg = {
+//   to: 'test@example.com', // Change to your recipient
+//   from: 'test@example.com', // Change to your verified sender
+//   subject: 'Sending with SendGrid is Fun',
+//   text: 'and easy to do anywhere, even with Node.js',
+//   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+// }
+// sgMail
+//   .send(msg)
+//   .then(() => {
+//     console.log('Email sent')
+//   })
+//   .catch((error) => {
+//     console.error(error)
+//   })
 
 const transporter = nodemailer.createTransport(
   sendgridTransport({
@@ -137,3 +157,110 @@ exports.getReset = (req, res, next) => {
     errorMessage: message
   })
 }
+
+exports.postReset = (req, res, next) => {
+  // this action will be triggered once the reset 
+  // button is clicked 
+
+  // and we'll use the randomBytes method which is 
+  // a callback function, first arg is 32 for 32 bytes
+  // second arg is our callback
+  crypto.randomBytes(32, (err, buffer) => {
+    if(err){
+      console.log(`Error from randomBytes 151: ${err}`);
+          return  res.redirect('/reset')
+    }
+    // so if we make it in here, we've got a valid buffer 
+    const token = buffer.toString('hex')
+    // we also pass in hex to the toString method, 
+    // this argument is necessary for toString to 
+    // convert hex to normal ASCII characters 
+
+    // And if we're good, this token should be added to 
+    // the user object, and we can use this token to 
+    // verify and authenticate 
+    User.findOne({email: req.body.email})
+    .then(user => {
+      if(!user){
+        req.flash('error', 'Invalid email' );
+        return res.redirect('/reset')
+      }
+      // if we make it past the above, we know 
+      // that it's a valid email that exists in our 
+      // database
+      user.resetToken = token;
+      user.resetTokenExpiration = Date.now() + 3600000;
+      // so above we use three million, six hundred thousand 
+      // milliseconds, or One Hour. 60 minutes 
+      return user.save()
+    })
+    .then(result => {
+      res.redirect('/');
+      const msg = {
+        to: req.body.email, // Change to your recipient
+        from: 'shop@node-complete.com', // Change to your verified sender
+        subject: 'Reset Password',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: `
+        //     <p>You requested a password reset</p>
+        //     <p>Click this link <a href="/localhost:3000/reset/${token}"></a>to create a new password</p>
+        //   `
+      }
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Email sent')
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      
+      //  transporter.sendMail({
+      //   to: req.body.email,
+      //   from: 'shop@node-complete.com',
+      //   subject: 'Reset Password',
+      //   html: `
+      //     <p>You requested a password reset</p>
+      //     <p>Click this link <a href="/localhost:3000/reset/${token}"></a>to create a new password</p>
+      //   `
+      // });
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  } )
+}
+
+
+exports.getNewPassword = (req, res, next) => {
+  const token = req.params.token;
+  User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+  .then(user => {
+    let message = req.flash('error');
+    if(message.length > 0){
+      message = message[0];
+    } else{
+      message = null;
+    }
+    res.render('auth/new-password'), {
+      path: '/new-password',
+      pageTitle: 'New Password',
+      errorMessage: message,
+      userId: user._id.toString()
+    }
+  })
+  .catch((err) => console.log(err))
+  // above we check if the token is valid, and we use the special 
+  // $gt or greater than check to see if it's expired
+  // let message = req.flash('error');
+  // if(message.length > 0){
+  //   message = message[0];
+  // } else{
+  //   message = null;
+  // }
+  // res.render('auth/new-password'), {
+  //   path: '/new-password',
+  //   pageTitle: 'New Password',
+  //   errorMessage: message
+  // }
+} 

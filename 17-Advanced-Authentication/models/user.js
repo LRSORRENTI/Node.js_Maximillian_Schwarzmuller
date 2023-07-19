@@ -11,6 +11,13 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  // Now inside here we'll add two new fields
+  resetToken: String,
+  // the above will house our hex to ascii from the 
+  // crypto method in the auth.js controller
+  resetTokenExpiration: Date,
+  // the above will house when the token will 
+  // expire
   cart: {
     items: [
       {
