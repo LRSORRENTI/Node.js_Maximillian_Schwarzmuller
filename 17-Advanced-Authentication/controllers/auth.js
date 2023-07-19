@@ -157,5 +157,9 @@ exports.postReset = (req, res, next) => {
     // we also pass in hex to the toString method, 
     // this argument is necessary for toString to 
     // convert hex to normal ASCII characters 
+
+    // And if we're good, this token should be added to 
+    // the user object, and we can use this token to 
+    // verify and authenticate 
   } )
 }
