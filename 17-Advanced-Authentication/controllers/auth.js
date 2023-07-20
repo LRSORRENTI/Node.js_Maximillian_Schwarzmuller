@@ -235,6 +235,7 @@ exports.postReset = (req, res, next) => {
 exports.getNewPassword = (req, res, next) => {
   const token = req.params.token;
   User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+  // note that the gt syntax is for checking greater than
   .then(user => {
     let message = req.flash('error');
     if(message.length > 0){
@@ -246,7 +247,8 @@ exports.getNewPassword = (req, res, next) => {
       path: '/new-password',
       pageTitle: 'New Password',
       errorMessage: message,
-      userId: user._id.toString()
+      userId: user._id.toString(),
+      passwordToken: token
     }
   })
   .catch((err) => console.log(err))
@@ -264,3 +266,55 @@ exports.getNewPassword = (req, res, next) => {
   //   errorMessage: message
   // }
 } 
+
+exports.postNewPassword = (req, res, next) => {
+  const newPassword = req.body.password;
+  // and the req.body.password is because in the 
+  // view we have: 
+
+  //<input type="password" name="password" id="password">
+  const userId = req.body.userId;
+  // we also need to add the token so back in the view 
+  // we need to add another field
+  const passwordToken = req.body.passwordToken;
+
+  let resetUser;
+
+  User.findOne({
+    resetToken: passwordToken, 
+    resetTokenExpiration: {$gt: Date.now()},
+    _id: userId
+  })
+  .then(user => {
+    // inside here is where we'll hash the new 
+    // password 
+    resetUser = user;
+   return bcrypt.hash(newPassword, 12)
+    // we pass in newPassword and 12 salting rounds
+  })
+  .then(hashedPassword => {
+    resetUser.password = hashedPassword;
+    resetUser.resetToken = undefined;
+    resetUser.resetTokenExpiration = undefined;
+    /*
+    These lines remove the resetToken
+     and resetTokenExpiration fields
+      from the resetUser document,
+       as they are no longer needed 
+       after the password has been reset.
+
+resetUser.save(); : This line saves the 
+updated resetUser document back to the database.
+    */
+    resetUser.save();
+  })
+  .then(result => {
+    // once it saves, we redirect
+    res.redirect('/login')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  
+
+}

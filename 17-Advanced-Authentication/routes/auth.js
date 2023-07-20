@@ -22,4 +22,5 @@ router.get('/reset/:token', authController.getNewPassword)
 // the above needs to be token because in the getNewPassword 
 // method we're looking for: 
 // const token = req.params.token;
+router.post('/new-password', authController.postNewPassword)
 module.exports = router;

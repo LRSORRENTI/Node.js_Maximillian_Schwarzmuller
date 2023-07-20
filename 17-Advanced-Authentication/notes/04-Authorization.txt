@@ -1,0 +1,26 @@
+=============
+Authorization
+=============
+
+We don't want every user to have admin permissions, 
+nor do we want every user to be able to edit products 
+not in their own cart
+
+
+exports.getProducts = (req, res, next) => {
+ // Product.find()
+ // Inside here we'll not use the above anymore, 
+ // we'll instead pass in a filter:
+    Product.find({userId: req.user._id})
+    // .select('title price -_id')
+    // .populate('userId', 'name')
+    .then(products => {
+      console.log(products);
+      res.render('admin/products', {
+        prods: products,
+        pageTitle: 'Admin Products',
+        path: '/admin/products'
+      });
+    })
+    .catch(err => console.log(err));
+};

@@ -1,0 +1,24 @@
+==============
+Module Summary
+==============
+
+In this module we learned: 
+
+Password Resets: 
+
+- Password resets has to implemented 
+  in a way that ensures users can only
+  reset passwords for their own accounts 
+
+- Reset tokens must be random, unguessable and unique
+
+Authorization: 
+
+- One of the most critical compoenents of any 
+  application
+
+- Not every authenticated user should be able to 
+  access and modify everything
+
+- We lock down access by restricting permissions 
+  of users 
