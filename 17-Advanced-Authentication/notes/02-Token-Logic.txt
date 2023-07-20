@@ -1,0 +1,23 @@
+============================
+Implementing the token logic
+============================
+
+We want to implement a way to enter an 
+email address to the reset password field 
+then receive an email with a link to allow 
+the resetting of a password 
+
+For this we need to first create a unique token, 
+a token with an expiration date, and we need 
+to store it inside of our database 
+
+That way, the link that's clicked includes 
+that token so we can verify it with the token 
+stored in the database 
+
+Node.js has a built in crypto library we can 
+use 
+
+at the top of the auth.js controller: 
+
+const crypto = require('crypto');

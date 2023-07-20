@@ -1,5 +1,5 @@
-// require('dotenv').config({path: 'C:/Users/lrsor/Desktop/Programming/MAX-NODE/NODE-JS_MAX/17-Advanced-Authentication/util/my.env'})
 require('dotenv').config({path: './util/my.env'})
+
 const path = require('path');
 
 const express = require('express');
