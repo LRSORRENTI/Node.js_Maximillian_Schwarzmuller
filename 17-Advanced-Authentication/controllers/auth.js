@@ -308,6 +308,10 @@ updated resetUser document back to the database.
     */
     resetUser.save();
   })
+  .then(result => {
+    // once it saves, we redirect
+    res.redirect('/login')
+  })
   .catch(err => {
     console.log(err)
   })
