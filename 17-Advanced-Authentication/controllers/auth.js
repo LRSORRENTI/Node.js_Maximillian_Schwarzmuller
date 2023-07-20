@@ -235,6 +235,7 @@ exports.postReset = (req, res, next) => {
 exports.getNewPassword = (req, res, next) => {
   const token = req.params.token;
   User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+  // note that the gt syntax is for checking greater than
   .then(user => {
     let message = req.flash('error');
     if(message.length > 0){
