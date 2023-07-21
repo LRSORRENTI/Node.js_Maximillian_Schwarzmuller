@@ -81,4 +81,15 @@ Now when we input an invalid email we don't see:
 
 object: Object. we instead see the msg
 
-Invalid Value
+Invalid Value 
+
+But if inside of routes we chain on a method: 
+
+router.post('/signup', check('email')
+.isEmail()
+.withMessage('Please enter a valid email'),
+ authController.postSignup);
+
+We instead see the Please enter a valid email displayed 
+above the input field, not Invalid Value or 
+object: Object
