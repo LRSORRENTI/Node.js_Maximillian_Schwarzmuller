@@ -3,6 +3,8 @@ const { check, body } = require('express-validator/check');
 
 const authController = require('../controllers/auth');
 
+const User = require('../models/user')
+
 const router = express.Router();
 
 router.get('/login', authController.getLogin);
@@ -27,11 +29,31 @@ router.post('/signup', [
 isEmail()
 .withMessage('Please enter a valid email')
 .custom((value, {req}) => {
-    if(value === 'forbidden@forbidden.com'){
-        throw new Error('This email is forbidden');
-    }
-    return true;
+    // if(value === 'forbidden@forbidden.com'){
+    //     throw new Error('This email is forbidden');
+    // }
+    // return true;
+   return User.findOne({ email: value })
+    .then(userDoc => {
+      if (userDoc) {
+        // req.flash(
+        //   'error',
+        //   'E-Mail exists already, please pick a different one.'
+        // );
+        // return res.redirect('/signup');
+        // instead of the above we'll return a new 
+        // Promise.reject call, this is a built in 
+         // JS object
+        return Promise.reject('Email exists, please pick another')
+        // this is how we can add our own async validation, 
+        // since express needs to reach out to our MongoDB
+        // cloud atlas, express validator will wait for us
+        // 
+      }
+    
+    })
 }),
+
 body('password', 'Please enter a password with numbers, text, at least 5')
 // now we can also omit the withMessage method, and just 
 // pass in the above string as a second argument for a default 
