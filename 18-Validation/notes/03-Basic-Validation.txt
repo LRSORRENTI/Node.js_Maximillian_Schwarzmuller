@@ -93,3 +93,26 @@ router.post('/signup', check('email')
 We instead see the Please enter a valid email displayed 
 above the input field, not Invalid Value or 
 object: Object
+
+The package we're using is called validator.js, 
+another package implicitly installed with 
+express-validator
+
+We can configure many checks to validate, we can add 
+our own!
+
+router.post('/signup', check('email')
+.isEmail()
+.withMessage('Please enter a valid email')
+.custom((value, {req}) => {
+    if(value === 'test@test.com'){
+        throw new Error('This email is forbidden)
+    }
+    return true 
+    // can also return false here to display message
+}),
+ authController.postSignup);
+
+ So the above check is abitrary but it demonstrates 
+ how we can add these checks, chain these methods  
+ to create our own custom validators 
