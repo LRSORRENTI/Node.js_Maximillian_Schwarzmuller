@@ -1,0 +1,78 @@
+===============================
+Asynchronous Validation Methods
+===============================
+
+Our signup validation is looking ok, but 
+the check we have for whether or not an email 
+address is taken or not isn't ideal, let's fix that
+
+Let's grab this code from the auth.js controller, 
+  User.findOne({ email: email })
+    .then(userDoc => {
+      if (userDoc) {
+        req.flash(
+          'error',
+          'E-Mail exists already, please pick a different one.'
+        );
+        return res.redirect('/signup');
+      }
+
+      and move it inside of auth.js routes 
+
+      router.post('/signup', [
+ check('email').
+isEmail()
+.withMessage('Please enter a valid email')
+.custom((value, {req}) => {
+    // if(value === 'forbidden@forbidden.com'){
+    //     throw new Error('This email is forbidden');
+    // }
+    // return true;
+   return User.findOne({ email: value })
+    .then(userDoc => {
+      if (userDoc) {
+        // req.flash(
+        //   'error',
+        //   'E-Mail exists already, please pick a different one.'
+        // );
+        // return res.redirect('/signup');
+        // instead of the above we'll return a new 
+        // Promise.reject call, this is a built in 
+         // JS object
+        return Promise.reject('Email exists, please pick another')
+        // this is how we can add our own async validation, 
+        // since express needs to reach out to our MongoDB
+        // cloud atlas, express validator will wait for us
+        // 
+      }
+    
+    })
+}),
+
+body('password', 'Please enter a password with numbers, text, at least 5')
+// now we can also omit the withMessage method, and just 
+// pass in the above string as a second argument for a default 
+// message for any password check fail, otherwise we'd need 
+//  to chain withMessage for every check
+.isLength({min: 5, max: 40})
+// In production you'd want to specify a much more secure 
+// password, increasing the min amount,
+// and of course omitting .isAlphanumeric so !@#$ 
+// special characters are also valid for better security
+.isAlphanumeric(),
+body('confirmPassword')
+.custom((value, {req}) => {
+    // so if the value passsed is not the 
+    // same as confirmPassword, throw the error
+    if(value !== req.body.password){
+        throw new Error('Password must match!')
+    }
+    return true
+    // also we don;t need to chain on te 
+    // .isLength and isAlphanumeric because we 
+    // already checked in the first field, so 
+    // we wouldn't ever logically need to check 
+    // in the confirm password field since the 
+    // check in the password field would fail
+})
+], authController.postSignup);

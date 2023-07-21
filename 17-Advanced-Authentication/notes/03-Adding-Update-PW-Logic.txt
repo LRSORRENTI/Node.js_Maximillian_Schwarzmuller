@@ -1,0 +1,35 @@
+====================================
+Adding the logic to update passwords
+====================================
+
+We added a page where we can enter a new 
+password, and there we'll send a post request 
+to /new-password 
+
+We need to add that route and controller action 
+as a next step so the existing user password 
+can be replaced with the new one 
+
+back inside the auth controller, we'll add 
+another controller action 
+
+exports.postNewPassword = (req, res, next) => {
+    const newPassword = req.body.password;
+    // and the body.password is because in the 
+    // view we have: 
+
+    //<input type="password" name="password" id="password">
+
+}
+
+So now the view looks like: 
+
+        <form class="login-form" action="/new-password" method="POST">
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <input type="hidden" name="passwordToken" value="<%= passwordToken %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Update Password</button>

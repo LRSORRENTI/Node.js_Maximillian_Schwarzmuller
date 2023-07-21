@@ -1,0 +1,38 @@
+====================
+Module Introduction
+====================
+
+Validating user input is a critical feature 
+we need to implement
+
+In this Module we'll learn why this is important 
+and how we can implement it effectively 
+
+We validate the data is correct, ensuring it's in the 
+format we expect it to be
+
+Why Validate? 
+
+If we have a user, maybe we have some forms, 
+like signing in, signing up, resetting credentials
+
+And when we submit these forms, we send requests 
+to the backend, a request with the form data is sent 
+
+And on the backend we have a ways to interact with 
+databases and files 
+
+But we take that input field and store it, 
+and this is why validation is critical, what 
+if the end user tries to input a malicious script 
+into our input field? 
+
+We need to validate that the input field contains 
+data in the format we want, not just any kind of 
+input data 
+
+Then if the data is in the format we need, 
+we allow things to move on and be handled
+
+Or we reject the input where we redirect a 
+message prompting the user to correct the error 

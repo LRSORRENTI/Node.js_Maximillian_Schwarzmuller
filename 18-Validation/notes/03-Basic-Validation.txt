@@ -1,0 +1,118 @@
+================
+Basic Validation
+================
+
+After adding the validator package, and this to 
+our route: 
+
+router.post('/signup', check('email').isEmail(), authController.postSignup);
+
+and inside the controller: 
+
+exports.postSignup = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // so if ! errors object above is not 
+    // empty then log the errors
+    console.log(errors.array());
+    // status code 422 is used when validation fails
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()
+    });
+  }
+}
+
+We see this logged to the console when entering an 
+invalid email in the input field like: 
+
+email: test
+
+[
+  {
+    location: 'body',
+    param: 'email',
+    value: 'test',
+    msg: 'Invalid value'
+  }
+]
+
+But we get our error array of objects, 
+and on the sign up page we see a big red error, 
+however this error says: 
+
+object: Object 
+
+we want to display an actual error message, 
+we need to modify our error display:
+
+exports.postSignup = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // so if ! errors object above is not 
+    // empty then log the errors
+    console.log(errors.array());
+    // status code 422 is used when validation fails
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()[0].msg
+      // now instead of returning an array we can 
+      // just return an error message, the first 
+      // one for now, and remember we have: 
+      // [
+//   {
+//     location: 'body',
+//     param: 'email',
+//     value: 'test',
+//     msg: 'Invalid value'
+//   }
+// ]
+// so we want [0].msg 
+
+Now when we input an invalid email we don't see: 
+
+object: Object. we instead see the msg
+
+Invalid Value 
+
+But if inside of routes we chain on a method: 
+
+router.post('/signup', check('email')
+.isEmail()
+.withMessage('Please enter a valid email'),
+ authController.postSignup);
+
+We instead see the Please enter a valid email displayed 
+above the input field, not Invalid Value or 
+object: Object
+
+The package we're using is called validator.js, 
+another package implicitly installed with 
+express-validator
+
+We can configure many checks to validate, we can add 
+our own!
+
+router.post('/signup', check('email')
+.isEmail()
+.withMessage('Please enter a valid email')
+.custom((value, {req}) => {
+    if(value === 'test@test.com'){
+        throw new Error('This email is forbidden)
+    }
+    return true 
+    // can also return false here to display message
+}),
+ authController.postSignup);
+
+ So the above check is abitrary but it demonstrates 
+ how we can add these checks, chain these methods  
+ to create our own custom validators 

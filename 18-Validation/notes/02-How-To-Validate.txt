@@ -1,0 +1,26 @@
+===========================
+How to implement validation
+===========================
+
+We can validate client side, with 
+the help of JavaScript before any request is sent 
+
+We can write JS code that watches the key events 
+on the input form, then checks the input while 
+the user is typing and display an error, we 
+can change the DOM on the fly in the browser before 
+anything is submitted 
+
+This can enhance user experience, but since it's 
+client side the user can interact with and change 
+that code 
+
+It's not a secure solution, this technique is for 
+user experience only 
+
+It's why we validate server side, since the user can't 
+see this code, can't change this code, this 
+is a must have, and is what we'll focus on 
+
+MongoDb and other databases also offer built-in 
+validation 

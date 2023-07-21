@@ -1,0 +1,54 @@
+===========================
+Checking for field equality
+===========================
+
+With the basic validation setup, we need to 
+implement equality checks in the password 
+
+So in our signup.ejs:
+<div class="form-control">
+    <label for="confirmPassword">Confirm Password</label>
+     <input type="password" name="confirmPassword" id="confirmPassword">
+/div>
+name="confirmPassword" is what we're looking for 
+
+router.post('/signup', [
+ check('email').
+isEmail()
+.withMessage('Please enter a valid email')
+.custom((value, {req}) => {
+    if(value === 'forbidden@forbidden.com'){
+        throw new Error('This email is forbidden');
+    }
+    return true;
+}),
+body('password', 'Please enter a password with numbers, text, at least 5')
+// now we can also omit the withMessage method, and just 
+// pass in the above string as a second argument for a default 
+// message for any password check fail, otherwise we'd need 
+//  to chain withMessage for every check
+.isLength({min: 5, max: 40})
+// In production you'd want to specify a much more secure 
+// password, increasing the min amount,
+// and of course omitting .isAlphanumeric so !@#$ 
+// special characters are also valid for better security
+.isAlphanumeric(),
+body('confirmPassword')
+.custom((value, {req}) => {
+    // so if the value passsed is not the 
+    // same as confirmPassword, throw the error
+    if(value !== req.body.password){
+        throw new Error('Password must match!')
+    }
+    return true
+    // also we don;t need to chain on te 
+    // .isLength and isAlphanumeric because we 
+    // already checked in the first field, so 
+    // we wouldn't ever logically need to check 
+    // in the confirm password field since the 
+    // check in the password field would fail
+})
+], authController.postSignup);
+
+And now we added checks first for the password field, 
+then the confirm password field
