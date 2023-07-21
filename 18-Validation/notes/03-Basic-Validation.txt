@@ -41,4 +41,44 @@ email: test
   }
 ]
 
-But we get our error array of objects
+But we get our error array of objects, 
+and on the sign up page we see a big red error, 
+however this error says: 
+
+object: Object 
+
+we want to display an actual error message, 
+we need to modify our error display:
+
+exports.postSignup = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // so if ! errors object above is not 
+    // empty then log the errors
+    console.log(errors.array());
+    // status code 422 is used when validation fails
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()[0].msg
+      // now instead of returning an array we can 
+      // just return an error message, the first 
+      // one for now, and remember we have: 
+      // [
+//   {
+//     location: 'body',
+//     param: 'email',
+//     value: 'test',
+//     msg: 'Invalid value'
+//   }
+// ]
+// so we want [0].msg 
+
+Now when we input an invalid email we don't see: 
+
+object: Object. we instead see the msg
+
+Invalid Value

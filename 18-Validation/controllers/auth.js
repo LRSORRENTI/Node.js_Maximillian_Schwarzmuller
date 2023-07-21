@@ -99,7 +99,19 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render('auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',
-      errorMessage: errors.array()
+      errorMessage: errors.array()[0].msg
+      // now instead of returning an array we can 
+      // just return an error message, the first 
+      // one for now, and remember we have: 
+      // [
+//   {
+//     location: 'body',
+//     param: 'email',
+//     value: 'test',
+//     msg: 'Invalid value'
+//   }
+// ]
+// so we want [0].msg
     });
   }
   User.findOne({ email: email })
