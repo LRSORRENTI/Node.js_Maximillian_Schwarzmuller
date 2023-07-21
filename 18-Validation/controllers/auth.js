@@ -1,20 +1,31 @@
+require('dotenv').config({path: './util/my.env'})
+
+const { validationResult } = require('express-validator/check');
+// we import validationResult because it will return any 
+// errors the post route from the auth route .check('email').isEmail
+// would've thrown
+const User = require('../models/user');
+
 const crypto = require('crypto');
 
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
-const { validationResult } = require('express-validator/check');
 
-const User = require('../models/user');
+
+const sendGridAPI = process.env.SEND_GRID_API;
 
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
       api_key:
-        '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'
+        sendGridAPI
     }
   })
 );
+
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SEND_GRID_API)
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
@@ -81,7 +92,10 @@ exports.postSignup = (req, res, next) => {
   const confirmPassword = req.body.confirmPassword;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    // so if ! errors object above is not 
+    // empty then log the errors
     console.log(errors.array());
+    // status code 422 is used when validation fails
     return res.status(422).render('auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',

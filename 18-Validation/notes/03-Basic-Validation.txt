@@ -1,0 +1,44 @@
+================
+Basic Validation
+================
+
+After adding the validator package, and this to 
+our route: 
+
+router.post('/signup', check('email').isEmail(), authController.postSignup);
+
+and inside the controller: 
+
+exports.postSignup = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // so if ! errors object above is not 
+    // empty then log the errors
+    console.log(errors.array());
+    // status code 422 is used when validation fails
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()
+    });
+  }
+}
+
+We see this logged to the console when entering an 
+invalid email in the input field like: 
+
+email: test
+
+[
+  {
+    location: 'body',
+    param: 'email',
+    value: 'test',
+    msg: 'Invalid value'
+  }
+]
+
+But we get our error array of objects
