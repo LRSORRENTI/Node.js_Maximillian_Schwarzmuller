@@ -37,7 +37,12 @@ exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
-    errorMessage: message
+    errorMessage: message,
+    oldInput: {
+      email: '',
+      password: ''
+    },
+    validationErrors: []
   });
 };
 
@@ -51,19 +56,50 @@ exports.getSignup = (req, res, next) => {
   res.render('auth/signup', {
     path: '/signup',
     pageTitle: 'Signup',
-    errorMessage: message
+    errorMessage: message,
+    oldInput: {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    },
+    validationErrors: []
   });
 };
 
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+
+const errors = validationResult(req);
+if(!errors.isEmpty()) {
+  return res.status(422).render('auth/login', {
+    path: '/login',
+    pageTitle: 'Login',
+    errorMessage: errors.array()[0].msg,
+    oldInput: {
+      email: email,
+      password: password
+    },
+    validationErrors: errors.array()
+  });
+}
+
   User.findOne({ email: email })
     .then(user => {
       if (!user) {
-        req.flash('error', 'Invalid email or password.');
-        return res.redirect('/login');
-      }
+        // req.flash('error', 'Invalid email or password.');
+        // return res.redirect('/login');
+        return res.status(422).render('auth/login', {
+          path: '/login',
+          pageTitle: 'Login',
+          errorMessage: 'Invalid Email or Password',
+          oldInput: {
+            email: email,
+            password: password
+          },
+          validationErrors: [{param: 'email', param: 'password' }]
+      });
+    }
       bcrypt
         .compare(password, user.password)
         .then(doMatch => {
@@ -75,8 +111,18 @@ exports.postLogin = (req, res, next) => {
               res.redirect('/');
             });
           }
-          req.flash('error', 'Invalid email or password.');
-          res.redirect('/login');
+          // req.flash('error', 'Invalid email or password.');
+          // res.redirect('/login');
+          return res.status(422).render('auth/login', {
+            path: '/login',
+            pageTitle: 'Login',
+            errorMessage: 'Invalid Email or Password',
+            oldInput: {
+              email: email,
+              password: password
+            },
+            validationErrors: []
+        });
         })
         .catch(err => {
           console.log(err);
@@ -99,7 +145,7 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render('auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',
-      errorMessage: errors.array()[0].msg
+      errorMessage: errors.array()[0].msg,
       // now instead of returning an array we can 
       // just return an error message, the first 
       // one for now, and remember we have: 
@@ -112,6 +158,15 @@ exports.postSignup = (req, res, next) => {
 //   }
 // ]
 // so we want [0].msg
+      // To keep the data the use entered we should 
+      // send this data back as well
+      oldInput: {
+        email: email,
+        password: password,
+        confirmPassword: req.body.confirmPassword
+      },
+      validationErrors: errors.array()
+
     });
   }
   // User.findOne({ email: email })

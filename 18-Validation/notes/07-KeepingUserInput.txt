@@ -1,0 +1,9 @@
+=======================
+Keeping User Input Data
+=======================
+
+As of right now, when an already in use 
+email is entered we flash that error message 
+'Email exists, please pick another' but now all 
+that Data in the input field is lost, which is not 
+a good user experience 
