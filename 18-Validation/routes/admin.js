@@ -42,7 +42,7 @@ router.post('/edit-product',
 [
     // check('title')
     body('title')
-    .isAlphanumeric()
+    .isString()
     .isLength( {min: 2} )
     .trim(),
     body('imageUrl')
