@@ -7,3 +7,10 @@ email is entered we flash that error message
 'Email exists, please pick another' but now all 
 that Data in the input field is lost, which is not 
 a good user experience 
+
+Typically we want to keep the user input so 
+they can view the email they just tried to 
+signup with 
+
+Inside of the auth controller where we handle 
+signing users in

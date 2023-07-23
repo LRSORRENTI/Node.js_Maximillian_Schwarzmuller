@@ -97,7 +97,7 @@ if(!errors.isEmpty()) {
             email: email,
             password: password
           },
-          validationErrors: [{param: 'email', param: 'password' }]
+          validationErrors: []
       });
     }
       bcrypt

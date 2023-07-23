@@ -11,7 +11,19 @@ router.get('/login', authController.getLogin);
 
 router.get('/signup', authController.getSignup);
 
-router.post('/login', authController.postLogin);
+router.post('/login', [
+  body('email')
+  .isEmail()
+  .withMessage('Please enter a valid email address')
+  .normalizeEmail(),
+  body('password', 'Password must be valid')
+  .isLength({ min: 5 })
+  .isAlphanumeric()
+  .trim()
+],
+
+authController.postLogin
+);
 
 // for the below post route we'll add another middleware,
 // remember we can add as many middlewares as we want, and we 
@@ -28,7 +40,7 @@ router.post('/signup', [
  check('email').
 isEmail()
 .withMessage('Please enter a valid email')
-.custom((value, {req}) => {
+.custom((value, {req} ) => {
     // if(value === 'forbidden@forbidden.com'){
     //     throw new Error('This email is forbidden');
     // }
@@ -52,7 +64,7 @@ isEmail()
       }
     
     })
-}),
+}).normalizeEmail(),
 
 body('password', 'Please enter a password with numbers, text, at least 5')
 // now we can also omit the withMessage method, and just 
@@ -64,8 +76,10 @@ body('password', 'Please enter a password with numbers, text, at least 5')
 // password, increasing the min amount,
 // and of course omitting .isAlphanumeric so !@#$ 
 // special characters are also valid for better security
-.isAlphanumeric(),
+.isAlphanumeric()
+.trim(),
 body('confirmPassword')
+.trim()
 .custom((value, {req}) => {
     // so if the value passsed is not the 
     // same as confirmPassword, throw the error

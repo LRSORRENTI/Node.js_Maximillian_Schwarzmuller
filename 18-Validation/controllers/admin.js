@@ -1,10 +1,14 @@
+const { validationResult } = require('express-validator/check')
+
 const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
-    editing: false
+    editing: false,
+    hasError: false,
+    errorMessage: null
   });
 };
 
@@ -13,6 +17,27 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
+// here is where we'll collect all errors by passing 
+// the request to validation result 
+const errors = validationResult(req);
+if(!errors.isEmpty()){
+ return res.status(422).render('admin/edit-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/edit-product',
+    editing: false,
+    hasError: true,
+
+    product: {
+      title: title,
+      imageUrl: imageUrl,
+      price: price,
+      description: description
+    },
+    errorMessage: errors.array()[0].msg
+  });
+}
+
+
   const product = new Product({
     title: title,
     price: price,
@@ -47,7 +72,9 @@ exports.getEditProduct = (req, res, next) => {
         pageTitle: 'Edit Product',
         path: '/admin/edit-product',
         editing: editMode,
-        product: product
+        product: product,
+        hasError: false,
+        errorMessage: null
       });
     })
     .catch(err => console.log(err));
@@ -62,6 +89,7 @@ exports.postEditProduct = (req, res, next) => {
 
   Product.findById(prodId)
     .then(product => {
+      console.log(req.user._id)
       if (product.userId.toString() !== req.user._id.toString()) {
         return res.redirect('/');
       }
