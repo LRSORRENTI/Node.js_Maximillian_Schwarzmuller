@@ -79,6 +79,7 @@ body('password', 'Please enter a password with numbers, text, at least 5')
 .isAlphanumeric()
 .trim(),
 body('confirmPassword')
+.trim()
 .custom((value, {req}) => {
     // so if the value passsed is not the 
     // same as confirmPassword, throw the error
