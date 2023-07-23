@@ -38,7 +38,7 @@ isAuth, adminController.postAddProduct);
 
 router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
 
-router.post('/edit-product'
+router.post('/edit-product',
 [
     // check('title')
     body('title')

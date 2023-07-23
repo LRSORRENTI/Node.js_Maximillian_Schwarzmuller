@@ -19,7 +19,7 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
 // here is where we'll collect all errors by passing 
 // the request to validation result 
-validationResult(req);
+const errors = validationResult(req);
 if(!errors.isEmpty()){
   res.status(422).render('admin/edit-product', {
     pageTitle: 'Add Product',
@@ -73,7 +73,8 @@ exports.getEditProduct = (req, res, next) => {
         path: '/admin/edit-product',
         editing: editMode,
         product: product,
-        hasError: false
+        hasError: false,
+        errorMessage: null
       });
     })
     .catch(err => console.log(err));
