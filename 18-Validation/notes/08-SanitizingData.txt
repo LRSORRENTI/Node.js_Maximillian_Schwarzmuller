@@ -1,0 +1,34 @@
+===============
+Sanitizing Data
+===============
+
+Often times we need to sanitize user input data, 
+what does this mean? 
+
+On the valdidator docs, we also see sanitizers, 
+sanitizers have methods that will trim whitespace,
+ensure that a users email is converted to lowercase 
+
+We can do this by chaining another method on our 
+router.post('/login') route: 
+
+router.post('/login', [
+  body('email')
+  .isEmail()
+  .withMessage('Please enter a valid email address')
+  .normalizeEmail(),
+  body('password', 'Password must be valid')
+  .isLength({ min: 5 })
+  .isAlphanumeric()
+  .trim()
+],
+
+authController.postLogin
+);
+
+We can call the normalizeEmail() method, as we;; as 
+.trim() to trim any whitespace
+
+We can also add these sanitizers to the other 
+input fields for password and email on the 
+postSignup route 
