@@ -96,10 +96,10 @@ if(!errors.isEmpty()){
     hasError: true,
 
     product: {
-      title: title,
-      imageUrl: imageUrl,
-      price: price,
-      description: description
+      title: updatedTitle,
+      imageUrl: updatedImageUrl,
+      price: updatedPrice,
+      description: updatedDesc
     },
     errorMessage: errors.array()[0].msg
   });
