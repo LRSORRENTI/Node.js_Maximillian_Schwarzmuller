@@ -1,0 +1,61 @@
+==============
+Module Summary
+==============
+
+That's it for this module, we added validation logic 
+for signing up, where we check if a password is under 
+a certain amount of characters, if an email is valid 
+
+Also changing the view to highlight the 
+invalid input fields with a red border and 
+flashing error messages 
+
+This is a two step process, we add the 
+validators, we use the express-validator package 
+which has methods like: 
+
+isAlphanumeric(), isLength({min: 3, max: 30})
+
+We can add all these validation methods to check 
+for valid email inputs, password inputs, or 
+any validation of input forms, we can create 
+custom validators if we want with the .custom()
+method
+
+Then if those validators flag the errors, we collect 
+them inside the controllers, then we do something 
+if we do fine errors:
+
+const errors = validationResult(req);
+if(!errors.isEmpty()){
+ return res.status(422).render('admin/edit-product', {
+    pageTitle: 'Edit Product',
+    path: '/admin/edit-product',
+    editing: true,
+    hasError: true,
+
+    product: {
+      title: updatedTitle,
+      imageUrl: updatedImageUrl,
+      price: updatedPrice,
+      description: updatedDesc,
+      _id: prodId
+    },
+    errorMessage: errors.array()[0].msg,
+    validationErrors: errors.array()
+  });
+}
+
+And we flash errors for a better user experience, 
+if something is wrong with and input field, we 
+can point the user in the correct direction to 
+fix it, rather than displaying vague error messages,
+this provides a much nicer UX
+
+Express-Validator Docs:
+
+https://express-validator.github.io/docs/
+
+Validator.js (which is used behind the scenes) 
+
+Docs: https://github.com/chriso/validator.js
