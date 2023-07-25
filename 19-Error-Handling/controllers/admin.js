@@ -61,22 +61,22 @@ if(!errors.isEmpty()){
       // now for testing purposes we have an 
       // error, the user key is a duplicate
       // let's handle this error 
-      return res.status(500).render('admin/edit-product', {
-        pageTitle: 'Add Product',
-        path: '/admin/add-product',
-        editing: false,
-        hasError: true,
+      // return res.status(500).render('admin/edit-product', {
+      //   pageTitle: 'Add Product',
+      //   path: '/admin/add-product',
+      //   editing: false,
+      //   hasError: true,
     
-        product: {
-          title: title,
-          imageUrl: imageUrl,
-          price: price,
-          description: description
-        },
-        errorMessage: 'Database operation failed, try agaib',
-        validationErrors: []
-      });
-
+      //   product: {
+      //     title: title,
+      //     imageUrl: imageUrl,
+      //     price: price,
+      //     description: description
+      //   },
+      //   errorMessage: 'Database operation failed, try agaib',
+      //   validationErrors: []
+      // });
+      res.redirect('/500')
     });
 };
 
