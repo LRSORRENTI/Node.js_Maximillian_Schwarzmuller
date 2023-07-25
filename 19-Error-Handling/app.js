@@ -162,6 +162,17 @@ app.get('/500', errorController.get500)
 
 app.use(errorController.get404);
 
+app.use((error, req, res, next) => {
+  // we can use express built in error handling 
+  // middleware, express can recognize that 
+  // when we call next with an error passed to it
+  // and if we have more than one error handling 
+  // middleware they'll be called top to bottom, just 
+  // like normal middleware
+  // res.status(error.httpStatusCode).render(...)
+  res.redirect('/500')
+})
+
 mongoose
   .connect(MONGODB_URI)
   .then(result => {
