@@ -118,6 +118,12 @@ app.use(csrfProtection);
 app.use(flash());
 
 app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
+app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
     // The above check is important, 
@@ -134,7 +140,7 @@ app.use((req, res, next) => {
       if(!user){
         // So above, if user doesn't exist,
         // invoke next
-        return next()
+        return next();
       }
       req.user = user;
       next();
@@ -144,15 +150,22 @@ app.use((req, res, next) => {
       // instead of just logging it we'll 
       // use the throw new Error syntax, which 
       // has the advantage 
-      throw new Error(err)
+      // throw new Error(err)
+      // but inside of these then catch async code 
+      // blocks we need to use next instead, 
+      // since we can avoid infinite loops triggered by 
+      // error handling middlware
+      next(new Error(err))
     });
 });
 
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.session.isLoggedIn;
-  res.locals.csrfToken = req.csrfToken();
-  next();
-});
+
+// need to move this csrf token creation jst below app.useFlash()
+// app.use((req, res, next) => {
+//   res.locals.isAuthenticated = req.session.isLoggedIn;
+//   res.locals.csrfToken = req.csrfToken();
+//   next();
+// });
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -170,7 +183,12 @@ app.use((error, req, res, next) => {
   // middleware they'll be called top to bottom, just 
   // like normal middleware
   // res.status(error.httpStatusCode).render(...)
-  res.redirect('/500')
+  // res.redirect('/500')
+  res.status(500).render('500', {
+    pageTitle: 'Error occured',
+    path: '/500',
+    isAuthenticated: req.session.isLoggedIn
+  });
 })
 
 mongoose
