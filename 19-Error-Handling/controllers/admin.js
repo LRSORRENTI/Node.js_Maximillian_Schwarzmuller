@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator/check')
-
+const mongoose = require('mongoose')
 const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
@@ -24,7 +24,7 @@ const errors = validationResult(req);
 if(!errors.isEmpty()){
  return res.status(422).render('admin/edit-product', {
     pageTitle: 'Add Product',
-    path: '/admin/edit-product',
+    path: '/admin/add-product',
     editing: false,
     hasError: true,
 
@@ -41,6 +41,7 @@ if(!errors.isEmpty()){
 
 
   const product = new Product({
+    _id: new mongoose.Types.ObjectId('64b2a6026dd9f8578ce7cde7'),
     title: title,
     price: price,
     description: description,
@@ -55,7 +56,27 @@ if(!errors.isEmpty()){
       res.redirect('/admin/products');
     })
     .catch(err => {
-      console.log(err);
+      // console.log('An error occured')
+      // console.log(err);
+      // now for testing purposes we have an 
+      // error, the user key is a duplicate
+      // let's handle this error 
+      return res.status(500).render('admin/edit-product', {
+        pageTitle: 'Add Product',
+        path: '/admin/add-product',
+        editing: false,
+        hasError: true,
+    
+        product: {
+          title: title,
+          imageUrl: imageUrl,
+          price: price,
+          description: description
+        },
+        errorMessage: 'Database operation failed, try agaib',
+        validationErrors: []
+      });
+
     });
 };
 

@@ -120,13 +120,32 @@ app.use(flash());
 app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
+    // The above check is important, 
+    // if we omit the above,  and 
+    // we try to find a user without 
+    // the session object, which in turn 
+    // crashes our app
   }
   User.findById(req.session.user._id)
     .then(user => {
+      // But we may still fail to find the 
+      // user, even if we have it stored in a 
+      // session
+      if(!user){
+        // So above, if user doesn't exist,
+        // invoke next
+        return next()
+      }
       req.user = user;
       next();
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      // console.log(err)
+      // instead of just logging it we'll 
+      // use the throw new Error syntax, which 
+      // has the advantage 
+      throw new Error(err)
+    });
 });
 
 app.use((req, res, next) => {
