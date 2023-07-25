@@ -1,0 +1,73 @@
+=============================
+Error and HTTP Response codes
+=============================
+
+The HTTP codes are extra info  we pass to let the
+browser understand what kind of error we're dealing 
+with 
+
+If we create an app with a lot of client side JS, 
+status codes help point in the right direction 
+to handle them 
+
+We map certain errors to certain kinds of status 
+codes 
+
+=========
+200 Codes 
+=========
+
+Success status codes are usually 200, 201, 
+these indicate a successful operation 
+
+200 - Operation Succeeded 
+
+201- Success, and resource was created 
+
+=========
+300 Codes 
+=========
+
+These 300 status codes indicate redirects occur 
+
+301 - Moved resource permanently
+
+=========
+400 Codes
+=========
+
+400 status codes which show something happened 
+client side, bad info submitted, incorrect info 
+submitted client side 
+
+401 - Not authenticated 
+
+403 - Not authorized 
+
+404 - Page not found 
+
+418 - I'm a teapot
+
+422 - Invalid input 
+
+=========
+500 Codes
+=========
+
+500 - Server side error 
+
+502 - Bad Gateway 
+
+500 codes indicate server side errors
+
+
+
+=================================================================
+There are many more status codes
+
+https://www.webfx.com/web-development/glossary/http-status-codes/
+
+is a good resource for status code docs 
+
+
+=================================================================
