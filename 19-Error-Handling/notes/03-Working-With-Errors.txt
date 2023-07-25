@@ -1,0 +1,56 @@
+====================
+Working with Errors 
+====================
+
+We need to work with errors, an error is a technical 
+object in a node app, there is a built in error object 
+we can throw
+
+There are also circumstances where we can't 
+continue with our code, but there's not 
+necessarily a technical error, if we try to 
+log a user in with an invalid input email, 
+it's not an error from us, but we cannot continue 
+until the user inputs a valid email 
+
+===============
+Error is Thrown
+===============
+
+With the thrown errors from synchronous code 
+we can use try / catch blocks
+
+For ASYNC code, we implement the .then() and 
+.catch() blocks 
+
+In both scenarios, we either directly handle the 
+error, or use express error handling functions 
+
+
+==================
+No error is thrown
+==================
+
+In this scenario, we need to check our values, 
+are the data types what we need them to be? 
+
+Are we getting null or undefined somewhere we're 
+expecting a different value?
+
+In these cases we need to decide if we want to 
+directly handle the error, or throw an error
+
+==========================
+Rendering Errors for Users
+==========================
+
+In any case we have a few options here: 
+
+- Render an Error page (500 page)
+
+- Intended page but with error flash messages, 
+  other error information 
+
+- Redirect 
+
+

@@ -1,0 +1,39 @@
+============
+Error Types
+============
+
+Errors are not the end of your application, 
+you can recover from them, we can inform the 
+users that something went wrong
+
+The main take-away is that errors must be handled, 
+ignoring them isn't an option 
+
+What are the different types of errors: 
+
+- Technical / Network Errors:
+
+ For these kinds of errors, maybe MongoDB is down,
+ or something outside of our control happens, and 
+ for these errors, flashing a proper error explaining 
+ why the application isn't functioning is best practice,
+ and maybe behind the scenes we want to send an email 
+ to the SYS ADMIN if needed  
+
+- 'Expected' Errors: 
+
+  Some examples of expected errors are if a file can't 
+  be read, database operation fails, maybe too many 
+  simultaneous requests to a certain file, again flashing 
+  proper error messages giving the user a heads up as 
+  to why the application isn't functioning is best 
+  practice, maybe a retry later message would work
+
+- Bugs / Logic Errors 
+
+  These are the most common errors, syntax errors, 
+  user objects are used when they don't exist, these 
+  errors should be handled during the development process
+  These errors are not the end user, or network / database 
+  related, they are from the developer
+

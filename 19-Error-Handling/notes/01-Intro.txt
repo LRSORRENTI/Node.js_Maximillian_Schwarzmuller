@@ -1,0 +1,18 @@
+===============
+Error Handling 
+===============
+
+There will always be errors when working on, 
+updating, maintaining any application, errors 
+are inevitable
+
+Some errors can be avoided by proper testing, 
+but some are going to happen
+
+Even if you write everything perfectly, users 
+could send invalid data, database could be 
+offline, there will be errors 
+
+In this module we'll go over the different 
+kinds of errors, and how to handle them 
+effectively in a node.js application 
