@@ -1,0 +1,35 @@
+==============
+Module Summary
+==============
+
+In this module we had a look at different types 
+of errors and how to handle them: 
+
+We differentiate between types of errors, 
+technical errors(thrown), and expected errors 
+(invalid user input data)
+
+Error handling can be done with custom if checks, 
+try-catch blocks, then catch blocks 
+
+Express offers built in middleware error 
+handling helpers 
+
+======================
+Error and Status codes
+======================
+
+It's good practice when returning responses, 
+to also set HTTP status codes, letting the 
+browser know what went wrong 
+
+Success codes (2xx)
+
+Client-Side Errors (3xx)
+
+Server-Side Errors (5xx)
+
+Setting status codes doesn't mean the response is 
+incomplete or the app crashed!
+
+https://expressjs.com/en/guide/error-handling.html
