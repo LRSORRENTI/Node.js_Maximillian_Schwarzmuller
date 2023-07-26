@@ -40,7 +40,10 @@ router.post(
       .isString()
       .isLength({ min: 3 })
       .trim(),
-    body('imageUrl').isURL(),
+    // body('imageUrl').isURL(),
+    // the above is commented out now because we're 
+    // no checking image URL after we are now using 
+    // multer to pass in the filepath to an image locally
     body('price').isFloat(),
     body('description')
       .isLength({ min: 5, max: 400 })
