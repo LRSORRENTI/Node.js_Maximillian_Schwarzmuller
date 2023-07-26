@@ -1,0 +1,44 @@
+========================
+File Upload and Download
+========================
+
+File Upload and download is a common feature for 
+many web applications, let's learn how to utilize 
+methods for these tasks 
+
+We'll start with Upload, and we have a really good 
+use case, when we're on add-product page, we always 
+need to enter a valid URL for the Image URL, 
+wouldn't it be nice if we could also upload an image?
+
+And in a real world application, your product images 
+likely won't be served from a URL, it'll be images 
+of products from your warehouse or store, not 
+generic images from a URL 
+
+Step 1 for us is to adjust the form to enable 
+'file picking' or a 'file picker' 
+
+Step 2 is the handle that file for upload 
+
+app.use(bodyParser.urlencoded({ extended: false }));
+// The above body parser doesn't enable file hamdling 
+// as well, we need  a new package, called: multer
+
+Multer is a third party package, that parses incoming 
+requests, parsing incoming file requests 
+
+It handles file requests, as well as text, 
+as usual we need to import that package in app.js, 
+but also, in our view: 
+
+        <form class="product-form" 
+        action="/admin/<% if (editing) { %>edit-product<% }
+         else { %>add-product<% } %>"
+          method="POST" 
+          enctype="multipart/form-data" 
+
+We add that enctype or encoding type, this tells the 
+server, this request will contain mixed data 
+
+Multer will then be able to handle that mixed data
