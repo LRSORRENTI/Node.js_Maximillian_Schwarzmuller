@@ -28,4 +28,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 Multer is a third party package, that parses incoming 
 requests, parsing incoming file requests 
 
-It handles file requests, as well as text
+It handles file requests, as well as text, 
+as usual we need to import that package in app.js, 
+but also, in our view: 
+
+        <form class="product-form" 
+        action="/admin/<% if (editing) { %>edit-product<% }
+         else { %>add-product<% } %>"
+          method="POST" 
+          enctype="multipart/form-data" 
+
+We add that enctype or encoding type, this tells the 
+server, this request will contain mixed data 
+
+Multer will then be able to handle that mixed data

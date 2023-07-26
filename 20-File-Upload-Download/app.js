@@ -10,6 +10,7 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const multer = require('multer')
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -33,6 +34,24 @@ const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
+// The above body parser doesn't enable file hamdling 
+// as well, we need  a new package, called: multer
+// We have to execute multer like a function
+app.use(multer({dest: 'images' }).single('image'))
+// and we chain on the single method for singlefile, 
+// then we add the name for the single file, for us 
+// it will be image, because in our ejs view:
+
+/* <label for="image">Image</label>
+<input 
+    type="file" 
+    name="image" 
+    id="image" >
+</div> */
+
+// The file picker name is image
+
+// and with that we initialize multer
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
