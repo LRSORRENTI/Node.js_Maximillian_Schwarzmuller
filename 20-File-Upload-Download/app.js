@@ -26,6 +26,27 @@ const store = new MongoDBStore({
 });
 const csrfProtection = csrf();
 
+// we'll add a file storage config object:
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'images')
+  },
+  // we need to pass in null as the first arg
+  // each callback, because if it's null it's okay 
+  // to store it , if not null it would need an Error
+
+  filename: (req, file, cb) => {
+    // and we can concatenate the filename with 
+    // the original name to ensure we don't have 
+    // identical filenames in our images directory
+    // cb(null, file.filename + '-' + file.originalname);
+    // the above callback will give us undefined.png 
+    // every time, so instead we can generate a unique 
+    // name with: 
+    cb(null, new Date().toISOString() + '-' + file.originalname);
+  }
+});
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -37,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // The above body parser doesn't enable file hamdling 
 // as well, we need  a new package, called: multer
 // We have to execute multer like a function
-app.use(multer({dest: 'images' }).single('image'))
+app.use(multer({dest: 'images', storage: fileStorage }).single('image'))
 // and we chain on the single method for singlefile, 
 // then we add the name for the single file, for us 
 // it will be image, because in our ejs view:
