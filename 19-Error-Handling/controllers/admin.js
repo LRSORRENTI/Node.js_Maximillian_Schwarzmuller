@@ -43,7 +43,7 @@ if(!errors.isEmpty()){
   const product = new Product({
     // _id: new mongoose.Types.ObjectId('64b2a6026dd9f8578ce7cde7'),
     // commenting out the above, used it to provoke 
-    // an error to test the error handlers below
+    // an error to test the error handlers
     title: title,
     price: price,
     description: description,
