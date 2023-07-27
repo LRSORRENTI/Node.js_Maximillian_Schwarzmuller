@@ -155,24 +155,54 @@ exports.getOrders = (req, res, next) => {
 // // remember inside of the routes we added: 
 // router.get('/orders/:orderId', isAuth, shopController.getInvoice)
 // and our pdf is always invoice- + randomOrderIdValue
-exports.getInvoice = (req, res, next) => {
-  const orderId = req.params.orderId;
-  const invoiceName = 'invoice-' + orderId + '.pdf';
-  const invoicePath = path.join('data', 'invoices', invoiceName)
-  // we use the path module from node which 
+
+// exports.getInvoice = (req, res, next) => {
+//   const orderId = req.params.orderId;
+//   const invoiceName = 'invoice-' + orderId + '.pdf';
+//   const invoicePath = path.join('data', 'invoices', invoiceName)
+  
+// we use the path module from node which 
   // normalizes paths for us in case we're on 
   // windows, linux or mac '/' vs '\' 
 
   // readfile gives a callback function
-  fs.readFile(invoicePath, (error, data) => {
-    // we'll get either an error or data, 
+  // fs.readFile(invoicePath, (error, data) => {
+  
+  // we'll get either an error or data, 
     // the data will be in the format of a buffer 
+    // if(error){
+    //   return next(error)
+    // }
+    
+    // // the response we send should be the file, 
+    // housed in the data param 
+//     res.send(data)
+//   })
+// }
+
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  const invoiceName = 'invoice-' + orderId + '.pdf';
+  const invoicePath = path.join('data', 'invoices', invoiceName)
+
+  fs.readFile(invoicePath, (error, data) => {
     if(error){
       return next(error)
     }
-    // // the response we send should be the file, 
-    // housed in the data param 
+    res.setHeader('Content-Type', 'application/pdf' )
+
+    // and with the above, we instantly open the pdf 
+    // in the browser, most browsers have this feature,
+    // we just need to remember to set the content type
+    // we can also set more info:
+
+    // res.setHeader('Content-Disposition', 'attachment; filename="' + invoiceName + '"')
+    // now with the above, we get the download menu to 
+    // display for us 
+
+    // we'll stick with inline for now
+        res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"')
     res.send(data)
   })
 }
-
