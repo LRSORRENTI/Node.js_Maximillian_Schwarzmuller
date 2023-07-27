@@ -10,8 +10,6 @@ const User = require('../models/user');
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key:
-        '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'
     }
   })
 );
@@ -91,6 +89,7 @@ exports.postLogin = (req, res, next) => {
         .compare(password, user.password)
         .then(doMatch => {
           if (doMatch) {
+            // console.log(req.session)
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {

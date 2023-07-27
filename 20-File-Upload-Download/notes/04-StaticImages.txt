@@ -1,0 +1,30 @@
+=========================
+Serving Images Statically
+=========================
+
+How can we ensure our images are served to the client?
+
+Option 1: We serve all public client images in a 
+static way, this means we go to app.js
+
+And look at this line: 
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+We can serve more than one folder statically 
+
+STATIC MEANS REQUESTS TO FILES INSIDE THAT FOLDER 
+WILL BE HANDLED AUTHMATICALLY, AND ALL THE FILES 
+WILL BE RETURNED 
+
+Express static method does all the heavy lifting 
+for us 
+
+So we can duplicate: 
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+And also statically serve the images folder 
+
+app.use(express.static(path.join(__dirname, 'iamges')));
+

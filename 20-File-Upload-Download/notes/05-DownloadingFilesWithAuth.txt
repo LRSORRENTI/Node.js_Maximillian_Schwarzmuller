@@ -1,0 +1,16 @@
+
+=====================================
+Downloading files with Authentication
+=====================================
+
+Let's start adding invoices, and only make 
+a specific invoice accessible to a logged in 
+user 
+
+Inside of our data folder, create a new folder 
+called invoices, and add a dummy pdf file 
+
+How can we serve this file? 
+
+We could make invoices statically accessible, but 
+we'll do something instead 

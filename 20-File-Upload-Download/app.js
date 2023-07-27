@@ -47,6 +47,22 @@ const fileStorage = multer.diskStorage({
   }
 });
 
+const fileFilt = (req, file, cb) => {
+  // and inside here we can write some logic to 
+  // define if we want to accept a certain file 
+  // type or not 
+
+  if(file.mimetype === 'image/png' 
+  || file.mimetype === 'image/jpg'
+  || file.mimetype === 'image/jpeg'){
+      // so if true, we'll accept the file
+  cb(null, true);
+  } else {
+  cb(null, false);
+  }
+};
+
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -58,7 +74,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // The above body parser doesn't enable file hamdling 
 // as well, we need  a new package, called: multer
 // We have to execute multer like a function
-app.use(multer({dest: 'images', storage: fileStorage }).single('image'))
+app.use(multer({dest: 'images', storage: fileStorage, fileFilter: fileFilt }).single('image'))
 // and we chain on the single method for singlefile, 
 // then we add the name for the single file, for us 
 // it will be image, because in our ejs view:
@@ -75,6 +91,12 @@ app.use(multer({dest: 'images', storage: fileStorage }).single('image'))
 // and with that we initialize multer
 
 app.use(express.static(path.join(__dirname, 'public')));
+// WE need to adjust the middleware below, if we 
+// have a request that goes to /images
+// app.use(express.static(path.join(__dirname, 'iamges')));
+
+app.use('images', express.static(path.join(__dirname, 'iamges')));
+
 app.use(
   session({
     secret: 'my secret',
