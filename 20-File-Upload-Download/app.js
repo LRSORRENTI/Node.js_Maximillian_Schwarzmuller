@@ -91,8 +91,11 @@ app.use(multer({dest: 'images', storage: fileStorage, fileFilter: fileFilt }).si
 // and with that we initialize multer
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'iamges')));
+// WE need to adjust the middleware below, if we 
+// have a request that goes to /images
+// app.use(express.static(path.join(__dirname, 'iamges')));
 
+app.use('images', express.static(path.join(__dirname, 'iamges')));
 
 app.use(
   session({
