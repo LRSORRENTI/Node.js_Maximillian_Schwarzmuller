@@ -1,5 +1,9 @@
+const fs = require('fs')
+const path = require('path')
+
 const Product = require('../models/product');
 const Order = require('../models/order');
+
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -146,3 +150,29 @@ exports.getOrders = (req, res, next) => {
       return next(error);
     });
 };
+
+
+// // remember inside of the routes we added: 
+// router.get('/orders/:orderId', isAuth, shopController.getInvoice)
+// and our pdf is always invoice- + randomOrderIdValue
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  const invoiceName = 'invoice-' + orderId + '.pdf';
+  const invoicePath = path.join('data', 'invoices', invoiceName)
+  // we use the path module from node which 
+  // normalizes paths for us in case we're on 
+  // windows, linux or mac '/' vs '\' 
+
+  // readfile gives a callback function
+  fs.readFile(invoicePath, (error, data) => {
+    // we'll get either an error or data, 
+    // the data will be in the format of a buffer 
+    if(error){
+      return next(error)
+    }
+    // // the response we send should be the file, 
+    // housed in the data param 
+    res.send(data)
+  })
+}
+
