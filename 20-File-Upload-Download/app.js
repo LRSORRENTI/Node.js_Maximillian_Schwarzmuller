@@ -91,6 +91,9 @@ app.use(multer({dest: 'images', storage: fileStorage, fileFilter: fileFilt }).si
 // and with that we initialize multer
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'iamges')));
+
+
 app.use(
   session({
     secret: 'my secret',
