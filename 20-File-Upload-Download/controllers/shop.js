@@ -183,26 +183,29 @@ exports.getOrders = (req, res, next) => {
 
 exports.getInvoice = (req, res, next) => {
   const orderId = req.params.orderId;
-  const invoiceName = 'invoice-' + orderId + '.pdf';
-  const invoicePath = path.join('data', 'invoices', invoiceName)
-
+  Order.findById(orderId)
+  .then(order => {
+    if(!order){
+        return next(new Error('No order found'));
+    }
+    if(order.user.userId.toString() !== req.user._id.toString()){
+        // So if the above is true, if it's not equal then return
+      return next(new Error('Unauthorized Access'))
+    }
+    const invoiceName = 'invoice-' + orderId + '.pdf';
+    const invoicePath = path.join('data', 'invoices', invoiceName)
+  
   fs.readFile(invoicePath, (error, data) => {
     if(error){
       return next(error)
     }
-    res.setHeader('Content-Type', 'application/pdf' )
-
-    // and with the above, we instantly open the pdf 
-    // in the browser, most browsers have this feature,
-    // we just need to remember to set the content type
-    // we can also set more info:
-
-    // res.setHeader('Content-Disposition', 'attachment; filename="' + invoiceName + '"')
-    // now with the above, we get the download menu to 
-    // display for us 
-
-    // we'll stick with inline for now
-        res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"')
-    res.send(data)
-  })
+    res.setHeader('Content-Type', 'application/pdf' );
+    res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+  
+  res.send(data);
+  });
+ })
+ .catch(err => {
+  console.log(err)
+ })
 }
