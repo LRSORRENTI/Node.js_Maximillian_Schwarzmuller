@@ -1,0 +1,17 @@
+=============================
+Storing Files in our Database
+=============================
+
+The file gets stored on our system, this is how 
+we should store them, storing a large amount of 
+images on mongoDB would take up too much space 
+
+So what do we do? 
+
+We store the pointer or path to the file, that's something 
+we construct with the file object, then we 
+pass that path to the database 
+
+So inside of admin.js controller, if we make 
+it past the validation: 
+
