@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
+const PDFDocument = require('pdfkit')
+
 const Product = require('../models/product');
 const Order = require('../models/order');
 
@@ -195,6 +197,25 @@ exports.getInvoice = (req, res, next) => {
     const invoiceName = 'invoice-' + orderId + '.pdf';
     const invoicePath = path.join('data', 'invoices', invoiceName)
   
+    // 
+const pdfDoc = new PDFDocument();
+// Now with pdf kit installed we can call it above,
+// and now we have a new readable stream 
+res.setHeader('Content-Type', 'application/pdf');
+res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+pdfDoc.pipe(fs.createWriteStream(invoicePath))
+// and we can pipe a writestream and pass in invoice 
+// path
+pdfDoc.pipe(res);
+// and we also pipe into the repsonse object
+
+// if we call text on pdfDoc, it allows us to 
+// write text to the pdf doc 
+pdfDoc.text('Hello From PDFKIT .text() method');
+// after we write to it with .text, we need to call 
+// .end() that we can send the response 
+pdfDoc.end();
+
   // fs.readFile(invoicePath, (error, data) => {
   //   if(error){
   //     return next(error)
@@ -208,12 +229,12 @@ exports.getInvoice = (req, res, next) => {
   // large file will take a lot of time, we'll instead 
   // stream it
 
-  const file = fs.createReadStream(invoicePath);
+  // const file = fs.createReadStream(invoicePath);
 // now node can read stream step by step in chunnks
 
-res.setHeader('Content-Type', 'application/pdf');
-res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
-file.pipe(res);
+// res.setHeader('Content-Type', 'application/pdf');
+// res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+// file.pipe(res);
 // And we'll use the pipe method, which can pipe data that's 
 //  read into my response object, we can use read streams 
 // to pipe into writable streams 
