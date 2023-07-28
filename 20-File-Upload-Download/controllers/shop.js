@@ -211,9 +211,28 @@ pdfDoc.pipe(res);
 
 // if we call text on pdfDoc, it allows us to 
 // write text to the pdf doc 
-pdfDoc.text('Hello From PDFKIT .text() method');
+// pdfDoc.text('Hello From PDFKIT .text() method');
 // after we write to it with .text, we need to call 
 // .end() that we can send the response 
+
+pdfDoc.fontSize(26).text('Invoice', {
+  underline: true, 
+});
+pdfDoc.text('--------------------------')
+// Now we can loop through the the order to 
+// create the output, or since we already 
+// have access to the order: 
+let totalPrice = 0;
+order.products.forEach(prod => {
+  totalPrice += prod.quantity * prod.product.price;
+  pdfDoc.fontSize(14)
+  .text(prod.product.title
+     + ' - ' +  prod.quantity 
+     + ' x ' + '$' + prod.product.price);
+});
+pdfDoc.text('--------------------------')
+pdfDoc.text(`Total Price: $${totalPrice}`)
+
 pdfDoc.end();
 
   // fs.readFile(invoicePath, (error, data) => {
