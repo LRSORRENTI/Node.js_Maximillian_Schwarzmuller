@@ -95,7 +95,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // have a request that goes to /images
 // app.use(express.static(path.join(__dirname, 'iamges')));
 
-app.use('images', express.static(path.join(__dirname, 'iamges')));
+app.use('/images', express.static(path.join(__dirname, 'iamges')));
 
 app.use(
   session({

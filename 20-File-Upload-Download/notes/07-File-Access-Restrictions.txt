@@ -1,0 +1,59 @@
+
+========================
+File Access Restrictions
+========================
+
+How can we improve the serving of our data? 
+
+We can add an additional check in our controller action:
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  const invoiceName = 'invoice-' + orderId + '.pdf';
+  const invoicePath = path.join('data', 'invoices', invoiceName)
+
+  fs.readFile(invoicePath, (error, data) => {
+    if(error){
+      return next(error)
+    }
+    res.setHeader('Content-Type', 'application/pdf' )
+
+        res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"')
+    res.send(data)
+  })
+}
+
+How do we implement this? Well we can add the order model,
+find that order by id in the database, then check and 
+verify if the order id matches the order id of the logged 
+in user 
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  Order.findById(orderId)
+  .then(order => {
+    if(!order){
+        return next(new Error('No order found'));
+    }
+    if(order.user.userId.toString() !== req.user._id.toString()){
+        // So if the above is true, if it's not equal then return
+      return next(new Error('Unauthorized Access'))
+    }
+        const invoiceName = 'invoice-' + orderId + '.pdf';
+        const invoicePath = path.join('data', 'invoices', invoiceName)
+  
+  fs.readFile(invoicePath, (error, data) => {
+    if(error){
+      return next(error)
+    }
+    res.setHeader('Content-Type', 'application/pdf' )
+
+        res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"')
+  
+  
+  )
+  res.send(data);
+
+  .catch(err => {
+    next(err)
+  })
