@@ -228,6 +228,11 @@ file.pipe(res);
 // readFile method, instead it streams the large 
 // data on the fly
 
+// And the most it needs to store is one chunk of 
+// data, again we're back to the beginning, streams 
+// and buffers, chunks are what we work with, and 
+// buffers allow access to the chunks 
+
  })
  .catch(err => {
   console.log(err)
