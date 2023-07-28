@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
+const PDFDocument = require('pdfkit')
+
 const Product = require('../models/product');
 const Order = require('../models/order');
 
@@ -195,15 +197,82 @@ exports.getInvoice = (req, res, next) => {
     const invoiceName = 'invoice-' + orderId + '.pdf';
     const invoicePath = path.join('data', 'invoices', invoiceName)
   
-  fs.readFile(invoicePath, (error, data) => {
-    if(error){
-      return next(error)
-    }
-    res.setHeader('Content-Type', 'application/pdf' );
-    res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+    // 
+const pdfDoc = new PDFDocument();
+// Now with pdf kit installed we can call it above,
+// and now we have a new readable stream 
+res.setHeader('Content-Type', 'application/pdf');
+res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+pdfDoc.pipe(fs.createWriteStream(invoicePath))
+// and we can pipe a writestream and pass in invoice 
+// path
+pdfDoc.pipe(res);
+// and we also pipe into the repsonse object
+
+// if we call text on pdfDoc, it allows us to 
+// write text to the pdf doc 
+// pdfDoc.text('Hello From PDFKIT .text() method');
+// after we write to it with .text, we need to call 
+// .end() that we can send the response 
+
+pdfDoc.fontSize(26).text('Invoice', {
+  underline: true, 
+});
+pdfDoc.text('--------------------------')
+// Now we can loop through the the order to 
+// create the output, or since we already 
+// have access to the order: 
+let totalPrice = 0;
+order.products.forEach(prod => {
+  totalPrice += prod.quantity * prod.product.price;
+  pdfDoc.fontSize(14)
+  .text(prod.product.title
+     + ' - ' +  prod.quantity 
+     + ' x ' + '$' + prod.product.price);
+});
+pdfDoc.text('--------------------------')
+pdfDoc.text(`Total Price: $${totalPrice}`)
+
+pdfDoc.end();
+
+  // fs.readFile(invoicePath, (error, data) => {
+  //   if(error){
+  //     return next(error)
+  //   }
+  //   res.setHeader('Content-Type', 'application/pdf' );
+  //   res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
   
-  res.send(data);
-  });
+  // res.send(data);
+  // });
+  // Instead of reading the entire file, which if it's a 
+  // large file will take a lot of time, we'll instead 
+  // stream it
+
+  // const file = fs.createReadStream(invoicePath);
+// now node can read stream step by step in chunnks
+
+// res.setHeader('Content-Type', 'application/pdf');
+// res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+// file.pipe(res);
+// And we'll use the pipe method, which can pipe data that's 
+//  read into my response object, we can use read streams 
+// to pipe into writable streams 
+
+// Not every object is writable, but the response 
+// object is 
+
+// Once we do this the response will be streamed to 
+// the browser step by step, for large files this 
+// is a bonus, because node doesn't then need to 
+// pre-load all the data in memory like in the 
+// readFile method, instead it streams the large 
+// data on the fly
+
+// And the most it needs to store is one chunk of 
+// data, again we're back to the beginning, streams 
+// and buffers, chunks are what we work with, and 
+// buffers allow access to the chunks 
+
  })
  .catch(err => {
   console.log(err)

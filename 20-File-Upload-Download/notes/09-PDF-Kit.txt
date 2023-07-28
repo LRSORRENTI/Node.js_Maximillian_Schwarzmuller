@@ -1,0 +1,69 @@
+
+================================
+Using PDF-Kit for PDF generation
+================================
+
+Now that we learned how to save and return files, 
+let's learn about how to create a pdf on the 
+fly server-side 
+
+So inside our .getInvoice method inside 
+of shop.js controller, instead of serving a pdf 
+that already exists, we'll create one on the fly 
+
+For this we'll use a third party package 
+called PDF-Kit, we install with 
+
+npm install pdfkit
+
+And change out shop.js controller for invoice method:
+
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  Order.findById(orderId)
+  .then(order => {
+    if(!order){
+        return next(new Error('No order found'));
+    }
+    if(order.user.userId.toString() !== req.user._id.toString()){
+        // So if the above is true, if it's not equal then return
+      return next(new Error('Unauthorized Access'))
+    }
+    const invoiceName = 'invoice-' + orderId + '.pdf';
+    const invoicePath = path.join('data', 'invoices', invoiceName)
+  
+    // 
+const pdfDoc = new PDFDocument();
+
+// Now with pdf kit installed we can call it above,
+// and now we have a new readable stream 
+
+res.setHeader('Content-Type', 'application/pdf');
+res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+pdfDoc.pipe(fs.createWriteStream(invoicePath))
+
+// and we can pipe a writestream and pass in invoice 
+// path
+
+pdfDoc.pipe(res);
+
+// and we also pipe into the repsonse object
+
+// if we call text on pdfDoc, it allows us to 
+// write text to the pdf doc 
+
+pdfDoc.text('Hello From PDFKIT .text() method');
+
+// after we write to it with .text, we need to call 
+// .end() that we can send the response 
+
+pdfDoc.end();
+
+// Not every object is writable, but the response 
+// object is 
+ })
+ .catch(err => {
+  console.log(err)
+ })
+}

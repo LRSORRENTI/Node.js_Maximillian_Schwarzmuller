@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const { validationResult } = require('express-validator/check');
 
+const fileHelper = require('../util/file')
+
 const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
@@ -158,6 +160,11 @@ exports.postEditProduct = (req, res, next) => {
       // in here we add a check to see if we 
       // need to set the image:
       if(image){
+        // Here's where our helper function 
+        // from util/file.js comes in 
+        fileHelper.deleteFile(product.imageUrl);
+        // the above is done in a 'fire and forget' 
+        // manner 
         product.imageUrl = image.path;
       }
       return product.save().then(result => {
@@ -193,8 +200,15 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.deleteOne({ _id: prodId, userId: req.user._id })
-    .then(() => {
+  Product.findById(prodId)
+  .then(product => {
+    if(!product){
+      return next(new Error('Product not found '))
+    }
+    fileHelper.deleteFile(product.imageUrl)
+    return Product.deleteOne({ _id: prodId, userId: req.user._id })
+  })
+  .then(() => {
       console.log('DESTROYED PRODUCT');
       res.redirect('/admin/products');
     })

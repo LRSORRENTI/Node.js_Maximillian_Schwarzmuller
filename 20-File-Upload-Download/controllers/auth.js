@@ -89,7 +89,6 @@ exports.postLogin = (req, res, next) => {
         .compare(password, user.password)
         .then(doMatch => {
           if (doMatch) {
-            // console.log(req.session)
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {

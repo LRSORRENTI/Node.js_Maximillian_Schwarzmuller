@@ -1,0 +1,10 @@
+ 
+==============
+Deleting Files 
+==============
+
+We should also add the functionality for deleting files 
+and to implement this, inside of the utils folder 
+create a file.js file where we'll add some helper 
+functions to assist us 
+
