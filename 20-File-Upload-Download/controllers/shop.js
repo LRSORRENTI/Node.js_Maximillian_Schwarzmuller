@@ -195,15 +195,39 @@ exports.getInvoice = (req, res, next) => {
     const invoiceName = 'invoice-' + orderId + '.pdf';
     const invoicePath = path.join('data', 'invoices', invoiceName)
   
-  fs.readFile(invoicePath, (error, data) => {
-    if(error){
-      return next(error)
-    }
-    res.setHeader('Content-Type', 'application/pdf' );
-    res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+  // fs.readFile(invoicePath, (error, data) => {
+  //   if(error){
+  //     return next(error)
+  //   }
+  //   res.setHeader('Content-Type', 'application/pdf' );
+  //   res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
   
-  res.send(data);
-  });
+  // res.send(data);
+  // });
+  // Instead of reading the entire file, which if it's a 
+  // large file will take a lot of time, we'll instead 
+  // stream it
+
+  const file = fs.createReadStream(invoicePath);
+// now node can read stream step by step in chunnks
+
+res.setHeader('Content-Type', 'application/pdf');
+res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+file.pipe(res);
+// And we'll use the pipe method, which can pipe data that's 
+//  read into my response object, we can use read streams 
+// to pipe into writable streams 
+
+// Not every object is writable, but the response 
+// object is 
+
+// Once we do this the response will be streamed to 
+// the browser step by step, for large files this 
+// is a bonus, because node doesn't then need to 
+// pre-load all the data in memory like in the 
+// readFile method, instead it streams the large 
+// data on the fly
+
  })
  .catch(err => {
   console.log(err)

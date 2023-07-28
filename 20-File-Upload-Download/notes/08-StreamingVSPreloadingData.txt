@@ -2,3 +2,49 @@
 =============================
 Streaming VS Pre-loading Data 
 =============================
+
+We can improve the way we serve the file from: 
+
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  Order.findById(orderId)
+  .then(order => {
+    if(!order){
+        return next(new Error('No order found'));
+    }
+    if(order.user.userId.toString() !== req.user._id.toString()){
+        // So if the above is true, if it's not equal then return
+      return next(new Error('Unauthorized Access'))
+    }
+    const invoiceName = 'invoice-' + orderId + '.pdf';
+    const invoicePath = path.join('data', 'invoices', invoiceName)
+  
+  fs.readFile(invoicePath, (error, data) => {
+    if(error){
+      return next(error)
+    }
+    res.setHeader('Content-Type', 'application/pdf' );
+    res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+  
+  res.send(data);
+  });
+ })
+ .catch(err => {
+  console.log(err)
+ })
+}
+
+When we call res.send(data) we send that file, and 
+for small files that works, but if we read the file,
+fs.readfile()
+
+Node will enter the entire file into memory then 
+return it with the response, this means that the 
+response will take a long time, and potentially 
+catalyzing a memory overflow
+
+This is due to the fact that the fs.readFile method 
+reads the entire file into memory, with big files, 
+it will take some time 
+
