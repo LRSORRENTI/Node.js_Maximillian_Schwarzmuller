@@ -16,3 +16,5 @@ const deleteFile = (filePath) => {
 
 // Now we can use this helper function insdie of 
 // our admin.js controller 
+
+exports.deleteFile = deleteFile;
