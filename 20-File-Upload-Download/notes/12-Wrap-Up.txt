@@ -1,0 +1,20 @@
+ 
+==============
+Module Summary 
+==============
+
+ That's it for this module, we learned about 
+ file filtering, upload and download, utilizing 
+ multer middleware
+
+We learned how to serve them statically, stream files, 
+and generate files on the fly like we did with 
+pdfkit package 
+
+Useful resources:
+
+Multer Official Docs: https://github.com/expressjs/multer
+
+Streaming Files: https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
+
+Generating PDFs with PDFKit: http://pdfkit.org/docs/getting_started.html
