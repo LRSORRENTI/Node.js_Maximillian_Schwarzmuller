@@ -76,13 +76,14 @@ app.use(flash());
 
 
 app.use((req, res, next) => {
-  console.log(req.session)
+  console.log('line 79, app.js:',req.session)
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
   next();
 });
 
 app.use((req, res, next) => {
+  console.log('line 86 appjs: ', req.session)
   // throw new Error('Sync Dummy');
   if (!req.session.user) {
     return next();
@@ -109,6 +110,7 @@ app.get('/500', errorController.get500);
 app.use(errorController.get404);
 
 app.use((error, req, res, next) => {
+  console.log('line113 app.js', req.session)
   // res.status(error.httpStatusCode).render(...);
   // res.redirect('/500')
   
@@ -118,6 +120,7 @@ app.use((error, req, res, next) => {
     isAuthenticated: req.session.isLoggedIn
      
   });
+  console.log('line 123 app.js', isAuthenticated)
 });
 
 mongoose
