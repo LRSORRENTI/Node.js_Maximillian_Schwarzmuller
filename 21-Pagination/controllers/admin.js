@@ -13,7 +13,7 @@ exports.getAddProduct = (req, res, next) => {
     editing: false,
     hasError: false,
     errorMessage: null,
-    validationErrors: [1]
+    validationErrors: []
   });
 };
 
@@ -22,6 +22,7 @@ exports.postAddProduct = (req, res, next) => {
   const image = req.file;
   const price = req.body.price;
   const description = req.body.description;
+  console.log('admin.js line 25', req.session)
   if (!image) {
     return res.status(422).render('admin/edit-product', {
       pageTitle: 'Add Product',
@@ -36,6 +37,7 @@ exports.postAddProduct = (req, res, next) => {
       errorMessage: 'Attached file is not an image.',
       validationErrors: []
     });
+  
   }
   const errors = validationResult(req);
 
