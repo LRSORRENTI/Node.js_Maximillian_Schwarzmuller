@@ -1,0 +1,22 @@
+====================================
+Pagination - Fetching Data in Chunks
+====================================
+
+Let's think about how we're working with our 
+MongoDB, right now we fetch all products when 
+displaying the page 
+
+We can instead use Pagination to split our data 
+across multiple pages 
+
+This is something that's usually done when working 
+with large data sets 
+
+Often with modern websites, they have limits for 
+products per page, they have a pre-set number 
+of products per page, sometimes you can have 
+the user specify how many products to display 
+
+Often times there's pagination, page 1, 2, 3.. 
+and the user can jump from page to page by clicking 
+the pagination links for the different pages 
