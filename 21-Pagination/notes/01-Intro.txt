@@ -20,3 +20,8 @@ the user specify how many products to display
 Often times there's pagination, page 1, 2, 3.. 
 and the user can jump from page to page by clicking 
 the pagination links for the different pages 
+
+How do we start with implementing this? 
+
+We can use query parameters, we added some earlier 
+in the course, it's what's added after a '?'
