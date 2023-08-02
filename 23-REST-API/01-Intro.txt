@@ -1,0 +1,17 @@
+=====================
+Working with REST API
+=====================
+
+In this module: 
+
+- What are REST API's ?
+
+- Why REST API's are commonly built and used
+
+- Core REST Concepts & Principles
+
+- Build our own REST API  
+
+====================
+What is a REST API ?
+====================
