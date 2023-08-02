@@ -1,6 +1,6 @@
-=====================
-Working with REST API
-=====================
+=======================================================
+Working with REST API (REpresentational State Transfer)
+=======================================================
 
 In this module: 
 
@@ -15,3 +15,72 @@ In this module:
 ====================
 What is a REST API ?
 ====================
+
+REST API's solve one common problem, 
+not every single UI requires HTML
+
+Mobile apps, these apps usually never render 
+server-side HTML, they don't need a template engine 
+like EJS or PUG
+
+Typically they are built with Java or Kotlin for Android, 
+and Swift or Objective-C for Apple / iOS 
+
+Then utilize a rich suite of pre-built and tested UI 
+widgets or components 
+
+You utilize libraries with pre-built components 
+to help build these mobile apps 
+
+Then use things like Android Studio and Xcode for iOS 
+for development 
+
+In these apps we don't really even want HTML code, 
+we can't really render it on a mobile app 
+
+================
+Single Page Apps
+================ 
+
+Another use case is SPA's or Single Page Web Apps, 
+a good example is the Udemy course player, when you 
+click around on some of the Udemy course player 
+components, notice that the page doesn't reload 
+
+This is because the page is rendered via browser side 
+JavaScript, this JS code manipulates the DOM 
+
+And this is the SPA approach, you initially fetch 
+a single HTML page, which doesn't contain much 
+content at all 
+
+Then render content dynamically so the page doesn't 
+need to be refreshed, the JS is doing all the work 
+to render specific components based on client / 
+user behavior
+
+The JavaScript reaches out to some backend API, 
+a RESTFUL API and only fetch the data it needs to render 
+the content needed 
+
+These techniques are popular since they provide a 
+very mobile-app-esque feeling 
+
+The takeaway is that we have a front-end that's 
+de-coupled from the backend 
+
+We only need the data, we don't want HTML we just 
+render data dynamically
+
+With a REST API we need a different kind of response 
+
+
+Important to note, only the response and request data 
+change, the server-side logic does not change 
+
+Things like validation, database logic, file handling 
+all these don't change, we do those things the same 
+way when working with REST API's 
+
+They are just de-coupled now from the front-end
+
