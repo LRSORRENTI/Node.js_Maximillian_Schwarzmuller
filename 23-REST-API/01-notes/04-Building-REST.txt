@@ -1,0 +1,26 @@
+===================
+Building a REST API 
+===================
+
+How do we start building a REST API? 
+
+Well we need a node express server just like before, 
+also there are dedicated REST API frameworks you 
+can look up, but we'll use express 
+
+1. npm install --save express 
+
+We need express to build our API 
+
+2. npm install --save-dev nodemon
+
+We'll use nodemon again so we don't need to 
+refresh, and in the package json add a start
+script: nodemon app.js
+
+3. npm install --save body-parser
+
+4. Create a routes folder, and inside create a 
+   feed.js file, for maybe a blog site or a message 
+   feed 
+
