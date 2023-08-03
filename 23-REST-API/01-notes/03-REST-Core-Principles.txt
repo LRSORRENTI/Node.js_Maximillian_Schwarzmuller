@@ -1,3 +1,62 @@
 ========================
 REST API CORE PRINCIPLES 
 ========================
+
+There are two core fundamental REST API 
+Principles, we need to learn and be aware of: 
+
+1. UNIFORM INTERFACE - Clearly defined API endpoints
+   with clear REQUEST and RESPONSE structure, and 
+   it should be well documented to make it easier for 
+   others to work with and understand, what data 
+   should you expect to get back, what endpoints are 
+   available? 
+ 
+2. STATELESS INTERACTIONS - This is critical when we 
+   later go back into Authentication, with a REST API 
+   the server and client are de-coupled, they don't 
+   share a connection history, no sessions will be 
+   used, every request is treated as if no prior requests 
+   have been sent, the server looks at every request 
+   independently, there are no session stores, 
+   it doenn't care about the client at all 
+
+
+
+That's one of the cool things about REST API's, 
+you can open them up to anyone, like how google 
+offers it's google maps api, it just has documentation 
+saying: 
+
+Here's the endpoints, here's the data you should expect, 
+and then I'm done, there are no sessions being stored 
+
+There's a strong de-coupling from client to server, 
+they just exchange data 
+
+Some additional principles we'll learn are: 
+
+- Cacheable: 
+  We can send back some headers that 
+  inform the client how long the 
+  response is valid so the client 
+  can cache the response 
+
+- Client-Server-De-Coupling:
+  We discussed this already, the client and 
+  server are separated, no concerns with peristent 
+  data stores 
+
+- Layered System: 
+  Meaning when we send a request to an API, we can't 
+  rely on that server immediately handling the 
+  request, the server may forward the request or 
+  distribute it to another server 
+
+- Code On Demand: 
+  Executable code could transmit executable code 
+  to the client, in reality this isn't implemented 
+  very often, but it's good to learn
+
+  
+        

@@ -122,6 +122,7 @@ app.use((error, req, res, next) => {
   console.log('line 123 app.js', isAuthenticated)
 });
 
+
 mongoose
   .connect(MONGODB_URI)
   .then(result => {

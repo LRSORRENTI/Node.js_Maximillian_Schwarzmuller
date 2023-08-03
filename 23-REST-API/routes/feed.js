@@ -1,4 +1,8 @@
 const express = require('express');
+// We're going to use this route for our feed, like 
+// a news feed on a news website, or a posts feed on 
+// a social media site 
+
 
 // import the feed controller 
 const feedController = require('../controllers/feed')
@@ -15,5 +19,7 @@ router.get('/posts', feedController.getPosts)
 // so the getposts method is the function that should 
 // execute for this route, and we also need to register 
 // this route in app.js 
+
+router.post('/post', feedController.createPost)
 
 module.exports = router;
