@@ -1,4 +1,8 @@
 const express = require('express');
+// We're going to use this route for our feed, like 
+// a news feed on a news website, or a posts feed on 
+// a social media site 
+
 
 // import the feed controller 
 const feedController = require('../controllers/feed')
