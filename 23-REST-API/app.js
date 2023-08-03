@@ -10,6 +10,24 @@ app.use(bodyParser.json());
 // with JSON, we expect JSON, earlier in the course 
 // we used bodyParser.urlencoded, not anymore 
 
+app.use((req, res, next) => {
+    // These headers are set to allow CORS to be used, the 
+    // '*' is a wildcard, meaning anything is allowed, or 
+    // we can pass in specified values, for the first we couldv've 
+    // passed in : 
+    
+    // res.setHeader('Access-Control-Allow-Origin', 'codepen.io');
+
+    // if we wanted to to only allow codepen.io, or lock 
+    // it to any specific domain
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
+    next()
+})
+
+
 app.use('/feed', feedRoutes);
 // so any request that starts with /feed will be 
 // forwarded to the feedRoutes, into routes/feed.js
