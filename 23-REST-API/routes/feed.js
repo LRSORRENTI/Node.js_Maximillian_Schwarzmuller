@@ -20,4 +20,6 @@ router.get('/posts', feedController.getPosts)
 // execute for this route, and we also need to register 
 // this route in app.js 
 
+router.post('/post', feedController.createPost)
+
 module.exports = router;

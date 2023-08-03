@@ -1,0 +1,37 @@
+===========================
+Using POSTMAN For API Tests
+===========================
+
+We'll use POSTMAN for testing
+
+POSTMAN has a gui desktop app that allows for 
+localhost tests, the online UI doesn't allow localhost 
+
+Then inside of the app, in workspaces click new, or + 
+then for this test click POST request, and fill in 
+
+localhost:8080/feed/post 
+
+then below click body, then select raw dropdown and 
+JSON, then inside:
+
+{
+    "title":"Title from POSTMAN desktop app",
+    "content": "testing from POSTMAN"
+}
+
+Then press send, now you'll see below postman returns: 
+
+201 Created 158ms 395 B
+
+{
+    "message": "Post created successfully",
+    "post": {
+        "id": "2023-08-03T13:38:41.566Z",
+        "title": "Title from POSTMAN desktop app",
+        "content": "testing from POSTMAN"
+    }
+}
+
+POSTMAN is a very popular tool when working with 
+REST API's

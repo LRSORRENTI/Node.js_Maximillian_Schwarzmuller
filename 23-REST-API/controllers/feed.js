@@ -44,7 +44,7 @@ exports.createPost = (req, res, next) => {
         // 201 is both 
         message: 'Post created successfully',
         post: {
-            id: new Date().toISOString(), 
+            id:  [new Date().toISOString().split("T"), "UTC"], 
             title: title,
             content: content
         }
