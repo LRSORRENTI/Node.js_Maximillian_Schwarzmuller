@@ -1,0 +1,18 @@
+===================
+Building a REST API 
+===================
+
+What's in this module? 
+
+- Planning a REST API, brainstorm why and how 
+  to schematize a REST API depending on the goal 
+  of the project you build 
+
+- Implemnet CRUD operations and API endpoint structure
+
+- Validation, to validate the CRUD data 
+
+- Image Upload, so we can still add images even though 
+  we're not working with Views and EJS anymore 
+
+- Authentication
