@@ -1,0 +1,64 @@
+====================================
+REST API's, Clients, and CORS Errors
+====================================
+
+Let's test something, on codepen we'll add 
+two buttons, getButton and postButton, 
+and we'll register event listeners for 
+click events which will make a request to our 
+backend 
+
+And we'll use the fetch API which is a built in 
+browser API we can use to access our endpoint:
+
+const getButton = document.getElementById('get')
+
+const postButton = document.getElementById('post')
+
+
+getButton.addEventListener('click', () => {
+    fetch('http://localhost:8080/feed/posts') 
+    .then(res => res.json())
+    .then(resData => console.log(resData))
+    .catch(err => console.log(err))
+});
+
+And if we click get posts button we see Cross Origin 
+Error
+
+By default CORS is not allowed, we can't share resources 
+across differing origins 
+
+We can fix this, if we want to offer data to different 
+origin clients, we often serve things from different 
+servers, that don't share the exact origin 
+
+We need to enable CORS 
+
+To tell the browser we need to change something on 
+our server, inside of app.js we need to set 
+some headers in a general middleware
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
+
+And we set these headers before we send the response 
+
+Now when we press the get button we see: 
+
+{posts: Array(1)}
+posts: 
+Array(1)
+0
+: 
+{title: 'First Post', content: 'this is my first post'}
+length
+: 
+1
+[[Prototype]]
+: 
+Array(0)
+[[Prototype]]
+: 
+Object

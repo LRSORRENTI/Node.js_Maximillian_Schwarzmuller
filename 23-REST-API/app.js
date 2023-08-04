@@ -22,7 +22,11 @@ app.use((req, res, next) => {
     // it to any specific domain
 
     res.setHeader('Access-Control-Allow-Origin', '*');
+    // We could pass in codepen.io above if we wanted 
+    // to just allow codepen, but we use * for all instead 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    // We can also modify which methods to allow, we could ,
+    // only allow GET or POST, whatever we need 
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
     next()
 })
