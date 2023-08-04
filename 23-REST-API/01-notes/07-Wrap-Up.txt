@@ -1,0 +1,61 @@
+
+==============
+Module Summary
+==============
+
+That's the basics of REST API's, we'll dive much 
+deeper in the next core module, actually building 
+a full REST API 
+
+But we went over the core concepts this module: 
+
+=====================
+REST CONCEPTS / IDEAS
+=====================
+
+- REST APIs are all about data, no UI logic is 
+  exchanged 
+
+- REST API's are normal node servers which expose 
+  end-points (HTTP Methods and a path) for clients 
+  to send requests to 
+
+- JSON is the common data format that's used, but 
+  sometimes you'll see other data formats like XML 
+
+- REST API's are de-coupled from the clients that use 
+  them, we specify the end-points and the data they 
+  should expect 
+
+======================
+Requests and Responses
+======================
+
+- Attach data in JSON format and let the end know 
+  by setting the 'Content-Type' header: 
+
+postButton.addEventListener('click', () => {
+    method: 'POST',
+    body: JSON.stringify({
+      title: 'A codepen post',
+      content: 'Created in codepen'
+    }),
+    headers: {
+    'Content-Type': 'application/json'
+  }
+  })
+
+- CORS Errors occur when using an API that doesn't 
+  set those CORS headers: 
+
+      res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // We could pass in codepen.io above if we wanted 
+    // to just allow codepen, but we use * for all instead 
+
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+
+    // We can also modify which methods to allow, we could ,
+    // only allow GET or POST, whatever we need 
+    
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
