@@ -62,3 +62,69 @@ Array(0)
 [[Prototype]]
 : 
 Object
+
+
+But we need to change some things in our postButton, 
+we need to set the body to JSON stringify, as well 
+as setting the headers to content-type json:
+
+
+const postButton = document.getElementById('post')
+
+postButton.addEventListener('click', () => {
+    // we change the path from posts to post, since
+  // we're now targeting the post method in 
+  // the routes feed.js file 
+  fetch('http://localhost:8080/feed/post', {
+    // And we pass an object as a second arg
+    method: 'POST',
+    body: JSON.stringify({
+      title: 'A codepen post',
+      content: 'Created in codepen'
+    }),
+    headers: {
+    'Content-Type': 'application/json'
+  }
+  })
+    .then(res => res.json())
+    .then(resData => console.log(resData))
+    .catch(err => console.log(err))
+  
+});
+
+
+//clicked: 
+{message: 'Post created successfully', post: {…}}
+message
+: 
+"Post created successfully"
+post
+: 
+content
+: 
+"Created in codepen"
+id
+: 
+(2) [Array(2), 'UTC']
+title
+: 
+"A codepen post"
+[[Prototype]]
+: 
+Object
+[[Prototype]]
+: 
+Object
+
+Also important to note inside of app.js: 
+
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
+
+    If we commented that out, everything breaks, 
+     we need to allow the control to 
+     authorize content-type setting 
+
+There are other ways of send ASYNC requests, like 
+AJAX and AXIOS, and if it's a mobile app on 
+Apple / Android, it will be totally different 
+
