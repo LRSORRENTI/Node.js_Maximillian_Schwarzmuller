@@ -1,0 +1,17 @@
+=======================
+Fetching Lists of Posts 
+=======================
+
+As a note here, we're spooling up our REST-API 
+in the folder 24-REST-API on port 8080 
+
+And inside of 25-BUILD-RESTAPI we're spooling up 
+our React frontend on port 3000
+
+This setup simulates that these two parts of the 
+application are served separately by different 
+servers, a common scenario since front end apps 
+can be served on static hosts 
+
+We have different ports now, therefore different 
+domains

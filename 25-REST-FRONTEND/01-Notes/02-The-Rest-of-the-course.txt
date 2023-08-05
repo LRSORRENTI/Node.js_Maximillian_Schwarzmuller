@@ -1,0 +1,66 @@
+=====================================
+REST API's and the Rest of the Course
+=====================================
+
+Before we dive in, let's take a second to reflect 
+on what we've learned and implented thus far. 
+
+We learned: 
+
+- Node / Express.js App Setup 
+
+- Routing / Endpoints 
+
+- Req / Res Handling 
+
+- Validation
+
+- Database Implementation
+
+- Files, Upload, Download 
+
+- Sessions and Cookies 
+
+- Authentication
+
+These are imporant topics we learned, how do these 
+come into play now that we've ditched the 'View' 
+based application, and are instead utilizing 
+a REST approach? 
+
+- Node / Express.js App Setup 
+  This doesn't change at all really, we still 
+  use Node and Express for our app 
+
+- Routing / Endpoints 
+  This doesn't change much either, we have a few
+  more HTTP methods now 
+
+- Req / Res Handling 
+  This does change, instead of Views, we parse + send 
+  JSON data 
+
+- Validation
+  This won't change much, we'll still use Express-Validator 
+  package
+
+- Database Implementation
+  This also won't change much, we'll still use MongoDB 
+  and mongoose 
+
+- Files, Upload, Download 
+  For server side, nothing changes, but client side 
+  we'll change the upload / download structure a bit
+
+- Sessions and Cookies
+   This is a big change, with REST API's we won't be 
+   using Sessions and Cookies, the reason for this is 
+   because with REST, every request is treated uniquely, 
+   from previous requests, no connection from client / server 
+   We manage no sessions because the REST API doesn't care 
+   about the clients 
+
+- Authentication
+  This will also change, we'll implement a different 
+  approach via JSON WEB TOKENS (JWT)
+
