@@ -16,3 +16,4 @@ What's in this module?
   we're not working with Views and EJS anymore 
 
 - Authentication
+
