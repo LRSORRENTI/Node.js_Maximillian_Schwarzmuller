@@ -26,8 +26,14 @@ exports.getPosts = (req, res, next) => {
     res.status(200).json({
         posts: [
          {
+            _id: '1' ,
             title: 'First Post',
-            content: "this is my first post"
+            content: "this is my first post",
+            imageUrl: 'images/TODO-PROJ-COPY.jpg',
+            creator: {
+                name: 'Luke',
+                  },
+                  createdAt: new Date()
                 }
         ]
     })
@@ -44,9 +50,13 @@ exports.createPost = (req, res, next) => {
         // 201 is both 
         message: 'Post created successfully',
         post: {
-            id:  [new Date().toISOString().split("T"), "UTC"], 
+            _id:  [new Date().toISOString().split("T"), "UTC"], 
             title: title,
-            content: content
+            content: content,
+            creator: {
+                name: 'Luke'
+            },
+            createdAt: new Date()
         }
     })
 }
