@@ -106,12 +106,35 @@ class Feed extends Component {
       editLoading: true
     });
     // Set up data (with image!)
-    let url = 'URL';
+    let url = 'http:localhost:8080/feed/post';
+    // we pass in a url to our backend post route,
+
+    let method = {
+      POST: "POST"
+    }
+
     if (this.state.editPost) {
       url = 'URL';
     }
+    // below we send a fetch request which we need to 
+    // configure
+    fetch(url, {
+      method: method.POST,
+      // also need to add the data, it must be JSON 
+      // and also important not to forget to set 
+      // the header:
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+        // inside here we'll pass in an object, 
+        // which will house the code we want to 
+        // send to the backend:
+        title: postData.title, 
+        content: postData.content
 
-    fetch(url)
+      })
+    })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Creating or editing a post failed!');
