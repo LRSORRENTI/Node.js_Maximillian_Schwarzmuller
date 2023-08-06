@@ -106,7 +106,7 @@ class Feed extends Component {
       editLoading: true
     });
     // Set up data (with image!)
-    let url = 'http:localhost:8080/feed/post';
+    let url = 'http://localhost:8080/feed/post';
     // we pass in a url to our backend post route,
 
     let method = {
@@ -142,6 +142,7 @@ class Feed extends Component {
         return res.json();
       })
       .then(resData => {
+        console.log(resData)
         const post = {
           _id: resData.post._id,
           title: resData.post.title,
