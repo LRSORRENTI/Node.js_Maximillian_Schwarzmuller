@@ -1,0 +1,10 @@
+==========
+VALIDATION
+==========
+
+We'll add the package express-validator again, 
+inside of our backend api, npm install --save 
+express-validator
+
+Then we need to require it inside of the routes/feed.js 
+file 

@@ -3,6 +3,9 @@ const express = require('express');
 // a news feed on a news website, or a posts feed on 
 // a social media site 
 
+const { body } = require('express-validator/src/')
+// above we bring in the check and body methods from 
+// express-validator
 
 // import the feed controller 
 const feedController = require('../controllers/feed')
@@ -20,6 +23,14 @@ router.get('/posts', feedController.getPosts)
 // execute for this route, and we also need to register 
 // this route in app.js 
 
-router.post('/post', feedController.createPost)
+
+// and here, between '/post', and the controller action, 
+// we'll add an array of middleware
+router.post('/post',
+ [ body('title').trim().isLength( {min: 5} ),
+   body('content').trim().isLength( {min: 5} )
+
+],
+feedController.createPost)
 
 module.exports = router;
