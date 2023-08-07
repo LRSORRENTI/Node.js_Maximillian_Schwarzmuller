@@ -1,3 +1,11 @@
+require('dotenv').config({path: './util/my.env'})
+const mongoose = require('mongoose')
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+
+const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/shop`
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -36,5 +44,8 @@ app.use('/feed', feedRoutes);
 // so any request that starts with /feed will be 
 // forwarded to the feedRoutes, into routes/feed.js
 // where we handle one request for now '/posts' 
-
-app.listen(8080);
+mongoose.connect(MONGODB_URI)
+.then(result => {
+    app.listen(8080);
+})
+.catch(err => console.log(err))
