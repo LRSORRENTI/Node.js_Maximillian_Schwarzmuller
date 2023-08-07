@@ -4,6 +4,10 @@
 
 const {validationResult} = require('express-validator/src/validation-result')
 
+
+const Post = require('../models/post')
+// And now we can import the Post model we defined
+
 // Important to note, we won't call res.render anynore,
 // since we're not working MVC anymore, there's no 
 // views to render 
@@ -50,20 +54,27 @@ exports.createPost = (req, res, next) => {
     const title = req.body.title;
     const content = req.body.content;
     // create post in db 
-    
+
+    // Here's where we'll use our Post Schema Model: 
+    const post = new Post({
+        title: title,
+        content: content,
+        imageUrl: 'images/TODO-PROJ-COPY.jpg',
+        creator: {
+            name: 'Luke'
+        },
+    })
+    post.save()
+    .then(result => {console.log(result)
     res.status(201).json({
         // we use code 201 for success AND a resource 
         // was created , just 200 is success only,
         // 201 is both 
         message: 'Post created successfully',
-        post: {
-            _id:  [new Date().toISOString().split("T"), "UTC"], 
-            title: title,
-            content: content,
-            creator: {
-                name: 'Luke'
-            },
-            createdAt: new Date()
-        }
+        post: result
+        });
     })
-}
+    .catch(err => {
+        console.log('error line 68 feedjs controller', err)
+    });
+};
