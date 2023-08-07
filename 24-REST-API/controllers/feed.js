@@ -2,8 +2,7 @@
 // a news feed on a news website, or a posts feed on 
 // a social media site 
 
-
-
+const {validationResult} = require('express-validator/src/validation-result')
 
 // Important to note, we won't call res.render anynore,
 // since we're not working MVC anymore, there's no 
