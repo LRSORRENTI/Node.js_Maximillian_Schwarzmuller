@@ -26,20 +26,21 @@ exports.getPosts = (req, res, next) => {
     // if it's an error code, render an error interface 
     // instead 
 
-    res.status(200).json({
-        posts: [
-         {
-            _id: '1' ,
-            title: 'First Post',
-            content: "this is my first post",
-            imageUrl: 'images/TODO-PROJ-COPY.jpg',
-            creator: {
-                name: 'Luke',
-                  },
-                  createdAt: new Date()
-                }
-        ]
+    Post.find()
+    .then(posts => {
+        res.statusCode(200)
+    .json({message: "Fetched posts \
+        successfully", posts: posts})
     })
+    .catch(err => {
+        if(!err.statusCode ){
+            err.statusCode = 500
+        }
+        // we also need to call next(err) otherwise 
+        // the error won't reach the next error handling 
+        // middleware
+        next(err)
+    }) 
 }
 
 exports.createPost = (req, res, next) => {
@@ -115,7 +116,7 @@ exports.getPost = (req, res, next) => {
             // will be reached and grab that error, we throw 
             // the error down to the catch block peyton manning
         }
-        
+
         // if we make it here it means we did find the 
         /// post: 
 
