@@ -88,3 +88,47 @@ exports.createPost = (req, res, next) => {
         // console.log('error line 68 feedjs controller', err)
     });
 };
+
+exports.getPost = (req, res, next) => {
+    const postid = req.params.postId;
+    // important to note .params.postId must match 
+    // the name given in the routes after the colon:
+
+    // /routes/feed.js: 
+
+    // router.get('/post/:postid')
+
+    // Now we need to find a post with 
+    // that unique id in the database, now we 
+    // use the post.js model and the findById method 
+    // we defined in there: 
+
+    Post.findById(postid)
+    .then(post => {
+        if(!post){
+            const error = new Error('Post with that id not found')
+            error.statusCode = 404;
+            throw error;
+            // we learned we should use next in here,
+            // but if we throw an error inside of a 
+            // then block, the below catch block 
+            // will be reached and grab that error, we throw 
+            // the error down to the catch block peyton manning
+        }
+        
+        // if we make it here it means we did find the 
+        /// post: 
+
+        res.status(200).json({
+            message: 'Post Found!', post: post
+        });
+    })
+    .catch(err => {
+        if(!err.statusCode ){
+            err.statusCode = 500
+        }
+        next(err)
+    })
+
+
+}
