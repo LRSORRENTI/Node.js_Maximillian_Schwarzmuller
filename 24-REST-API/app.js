@@ -5,6 +5,7 @@ const dbPassword = process.env.DB_PASSWORD;
 
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
 
+const path = require('path')
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,10 +14,24 @@ const feedRoutes = require('./routes/feed');
 
 const app = express();
 
+// here we'll set up the middleware to serve images 
+// statically, and we'll bring in the path module, 
+// then use path.join to construct an absolute path
+// And we pass in __dirname which gives us the path 
+// to the directory, and on the same level as app.js
+// we have /images 
+
+
+
+
 app.use(bodyParser.json());
 // now we use bodyParser.json, since we're working 
 // with JSON, we expect JSON, earlier in the course 
 // we used bodyParser.urlencoded, not anymore 
+
+app.use('/images', express.static(path.join(__dirname, 'images')))
+// Now with the above, the requests going to /images 
+// will be handled 
 
 app.use((req, res, next) => {
     // These headers are set to allow CORS to be used, the 
@@ -44,6 +59,19 @@ app.use('/feed', feedRoutes);
 // so any request that starts with /feed will be 
 // forwarded to the feedRoutes, into routes/feed.js
 // where we handle one request for now '/posts' 
+
+
+app.use((error, req, res, next) => {
+    console.log(error)
+    // this will execute whenever next 
+    // calls the error from the middleware 
+    const status = error.statusCode || 500;
+    // if the above is undefined on the left, 
+    // it'll default to 500
+    const message = error.message;
+    res.status(status).json({message: message});
+})
+
 mongoose.connect(MONGODB_URI)
 .then(result => {
     app.listen(8080);

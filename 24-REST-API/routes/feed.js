@@ -33,4 +33,12 @@ router.post('/post',
 ],
 feedController.createPost)
 
+// below we'll add another route, a route to get 
+// a single post, where we use the :postid,
+// postid being a dynamic param, because we'll encode 
+// the unique post id into the url 
+
+router.get('/post/:postId', feedController.getPost)
+
+
 module.exports = router;
