@@ -5,6 +5,7 @@ const dbPassword = process.env.DB_PASSWORD;
 
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
 
+const path = require('path')
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,6 +13,12 @@ const bodyParser = require('body-parser');
 const feedRoutes = require('./routes/feed');
 
 const app = express();
+
+// here we'll set up the middleware to serve images 
+// statically, and we'll bring in the path module, 
+// then use path.join to construct an absolute path
+
+app.use('images', express.static(path.join()))
 
 app.use(bodyParser.json());
 // now we use bodyParser.json, since we're working 
