@@ -28,20 +28,19 @@ exports.getPosts = (req, res, next) => {
 
     Post.find()
     .then(posts => {
-        res.statusCode(200)
-    .json({message: "Fetched posts \
-        successfully", posts: posts})
+    res.status(200)
+    .json({message: "Fetched posts successfully", posts: posts})
     })
     .catch(err => {
         if(!err.statusCode ){
-            err.statusCode = 500
+            err.statusCode = 500;
         }
         // we also need to call next(err) otherwise 
         // the error won't reach the next error handling 
         // middleware
         next(err)
-    }) 
-}
+    }); 
+};
 
 exports.createPost = (req, res, next) => {
 
@@ -91,7 +90,7 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.getPost = (req, res, next) => {
-    const postid = req.params.postId;
+    const postId = req.params.postId;
     // important to note .params.postId must match 
     // the name given in the routes after the colon:
 
@@ -104,7 +103,7 @@ exports.getPost = (req, res, next) => {
     // use the post.js model and the findById method 
     // we defined in there: 
 
-    Post.findById(postid)
+    Post.findById(postId)
     .then(post => {
         if(!post){
             const error = new Error('Post with that id not found')

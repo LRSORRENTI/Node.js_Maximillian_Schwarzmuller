@@ -38,7 +38,7 @@ feedController.createPost)
 // postid being a dynamic param, because we'll encode 
 // the unique post id into the url 
 
-router.get('/post/:postid')
+router.get('/post/:postId', feedController.getPost)
 
 
 module.exports = router;

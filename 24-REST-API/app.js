@@ -21,15 +21,17 @@ const app = express();
 // to the directory, and on the same level as app.js
 // we have /images 
 
-app.use('images', express.static(path.join(__dirname, 'images')))
-// Now with the above, the requests going to /images 
-// will be handled 
+
 
 
 app.use(bodyParser.json());
 // now we use bodyParser.json, since we're working 
 // with JSON, we expect JSON, earlier in the course 
 // we used bodyParser.urlencoded, not anymore 
+
+app.use('/images', express.static(path.join(__dirname, 'images')))
+// Now with the above, the requests going to /images 
+// will be handled 
 
 app.use((req, res, next) => {
     // These headers are set to allow CORS to be used, the 

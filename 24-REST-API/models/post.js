@@ -24,7 +24,7 @@ const postSchema = new Schema({
 
 // Remember we don't export the schema directly, 
 // but a model, a model based on the schema 
-module.exports = mongoose.model('post', postSchema)
+module.exports = mongoose.model('Post', postSchema)
 // We pass in posts, which creates a Posts database 
 // then we add the postSchema as the second arg
 
