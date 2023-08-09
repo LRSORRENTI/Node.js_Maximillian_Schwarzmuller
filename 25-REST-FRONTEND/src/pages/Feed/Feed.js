@@ -116,7 +116,7 @@ class Feed extends Component {
     // content as well
 
     formData.append('title', postData.title );
-    formData.append('title', postData.content );
+    formData.append('content', postData.content );
     // And now we append our image
     formData.append('image', postData.image );; 
 

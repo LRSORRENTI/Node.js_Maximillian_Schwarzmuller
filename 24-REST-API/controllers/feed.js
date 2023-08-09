@@ -63,7 +63,7 @@ exports.createPost = (req, res, next) => {
         // so if we make it past the above check, we have 
         // a valid file
     const imageUrl = req.file.path.replace("\\" ,"/");
-
+    // const imageUrl = req.file.path;
     const title = req.body.title;
     const content = req.body.content;
     // create post in db 
@@ -72,7 +72,7 @@ exports.createPost = (req, res, next) => {
     const post = new Post({
         title: title,
         content: content,
-        imageUrl: 'images/TODO-PROJ-COPY.jpg',
+        imageUrl: imageUrl,
         creator: {
             name: 'Luke'
         },

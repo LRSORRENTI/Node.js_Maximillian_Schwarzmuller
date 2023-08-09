@@ -17,12 +17,13 @@ const feedRoutes = require('./routes/feed');
 
 const app = express();
 
-const storage = multer.diskStorage({
+const fileStorage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, 'images');
     },
     filename: function(req, file, cb) {
-        cb(null, uuidv4())
+        cb(null, uuidv4() + '.jpg')
+        // cb(null, new Date().toISOString() + '-' + file.originalname);
     }
 });
 
@@ -60,9 +61,9 @@ app.use(bodyParser.json());
 // we used bodyParser.urlencoded, not anymore 
 
 app.use(multer({
-    storage: storage,
+    storage: fileStorage,
     fileFilter: fileFilter
-    }).single('image'))
+    }).single('image'));
 
 // Above we register multer as a function, and we 
 // pass in a object to configure, then pass in storage 
