@@ -53,7 +53,17 @@ exports.createPost = (req, res, next) => {
         //                             errors: errors.array()
         }
     
-
+        if(!req.file){
+            //  so if the above is not set, we're 
+            // missing a file, 
+            const error = new Error('No Image Provided');
+            error.statusCode = 422;
+            throw error;
+        }
+        // so if we make it past the above check, we have 
+        // a valid file
+    const imageUrl = req.file.path.replace("\\" ,"/");
+    // const imageUrl = req.file.path;
     const title = req.body.title;
     const content = req.body.content;
     // create post in db 
@@ -62,7 +72,7 @@ exports.createPost = (req, res, next) => {
     const post = new Post({
         title: title,
         content: content,
-        imageUrl: 'images/TODO-PROJ-COPY.jpg',
+        imageUrl: imageUrl,
         creator: {
             name: 'Luke'
         },

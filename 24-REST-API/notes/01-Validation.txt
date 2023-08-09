@@ -1,0 +1,54 @@
+==========
+VALIDATION
+==========
+
+We'll add the package express-validator again, 
+inside of our backend api, npm install --save 
+express-validator
+
+Then we need to require it inside of the routes/feed.js 
+file 
+
+
+
+router.get('/posts', feedController.getPosts)
+
+// and here, between '/post', and the controller action, 
+// we'll add an array of middleware
+
+router.post('/post',
+ [ body('title').trim().isLength({ min: 5 }),
+   body('content').trim().isLength({ min: 5 })
+  
+  // and in here we should add the same min parameters 
+  // that we have below from the front end /src/components/feed/feededit 
+  // in the POST_FORM, the backend should adhere to the 
+  // same pattern 
+
+
+],
+feedController.createPost)
+
+
+
+// from the front end: 
+const POST_FORM = {
+  title: {
+    value: '',
+    valid: false,
+    touched: false,
+    validators: [required, length({ min: 5 })]
+  },
+  image: {
+    value: '',
+    valid: false,
+    touched: false,
+    validators: [required]
+  },
+  content: {
+    value: '',
+    valid: false,
+    touched: false,
+    validators: [required, length({ min: 5 })]
+  }
+};
