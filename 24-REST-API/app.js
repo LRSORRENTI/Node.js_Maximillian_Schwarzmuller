@@ -1,11 +1,14 @@
-require('dotenv').config({path: './util/my.env'})
-const mongoose = require('mongoose')
+require('dotenv').config({path: './util/my.env'});
+const mongoose = require('mongoose');
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
 
-const path = require('path')
+const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,6 +16,33 @@ const bodyParser = require('body-parser');
 const feedRoutes = require('./routes/feed');
 
 const app = express();
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'images');
+    },
+    filename: function(req, file, cb) {
+        cb(null, uuidv4())
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/png' ||
+     file.mimetype === 'image/jpg'   || 
+     file.mimetype === 'image/jpeg'){
+        // so if the above is true, it's valid, 
+        // we only want png, jpg, or jpeg
+        // we then call cb, null being no error, 
+        // absence of a value aka an absemce of an error, 
+        // and true, file is valid 
+        cb(null, true)
+     } else {
+        cb(null, false) // if the file is invalid, 
+        // we still return no error, null, but we return 
+        // false
+     }
+
+}
 
 // here we'll set up the middleware to serve images 
 // statically, and we'll bring in the path module, 
