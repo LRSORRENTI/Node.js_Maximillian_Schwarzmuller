@@ -59,6 +59,18 @@ app.use(bodyParser.json());
 // with JSON, we expect JSON, earlier in the course 
 // we used bodyParser.urlencoded, not anymore 
 
+app.use(multer({
+    storage: storage,
+    fileFilter: fileFilter
+    }).single('image'))
+
+// Above we register multer as a function, and we 
+// pass in a object to configure, then pass in storage 
+// and fileFilter and .single to specify to multer 
+// we accept a single file called image in the incoming 
+// request 
+
+
 app.use('/images', express.static(path.join(__dirname, 'images')))
 // Now with the above, the requests going to /images 
 // will be handled 
