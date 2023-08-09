@@ -105,6 +105,28 @@ class Feed extends Component {
     this.setState({
       editLoading: true
     });
+
+    const formData = new FormData();
+    // We'll use the JS FormData object, which 
+    // allows us to append data to it, for example, 
+    // our title, first arg is the name of the field,
+    // second arg is the data, postData.title, which 
+    // we passed in below in the fetch method, but we 
+    // dont just append the title, but the 
+    // content as well
+
+    formData.append('title', postData.title );
+    formData.append('title', postData.content );
+    // And now we append our image
+    formData.append('image', postData.image );; 
+
+    // Now we have form data that's mixed, text 
+    // and image file 
+    
+
+
+
+
     // Set up data (with image!)
     let url = 'http://localhost:8080/feed/post';
     // we pass in a url to our backend post route,
@@ -123,17 +145,20 @@ class Feed extends Component {
       // also need to add the data, it must be JSON 
       // and also important not to forget to set 
       // the header:
-      headers: {
-        'Content-Type': 'application/json'
-      }, 
-      body: JSON.stringify({
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // }, 
+      // the above is now not needed after we added the 
+      // append methods above to formData, the formData 
+      // will now auto-set the headers for us
+      // body: JSON.stringify({
         // inside here we'll pass in an object, 
         // which will house the code we want to 
         // send to the backend:
-        title: postData.title, 
-        content: postData.content
-
-      })
+        // title: postData.title, 
+        // content: postData.content
+        // })
+        body: formData
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
