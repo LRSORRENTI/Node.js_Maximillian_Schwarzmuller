@@ -50,7 +50,7 @@ class Feed extends Component {
       page--;
       this.setState({ postPage: page });
     }
-    fetch('http://localhost:8080/feed/posts')
+    fetch('http://localhost:8080/feed/posts?page=' + page)
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch posts.');
@@ -59,7 +59,16 @@ class Feed extends Component {
       })
       .then(resData => {
         this.setState({
-          posts: resData.posts,
+          // posts: resData.posts,
+          // the above line needs to be tweaked
+          posts: resData.posts.map( post => {
+            return {
+              ...post,
+              imagePath: post.imageUrl
+              // post.imageUrl is referring to the 
+              // key we set in models/post.js 
+            }
+          }),
           totalPosts: resData.totalItems,
           postsLoading: false
         });
@@ -131,17 +140,16 @@ class Feed extends Component {
     let url = 'http://localhost:8080/feed/post';
     // we pass in a url to our backend post route,
 
-    let method = {
-      POST: "POST"
-    }
+    let method = 'POST';
 
     if (this.state.editPost) {
-      url = 'URL';
+      url = 'http://localhost:8080/feed/post/' + this.state.editPost._id;
+      method = 'PUT';
     }
     // below we send a fetch request which we need to 
     // configure
     fetch(url, {
-      method: method.POST,
+      method: method,
       // also need to add the data, it must be JSON 
       // and also important not to forget to set 
       // the header:
@@ -210,7 +218,9 @@ class Feed extends Component {
 
   deletePostHandler = postId => {
     this.setState({ postsLoading: true });
-    fetch('URL')
+    fetch('http://localhost:8080/feed/post/' + postId, {
+      method: 'DELETE'
+    })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Deleting a post failed!');
