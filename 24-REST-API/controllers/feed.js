@@ -138,7 +138,31 @@ exports.getPost = (req, res, next) => {
             err.statusCode = 500
         }
         next(err)
-    })
+    });
+}; 
 
+exports.updatePost = (req, res, next ) => {
+    const postId = req.params.postId;
+    const title = req.body.title;
+    const content = req.body.content;
+    let imageUrl = req.body.imageUrl;
 
+    // but if the image url isn't just text in 
+    // the request body, but a file instead,
+    // we need to handle that scenario:
+
+    if(req.file){
+        imageUrl = req.file.path;
+    }
+    // So here if imageUrl IS NOT set, because 
+    //    let imageUrl = req.body.imageUrl; wasn't 
+    // able to be extracted, and we didn't make it 
+    // into the conditonal check if(req.file) then 
+    // we need to throw an error:
+
+    if(!imageUrl){
+        const error = new Error('No File Selected')
+        error.statusCode = 422;
+        throw error;
+    }
 }
