@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path')
+
+
 // We're going to use this controllerfor our feed, 
 // a news feed on a news website, or a posts feed on 
 // a social media site 
@@ -181,6 +185,11 @@ exports.updatePost = (req, res, next ) => {
             error.statusCode = 404;
             throw error;
         }
+        if(imageUrl !== post.imageUrl){
+            // so if we make it in here, we call 
+            // the function we defined below: 
+            clearImage(post.imageUrl);
+        }
         post.title = title;
         post.imageUrl = imageUrl;
         post.content = content;
@@ -204,4 +213,21 @@ exports.updatePost = (req, res, next ) => {
         // console.log('error line 68 feedjs controller', err)
     });
 
+}
+
+const clearImage = (filepath) => {
+    // below we construct the file path by joining
+    // the directory name, then .. up one folder to 
+    // root dir, since /images is in rootdir,
+    
+    filepath = path.join(__dirname, '..', filepath);
+
+    // then we use the unlink to ddelete the file by 
+    // passing the file path to it 
+
+    fs.unlink(filepath, (error) => {
+        console.log(error)
+    })
+    // And we want this clearImage function to fire 
+    // whenver an image is updated 
 }
