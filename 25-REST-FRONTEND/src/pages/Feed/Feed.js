@@ -140,17 +140,16 @@ class Feed extends Component {
     let url = 'http://localhost:8080/feed/post';
     // we pass in a url to our backend post route,
 
-    let method = {
-      POST: "POST"
-    }
+    let method = 'POST';
 
     if (this.state.editPost) {
-      url = 'URL';
+      url = 'http://localhost:8080/feed/post/' + this.state.editPost._id;
+      method = 'PUT';
     }
     // below we send a fetch request which we need to 
     // configure
     fetch(url, {
-      method: method.POST,
+      method: method,
       // also need to add the data, it must be JSON 
       // and also important not to forget to set 
       // the header:
