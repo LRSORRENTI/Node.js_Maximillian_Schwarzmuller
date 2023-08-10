@@ -215,6 +215,36 @@ exports.updatePost = (req, res, next ) => {
 
 }
 
+exports.deletePost = (req, res, next ) => {
+    // in here we need the postId again
+    const postId = req.params.postId;
+    // then we find a post with that id
+    Post.findById(postId)
+    .then(post => {
+        if(!post){
+            const error = new Error('Post with that id not found')
+            error.statusCode = 404;
+            throw error;
+        }
+        // if user is logged in 
+        clearImage(post.imageUrl)
+        return Post.findByIdAndRemove(postId)
+        .then(result => {
+            console.log(result)
+            res.status(200).json({message: 'Post Deleted'})
+        })
+    })
+    .catch(error => {
+        if(!error.statusCode) {
+            error.statusCode = 500
+        }
+        next(error)
+    })
+    
+    
+ }
+
+
 const clearImage = (filepath) => {
     // below we construct the file path by joining
     // the directory name, then .. up one folder to 
