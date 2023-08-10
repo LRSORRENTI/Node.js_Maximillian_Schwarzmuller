@@ -19,29 +19,43 @@ const Post = require('../models/post')
 // REST API's never render views, since they don't return 
 // HTML 
 exports.getPosts = (req, res, next) => {
+   // we can extract query params, which are stored 
+   // in the query object on request
+    const currentPage = req.query.page || 1;
+    // the OR || checks if it's undefined, if true,
+     // default to 1 
 
-    // instead we'll res.json(),, which let's use return 
-    // a JSON response object, but we also want to 
-    // add the status code before calling res.json():
+    const perPage = 2;
+    // and we define the per page value to 2,
 
+    let totalItems;
+    // The above we'll need to check how many 
+    // are in the database 
 
-    // These status codes are very important because 
-    // it tells the client to render if 200 ok or 
-    // if it's an error code, render an error interface 
-    // instead 
-
-    Post.find()
-    .then(posts => {
-    res.status(200)
-    .json({message: "Fetched posts successfully", posts: posts})
+    Post.find().countDocuments()
+    .then(count => {
+        totalItems = count;
+       return  Post.find()
+       // we skip a certain amount of items 
+       // with the skip method 
+       .skip((currentPage - 1) * perPage)
+       // so above if current page is 1, 1 - 1 = 0.
+       // and we skip no items, but if we're on page 
+       // 2, we skip al the items that were on page 1
+       .limit(perPage);
+       // and we call the limit method passing in the 
+       // current value of perPage
     })
+    .then(posts => {
+        res.status(200)
+        .json({message: "Fetched posts successfully",
+         posts: posts,
+        totalItems: totalItems })
+        })
     .catch(err => {
         if(!err.statusCode ){
             err.statusCode = 500;
         }
-        // we also need to call next(err) otherwise 
-        // the error won't reach the next error handling 
-        // middleware
         next(err)
     }); 
 };
