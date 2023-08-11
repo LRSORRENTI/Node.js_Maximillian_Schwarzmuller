@@ -115,7 +115,10 @@ app.use((error, req, res, next) => {
     // if the above is undefined on the left, 
     // it'll default to 500
     const message = error.message;
-    res.status(status).json({message: message});
+
+    const data = error.data;
+
+    res.status(status).json({message: message, data: data});
 })
 
 mongoose.connect(MONGODB_URI)
