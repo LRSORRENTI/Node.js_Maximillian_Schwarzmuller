@@ -14,6 +14,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const feedRoutes = require('./routes/feed');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -102,6 +103,8 @@ app.use('/feed', feedRoutes);
 // so any request that starts with /feed will be 
 // forwarded to the feedRoutes, into routes/feed.js
 // where we handle one request for now '/posts' 
+
+app.use('/auth', authRoutes)
 
 
 app.use((error, req, res, next) => {
