@@ -14,6 +14,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const feedRoutes = require('./routes/feed');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -103,6 +104,8 @@ app.use('/feed', feedRoutes);
 // forwarded to the feedRoutes, into routes/feed.js
 // where we handle one request for now '/posts' 
 
+app.use('/auth', authRoutes)
+
 
 app.use((error, req, res, next) => {
     console.log(error)
@@ -112,7 +115,10 @@ app.use((error, req, res, next) => {
     // if the above is undefined on the left, 
     // it'll default to 500
     const message = error.message;
-    res.status(status).json({message: message});
+
+    const data = error.data;
+
+    res.status(status).json({message: message, data: data});
 })
 
 mongoose.connect(MONGODB_URI)
