@@ -22,6 +22,9 @@ exports.signup = (req, res, next) => {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
+    // below is where we use bycrptjs, first arg is 
+    // the password we extract from req.body.password, 
+    // second arg is the salt, or amount of hashes, 12
     bcrypt.hash(password, 12).
     then(hashedPw => {
         const user = new User({
