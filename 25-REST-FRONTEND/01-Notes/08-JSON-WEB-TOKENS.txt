@@ -1,0 +1,116 @@
+===================
+JWT (JSON WEB TOKEN)
+====================
+
+To use JWT, we need to install on the backend: 
+
+npm install --save jsonwebtoken
+
+This package enables us to easily create JWT's 
+
+
+exports.login =  (req, res, next) =>  {
+
+    const email = req.body.email;
+    const password = req.body.password;
+    let loadedUser;
+    // First need to check if the email exists, 
+    User.findOne({email: email})
+    .then(user => {
+        if(!user){
+            // if user is not defined:
+            const error = new Error('User with this email was not found')
+            error.statusCode = 401;
+            throw error;
+        }
+        // So we make it past the above check, we know 
+        // that email does exist, so we can proceed with 
+        // validation
+        loadedUser = user;
+        // then we can set user to loadeduser, 
+        // and use bcrypt to see if the passwords are 
+        // matching, and we'll return the below 
+        // since it gives a promise 
+       return bcrypt.compare(password, user.password)
+    }).then(isEqual => {
+        if(!isEqual){
+            // so if the passwords don't match, un equal 
+            // then the user entered an invalid password 
+            const error = new Error('Wrong Password');
+            error.statusCode = 401;
+            throw error;
+        }
+        // Finally if we make it past boththose checks 
+        // above, so user has the email, has the matching 
+        // password, we need to create a JWT JSON WEB TOKEN 
+
+        const token = jwt.sign({
+            email: loadedUser.email,
+            // we convert the _id to a string since it's 
+            // a mongodb object
+            userid: loadedUser._id.toString()
+        },
+            // then as a second arg, after the object argument 
+            // we pass in a secret, in a real application 
+            // you'd use a very long string
+            // from the jsonwebtoken docs: 
+            /*  
+
+            secretOrPrivateKey is a string (
+                utf-8 encoded), buffer, object,
+                 or KeyObject containing either 
+                 the secret for HMAC algorithms 
+                 or the PEM encoded private
+                  key for RSA and ECDSA. 
+                  
+                  In case of a private key 
+                  with passphrase an object 
+                  { key, passphrase } 
+                  can be used (based on crypto
+                     documentation), in this 
+                     case be sure you pass the 
+                     algorithm option. 
+                     
+                     When signing with RSA 
+                     algorithms the minimum modulus 
+                     length is 2048 except when the 
+                     allowInsecureKeySizes option 
+                     is set to true. 
+                     
+                     Private keys below this size 
+                     will be rejected with an error.
+
+            */
+                    'secret-which-should-be-longer',
+                    // third arguemt is the expire date for the JWT 
+                    {
+                        expiresIn: '1h'
+                        // JWT will expire in 1 hour, '1h'
+                        // the expiration is not optional, it must 
+                        // always expire, if a bad actor got access to a 
+                        // token, and that token was valid forever, 
+                        // that wouldn't be very secure 
+                    }
+        )
+
+        // now that we have a token above, which expires in an 
+        // hour, we now return a response: 
+
+        res.status(200).json({
+            token: token,
+            userid: loadedUser._id.toString()
+        })
+
+       // after installing the jsonwebtoken package, 
+       // we import it, and use the sign method to 
+       // generate a token 
+    })
+    .catch(err => {
+        if(!err.statusCode ){
+            err.statusCode = 500;
+        }
+        next(err)
+    })
+
+
+}
