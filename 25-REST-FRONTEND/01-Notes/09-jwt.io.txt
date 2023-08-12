@@ -1,0 +1,36 @@
+=======
+jwt.io 
+=======
+
+If you go to jwt.io, and inside the encoded field paste 
+in your token: 
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RpbmcxMjM0QHRlc3QuY29tIiwidXNlcmlkIjoiNjRkNzkzOGZiOGNmMjBmOTBhYjExNGNhIiwiaWF0IjoxNjkxODQ5NjM0LCJleHAiOjE2OTE4NTMyMzR9.05B6I_xqrOzl1Z2111A6_MdBj9DM18lyPxZYBZO9fWg
+
+On the right you'll see: 
+
+Decoded: 
+
+Header: {
+    "alg": "HS256",
+    "typ": "JWT"
+}
+
+Payload: 
+
+{
+    "email": "testing1234@test.com",
+    "userid": "64d7938fb8cf20f90ab114ca",
+    "iat": 1291849634,
+    "exp": 1691853234
+}
+
+Verify Signature:
+
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  
+your-256-bit-secret
+
+) secret base64 encoded

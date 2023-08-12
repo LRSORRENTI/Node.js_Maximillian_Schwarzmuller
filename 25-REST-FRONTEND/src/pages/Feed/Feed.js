@@ -50,7 +50,18 @@ class Feed extends Component {
       page--;
       this.setState({ postPage: page });
     }
-    fetch('http://localhost:8080/feed/posts?page=' + page)
+    fetch('http://localhost:8080/feed/posts?page=' + page, {
+      headers: {
+        // as a quick note here, back in our backend app.js,
+        // we enabled 'Authorization' right after 'Content-Type', 
+        // without that enabled, below will not work 
+        Authorization: 'Bearer ' + this.props.token
+        // we pass in 'Bearer whitespace + the token from 
+        // the props object
+        // And Bearer is just the typical naming convention 
+        // for JWT's 
+      }
+    })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch posts.');

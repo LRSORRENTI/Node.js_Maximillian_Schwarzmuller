@@ -10,6 +10,8 @@ const { body } = require('express-validator/src/')
 // import the feed controller 
 const feedController = require('../controllers/feed')
 
+const isAuth = require('../middleware/isAuth')
+
 const router = express.Router();
 
 
@@ -18,7 +20,7 @@ const router = express.Router();
 
 // GET /feed/posts , any get requests will be handles 
 // by this feedController controller
-router.get('/posts', feedController.getPosts)
+router.get('/posts', isAuth, feedController.getPosts)
 // so the getposts method is the function that should 
 // execute for this route, and we also need to register 
 // this route in app.js 
