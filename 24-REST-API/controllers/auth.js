@@ -1,8 +1,9 @@
 const {validationResult} = require('express-validator/src/validation-result')
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const user = require('../models/user');
 // Inside our auth controller we need to bring in 
 // our user model first 
 
@@ -84,7 +85,66 @@ exports.login =  (req, res, next) =>  {
         // above, so user has the email, has the matching 
         // password, we need to create a JWT JSON WEB TOKEN 
 
-        
+        const token = jwt.sign({
+            email: loadedUser.email,
+            // we convert the _id to a string since it's 
+            // a mongodb object
+            userid: loadedUser._id.toString()
+        },
+            // then as a second arg, after the object argument 
+            // we pass in a secret, in a real application 
+            // you'd use a very long string
+            // from the jsonwebtoken docs: 
+            /*  
+
+            secretOrPrivateKey is a string (
+                utf-8 encoded), buffer, object,
+                 or KeyObject containing either 
+                 the secret for HMAC algorithms 
+                 or the PEM encoded private
+                  key for RSA and ECDSA. 
+                  
+                  In case of a private key 
+                  with passphrase an object 
+                  { key, passphrase } 
+                  can be used (based on crypto
+                     documentation), in this 
+                     case be sure you pass the 
+                     algorithm option. 
+                     
+                     When signing with RSA 
+                     algorithms the minimum modulus 
+                     length is 2048 except when the 
+                     allowInsecureKeySizes option 
+                     is set to true. 
+                     
+                     Private keys below this size 
+                     will be rejected with an error.
+
+            */
+                    'secret-which-should-be-longer',
+                    // third arguemt is the expire date for the JWT 
+                    {
+                        expiresIn: '1h'
+                        // JWT will expire in 1 hour, '1h'
+                        // the expiration is not optional, it must 
+                        // always expire, if a bad actor got access to a 
+                        // token, and that token was valid forever, 
+                        // that wouldn't be very secure 
+                    }
+        )
+
+        // now that we have a token above, which expires in an 
+        // hour, we now return a response: 
+
+        res.status(200).json({
+            token: token,
+            userid: loadedUser._id.toString()
+        })
+
+       // after installing the jsonwebtoken package, 
+       // we import it, and use the sign method to 
+       // generate a token 
     })
     .catch(err => {
         if(!err.statusCode ){
