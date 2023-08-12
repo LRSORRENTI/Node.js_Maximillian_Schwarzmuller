@@ -1,0 +1,62 @@
+=======================
+Authentication and REST
+=======================
+
+How does Authentication work with REST? 
+
+We stil have the clinet and server setup, 
+the client still sends auth data to the 
+server, email and password 
+
+In the past we would verify that data, then 
+establish a session 
+
+But now we don't work with sessions, REST API's are 
+'STATELESS' 
+
+They don't care about the client, they are de-coupled 
+
+Every request is stand-alone 
+
+There will be no sessions with a REST API 
+
+We'll still verify that a username and password 
+match server side, but we're not using 
+sessions anymore 
+
+Instead we return a 'TOKEN' to the client 
+
+This Token will be generated server side, and 
+will house information which can only be 
+validated by the server, and the token will then be 
+stored client side
+
+Then the client uses this token, attaches it 
+to every subsequent request it makes to 
+the server 
+
+This stored token will allow access to any resource 
+on the server which requires Authentication
+
+It's very difficult to fake a token, the server will 
+use an algorithm to generate the token, which 
+is difficult to fake since the end user doesn't know it 
+
+================
+Inside The Token
+================
+
+The token itself contains JSON data + Signature, 
+signature containing a private key only the server 
+knows 
+
+This combination of JSON + Signature is known as 
+a JWT or JSON WEB TOKEN 
+
+This token ensures that only the verified user 
+has access, the token is generated on the 
+server, and is not accessible to anyone except the 
+client user which it was generated for 
+
+JWT or JSON WEB TOKENS are how we'll enforce 
+authentication in our REST API
