@@ -22,7 +22,21 @@ module.exports = ( res, res, next ) => {
     //   }
     // })
 
-    const token = req.get('Authorization').split(' ');
+    const authHeader = req.get('Authorization');
+        if(!authHeader){
+            const error = new Error('Not authenticated')
+            error.statusCode = 401;
+            throw error;
+        }
+
+
+    // const token = req.get('Authorization').split(' ')[1];
+    
+      // after adding authHeader we can refactor the 
+      // above to: 
+
+      const token = authHeader.split(' ')[1];
+
     // so above we get the token from the this.props.token, 
     // notice we're splitting on the whitespace, since 
     // that;s what we need 
