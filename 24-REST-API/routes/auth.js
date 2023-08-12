@@ -38,6 +38,6 @@ router.put('/signup', [
 
 // Starting to implement User LOgin Routes:
 
-router.post('/login');
+router.post('/login', authController.login);
 
 module.exports = router;
