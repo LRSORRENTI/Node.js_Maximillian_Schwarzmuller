@@ -9,8 +9,10 @@ const path = require('path')
 const {validationResult} = require('express-validator/src/validation-result')
 
 
-const Post = require('../models/post')
+const Post = require('../models/post');
 // And now we can import the Post model we defined
+
+const User = require('../models/user');
 
 // Important to note, we won't call res.render anynore,
 // since we're not working MVC anymore, there's no 
@@ -84,27 +86,44 @@ exports.createPost = (req, res, next) => {
     // const imageUrl = req.file.path;
     const title = req.body.title;
     const content = req.body.content;
+
+    let creator;
     // create post in db 
 
     // Here's where we'll use our Post Schema Model: 
+    // We need to get the userId, and we do store that 
+    // in the isAuth middleware, req.userId = decodedToken.userId
+
+
     const post = new Post({
         title: title,
         content: content,
         imageUrl: imageUrl,
-        creator: {
-            name: 'Luke'
-        },
+        creator: req.userId
     })
     post.save()
     .then(result => {console.log(result)
+       return User.findById(req.userId)
+    }).then( user => {
+        creator = user;
+        // now the above user will have access to 
+        // the posts object 
+        user.posts.push(post);
+       return user.save()
+    })
+       .then( result =>  {
     res.status(201).json({
         // we use code 201 for success AND a resource 
         // was created , just 200 is success only,
         // 201 is both 
         message: 'Post created successfully',
-        post: result
-        });
-    })
+        post: result,
+        creator: {
+            _id: creator,
+            name: creator.name
+            }
+        })
+})
     .catch(err => {
         if(!err.statusCode ){
             err.statusCode = 500
