@@ -28,7 +28,7 @@ router.get('/posts', isAuth, feedController.getPosts)
 
 // and here, between '/post', and the controller action, 
 // we'll add an array of middleware
-router.post('/post',
+router.post('/post', isAuth,
  [ body('title').trim().isLength( {min: 5} ),
    body('content').trim().isLength( {min: 5} )
 

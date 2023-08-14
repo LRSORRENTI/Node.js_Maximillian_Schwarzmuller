@@ -44,9 +44,10 @@ exports.getPosts = (req, res, next) => {
        // so above if current page is 1, 1 - 1 = 0.
        // and we skip no items, but if we're on page 
        // 2, we skip al the items that were on page 1
-       .limit(perPage);
+       .limit(perPage)
        // and we call the limit method passing in the 
        // current value of perPage
+    //    .populate("creator", "name");
     })
     .then(posts => {
         res.status(200)
@@ -102,7 +103,8 @@ exports.createPost = (req, res, next) => {
         creator: req.userId
     })
     post.save()
-    .then(result => {console.log(result)
+    .then(result => {
+        console.log(result)
        return User.findById(req.userId)
     }).then( user => {
         creator = user;
@@ -117,9 +119,9 @@ exports.createPost = (req, res, next) => {
         // was created , just 200 is success only,
         // 201 is both 
         message: 'Post created successfully',
-        post: result,
+        post: post,
         creator: {
-            _id: creator,
+            _id: creator._id,
             name: creator.name
             }
         })
