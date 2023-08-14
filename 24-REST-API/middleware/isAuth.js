@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = ( res, res, next ) => {
+module.exports = ( req, res, next ) => {
     // back on the frontend, we'll add a header 
     // inside of Feed.js on the frontend:
     

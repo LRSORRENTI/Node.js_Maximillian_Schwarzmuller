@@ -15,8 +15,15 @@ const postSchema = new Schema({
         required: true
     },
     creator: {
-        type: Object,
+        // type: Object,
+        // the type field was a placeholder,
+        // what we need is:
+        type: Schema.Types.ObjectId,
+        // Then we pass in a reference 
+        ref: 'User',
         required: true
+        // now with the above we'll store the creator 
+        // of a post in every created post 
          }
     },
   {timestamps: true}
