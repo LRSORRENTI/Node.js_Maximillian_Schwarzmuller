@@ -177,7 +177,17 @@ class Feed extends Component {
         // title: postData.title, 
         // content: postData.content
         // })
-        body: formData
+        body: formData,
+        headers: {
+          // as a quick note here, back in our backend app.js,
+          // we enabled 'Authorization' right after 'Content-Type', 
+          // without that enabled, below will not work 
+          Authorization: 'Bearer ' + this.props.token
+          // we pass in 'Bearer whitespace + the token from 
+          // the props object
+          // And Bearer is just the typical naming convention 
+          // for JWT's 
+        }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
@@ -230,7 +240,17 @@ class Feed extends Component {
   deletePostHandler = postId => {
     this.setState({ postsLoading: true });
     fetch('http://localhost:8080/feed/post/' + postId, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        // as a quick note here, back in our backend app.js,
+        // we enabled 'Authorization' right after 'Content-Type', 
+        // without that enabled, below will not work 
+        Authorization: 'Bearer ' + this.props.token
+        // we pass in 'Bearer whitespace + the token from 
+        // the props object
+        // And Bearer is just the typical naming convention 
+        // for JWT's 
+      }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
