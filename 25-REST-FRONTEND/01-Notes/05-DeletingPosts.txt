@@ -1,0 +1,28 @@
+==============
+Deleting POSTS 
+==============
+
+We've got the logic to update posts working, now 
+let's implement a way to delete posts 
+
+Inside of our backend API in routes/feed.js: 
+
+router.delete('/post/:postId')
+
+ And we also need a controller action controller/feed.js:
+
+ exports.deletePost = (req, res, next ) => {
+    // in here we need the postId again
+    const postId = req.params.postId;
+    // then we find a post with that id
+    Post.findById(postId)
+    .then()
+    .catch(error => {
+        if(!error.statusCode) {
+            error.statusCode = 500
+        }
+        next(error)
+    })
+    
+    
+ }
