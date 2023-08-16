@@ -22,7 +22,11 @@ class Feed extends Component {
   };
 
   componentDidMount() {
-    fetch('URL')
+    fetch('http://localhost:8080/auth/status', {
+      headers: {
+        Authorization: 'Bearer ' + this.props.token
+      }
+    })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch user status.');
@@ -52,14 +56,10 @@ class Feed extends Component {
     }
     fetch('http://localhost:8080/feed/posts?page=' + page, {
       headers: {
-        // as a quick note here, back in our backend app.js,
-        // we enabled 'Authorization' right after 'Content-Type', 
-        // without that enabled, below will not work 
         Authorization: 'Bearer ' + this.props.token
-        // we pass in 'Bearer whitespace + the token from 
-        // the props object
-        // And Bearer is just the typical naming convention 
-        // for JWT's 
+        // as a note, Bearer is usually used with JWT, 
+        // as a standard naming convention, but it could 
+        // be named
       }
     })
       .then(res => {
@@ -70,15 +70,11 @@ class Feed extends Component {
       })
       .then(resData => {
         this.setState({
-          // posts: resData.posts,
-          // the above line needs to be tweaked
-          posts: resData.posts.map( post => {
+          posts: resData.posts.map(post => {
             return {
               ...post,
               imagePath: post.imageUrl
-              // post.imageUrl is referring to the 
-              // key we set in models/post.js 
-            }
+            };
           }),
           totalPosts: resData.totalItems,
           postsLoading: false
@@ -89,7 +85,16 @@ class Feed extends Component {
 
   statusUpdateHandler = event => {
     event.preventDefault();
-    fetch('URL')
+    fetch('http://localhost:8080/auth/status', {
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        status: this.state.status
+      })
+    })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error("Can't update status!");
@@ -125,69 +130,23 @@ class Feed extends Component {
     this.setState({
       editLoading: true
     });
-
     const formData = new FormData();
-    // We'll use the JS FormData object, which 
-    // allows us to append data to it, for example, 
-    // our title, first arg is the name of the field,
-    // second arg is the data, postData.title, which 
-    // we passed in below in the fetch method, but we 
-    // dont just append the title, but the 
-    // content as well
-
-    formData.append('title', postData.title );
-    formData.append('content', postData.content );
-    // And now we append our image
-    formData.append('image', postData.image );; 
-
-    // Now we have form data that's mixed, text 
-    // and image file 
-    
-
-
-
-
-    // Set up data (with image!)
+    formData.append('title', postData.title);
+    formData.append('content', postData.content);
+    formData.append('image', postData.image);
     let url = 'http://localhost:8080/feed/post';
-    // we pass in a url to our backend post route,
-
     let method = 'POST';
-
     if (this.state.editPost) {
       url = 'http://localhost:8080/feed/post/' + this.state.editPost._id;
       method = 'PUT';
     }
-    // below we send a fetch request which we need to 
-    // configure
+
     fetch(url, {
       method: method,
-      // also need to add the data, it must be JSON 
-      // and also important not to forget to set 
-      // the header:
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }, 
-      // the above is now not needed after we added the 
-      // append methods above to formData, the formData 
-      // will now auto-set the headers for us
-      // body: JSON.stringify({
-        // inside here we'll pass in an object, 
-        // which will house the code we want to 
-        // send to the backend:
-        // title: postData.title, 
-        // content: postData.content
-        // })
-        body: formData,
-        headers: {
-          // as a quick note here, back in our backend app.js,
-          // we enabled 'Authorization' right after 'Content-Type', 
-          // without that enabled, below will not work 
-          Authorization: 'Bearer ' + this.props.token
-          // we pass in 'Bearer whitespace + the token from 
-          // the props object
-          // And Bearer is just the typical naming convention 
-          // for JWT's 
-        }
+      body: formData,
+      headers: {
+        Authorization: 'Bearer ' + this.props.token
+      }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
@@ -196,7 +155,7 @@ class Feed extends Component {
         return res.json();
       })
       .then(resData => {
-        console.log(resData)
+        console.log(resData);
         const post = {
           _id: resData.post._id,
           title: resData.post.title,
@@ -242,14 +201,7 @@ class Feed extends Component {
     fetch('http://localhost:8080/feed/post/' + postId, {
       method: 'DELETE',
       headers: {
-        // as a quick note here, back in our backend app.js,
-        // we enabled 'Authorization' right after 'Content-Type', 
-        // without that enabled, below will not work 
         Authorization: 'Bearer ' + this.props.token
-        // we pass in 'Bearer whitespace + the token from 
-        // the props object
-        // And Bearer is just the typical naming convention 
-        // for JWT's 
       }
     })
       .then(res => {
@@ -329,7 +281,7 @@ class Feed extends Component {
                 <Post
                   key={post._id}
                   id={post._id}
-                  author={post.creator}
+                  author={post.creator.name}
                   date={new Date(post.createdAt).toLocaleDateString('en-US')}
                   title={post.title}
                   image={post.imageUrl}

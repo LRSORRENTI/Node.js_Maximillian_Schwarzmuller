@@ -1,0 +1,35 @@
+==========
+Pagination
+==========
+
+We should add a way to paginate the posts, 
+if there are a ton of posts, rather than displaying 
+them one on top of another all the way down, we 
+paginate between them 
+
+We can add some query params to the frontend Feed.js:
+
+    fetch('http://localhost:8080/feed/posts?page=' + page)
+
+  loadPosts = direction => {
+    if (direction) {
+      this.setState({ postsLoading: true, posts: [] });
+    }
+    let page = this.state.postPage;
+    if (direction === 'next') {
+      page++;
+      this.setState({ postPage: page });
+    }
+    if (direction === 'previous') {
+      page--;
+      this.setState({ postPage: page });
+    }
+    fetch('http://localhost:8080/feed/posts?page=' + page)
+      .then(res => {
+        if (res.status !== 200) {
+          throw new Error('Failed to fetch posts.');
+        }
+        return res.json();
+      })
+
+      Now we need to extract it to the backend
