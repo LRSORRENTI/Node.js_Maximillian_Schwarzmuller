@@ -57,6 +57,9 @@ class Feed extends Component {
     fetch('http://localhost:8080/feed/posts?page=' + page, {
       headers: {
         Authorization: 'Bearer ' + this.props.token
+        // as a note, Bearer is usually used with JWT, 
+        // as a standard naming convention, but it could 
+        // be named
       }
     })
       .then(res => {

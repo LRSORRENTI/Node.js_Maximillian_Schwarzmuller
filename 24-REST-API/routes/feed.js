@@ -3,14 +3,14 @@ const express = require('express');
 // a news feed on a news website, or a posts feed on 
 // a social media site 
 
-const { body } = require('express-validator/src/')
+const { body } = require('express-validator/check')
 // above we bring in the check and body methods from 
 // express-validator
 
 // import the feed controller 
 const feedController = require('../controllers/feed')
 
-const isAuth = require('../middleware/isAuth')
+const isAuth = require('../middleware/is-auth')
 
 const router = express.Router();
 

@@ -300,14 +300,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const { validationResult } = require('express-validator/src');
+const { validationResult } = require('express-validator/check');
 
 const Post = require('../models/post');
 const User = require('../models/user');
 
 exports.getPosts = (req, res, next) => {
   const currentPage = req.query.page || 1;
-  const perPage = 2;
+  const perPage = 3;
   let totalItems;
   Post.find()
     .countDocuments()

@@ -157,7 +157,7 @@
 // }
 
 
-const { validationResult} = require('express-validator/src/middlewares/check')
+const { validationResult} = require('express-validator/check')
 // const { validationResult } = require('express-validator/declarations/validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -224,7 +224,7 @@ exports.login = (req, res, next) => {
         // 'secret-which-should-be-longer'
         'somesupersecretsecret',
         { expiresIn: '1h' }
-      );
+      )
       res.status(200).json({ token: token, userId: loadedUser._id.toString() });
     })
     .catch(err => {
