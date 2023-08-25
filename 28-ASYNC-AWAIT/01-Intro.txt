@@ -1,0 +1,16 @@
+======================
+Intro to ASYNC / AWAIT
+======================
+
+So far in the course we've been utilzing 
+promise chains for async operations, which works, 
+but async / await is a much nicer way of 
+dealing with asynchronous operations 
+
+Callbacks, promises and async await all solve 
+the same problem, but best practice today 
+is to utilize async await, promises and callbacks 
+are still going to be in legacy codebases but 
+for any asynchronous operation today, utilzing 
+async and await cleans up those sometimes very long 
+promise chains .then().then().then() ... etc 
