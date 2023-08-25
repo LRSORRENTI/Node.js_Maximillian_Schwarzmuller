@@ -8,7 +8,9 @@ but async / await is a much nicer way of
 dealing with asynchronous operations 
 
 Callbacks, promises and async await all solve 
-the same problem, but best practice today 
+the same problem, allowing execution of the 
+program to not stop when fetching or reading 
+data from a large file, but best practice today 
 is to utilize async await, promises and callbacks 
 are still going to be in legacy codebases but 
 for any asynchronous operation today, utilzing 
