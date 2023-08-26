@@ -9,10 +9,14 @@ dealing with asynchronous operations
 
 Callbacks, promises and async await all solve 
 the same problem, allowing execution of the 
-program to not stop when fetching or reading 
+program to continue when fetching or reading 
 data from a large file, but best practice today 
-is to utilize async await, promises and callbacks 
-are still going to be in legacy codebases but 
-for any asynchronous operation today, utilzing 
+is to utilize async await. Promises and callbacks 
+are still going to be used, and you'll see 
+them frequently in legacy codebases, but 
+for asynchronous operations today, utilzing 
 async and await cleans up those sometimes very long 
 promise chains .then().then().then() ... etc 
+
+Async Await still transforms into promises behind 
+the scenes, but it's much cleaner syntax 

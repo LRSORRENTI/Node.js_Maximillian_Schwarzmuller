@@ -1,0 +1,15 @@
+=========================
+Web Sockets and Socket.io
+=========================
+
+Web Sockets provide a nice protocol to build 
+real-time web services 
+
+This module we'll learn: 
+
+- Why real time services are used 
+
+- How to add real time communications to our app 
+
+- Socket.io, a library we'll utilize to assist in 
+  implementing real time data

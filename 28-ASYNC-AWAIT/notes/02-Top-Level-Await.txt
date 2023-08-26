@@ -1,0 +1,143 @@
+===============
+Top-Level Await
+=============== 
+
+With top-level await, you can directly 
+use the await keyword at the top level 
+of a module, script, or REPL 
+environment. This means you can write 
+asynchronous code without the need to
+wrap your code in an async function.
+
+Here's an example to illustrate the difference:
+
+Before top-level await:
+
+// You needed to use async function
+async function main() {
+    const result = await fetchData();
+    console.log(result);
+}
+
+main();
+
+// With top-level await (ES11 and later):
+
+const result = await fetchData();
+console.log(result);
+
+In the second example, there's no need 
+to wrap the code in an async function. 
+You can directly use await at the top level.
+
+However, keep in mind that top-level 
+await is only supported in module contexts 
+(files using ECMAScript modules) or in 
+environments that explicitly allow it, 
+like the Node.js REPL with the 
+--experimental-repl-await flag. 
+
+It's not available in the global scope
+ of a regular script file due to potential 
+blocking behavior.
+
+Always check the compatibility of the 
+feature with your target environment 
+before using it.
+
+With top-level await, you can eliminate the
+need for the main function that was 
+previously used, you can directly use await 
+at the top level of your module or script, 
+making the code simpler and more straightforward.
+
+Here's a comparison to clarify:
+
+Before top-level await:
+
+async function main() {
+    const result = await fetchData();
+    console.log(result);
+}
+
+main();
+
+With top-level await:
+
+const result = await fetchData();
+console.log(result);
+
+In the second example, you've removed the 
+main function entirely because you no longer 
+need an asynchronous function to contain your 
+await statements. You can use await directly at 
+the top level, and there's no need for the extra 
+layer of an async function wrapper. 
+
+This can make your code look cleaner and 
+more concise.
+
+While top-level await is a convenient feature, 
+there are still some scenarios where wrapping 
+your asynchronous code in an async function might 
+be useful:
+
+Control Flow and Error Handling: 
+When you need more complex control 
+flow or error handling around your 
+asynchronous operations, using an async 
+function can provide a structured way to 
+manage these situations.
+
+async function main() {
+    try {
+        const result = await fetchData();
+        // Process result
+    } catch (error) {
+        // Handle errors
+    }
+}
+
+main();
+
+Multiple Await Operations: 
+If you need to perform multiple 
+asynchronous operations sequentially 
+and the result of one affects the next, 
+an async function can make your code more organized.
+
+async function main() {
+    const data1 = await fetchData1();
+    const data2 = await fetchData2(data1);
+    // ...
+}
+
+main();
+
+Parallelism and Concurrency: 
+If you need to run multiple asynchronous 
+operations concurrently and wait for all of 
+them to complete, using Promise-based APIs 
+like Promise.all() or Promise.race() is 
+often easier within an async function.
+
+async function main() {
+    const [result1, result2] = await Promise.all([fetchData1(), fetchData2()]);
+    // ...
+}
+
+main();
+
+Encapsulation and Reusability: 
+Wrapping your asynchronous code in an 
+async function can encapsulate your logic, 
+making it more modular and reusable.
+
+In simple cases where you're just awaiting 
+a single asynchronous operation and don't 
+require extensive error handling or complex 
+control flow, using top-level await works well 
+and results in cleaner code. However, 
+for more complex scenarios, using async 
+functions can still provide advantages 
+in terms of structure and maintainability.

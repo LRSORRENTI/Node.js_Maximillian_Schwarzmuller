@@ -1,0 +1,29 @@
+=============
+Current Setup
+=============
+
+In this course we follow the request / response 
+cycle 
+
+Client makes a request, server takes that request,
+and returns a response 
+
+But what if something changes server-side, and 
+we want to inform the client of that change? 
+
+We can use websockets instead of HTTP
+
+Websockets establish via HTTP, with a 'handshake'
+
+Websockets use defined protocol which determine how 
+the communications occur 
+
+With HTTP it's request / reponse 
+
+With Websockets it's push data, and request / response 
+
+Websockets push data from server to client without 
+the need for the request 
+
+Typically you'll utilize both HTTP and Websockets
+together in a node app 
