@@ -76,6 +76,19 @@ app.use((error, req, res, next) => {
 
 mongoose.connect(MONGODB_URI)
 .then(result => {
-    app.listen(8080);
+    // we can store our server in a constant 
+    // this is so we can pass it as an argument 
+    // to the socket.io function 
+   const server = app.listen(8080);
+    // inside here is where we establish the 
+    // new socket.io connection 
+    const io = require('socket.io')(server);
+    // now we can use io to set up some event listeners 
+    io.on('connection', socket => {
+        // the 'socket' above is an argument that 
+        // will house every connection to the websocket 
+        // and will execute for every new client 
+        console.log('Client connected successfully')
+    })
 })
 .catch(err => console.log(err))
