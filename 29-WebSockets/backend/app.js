@@ -79,10 +79,15 @@ mongoose.connect(MONGODB_URI)
     // we can store our server in a constant 
     // this is so we can pass it as an argument 
     // to the socket.io function 
-   const server = app.listen(8080);
+   const httpServer = app.listen(8080);
     // inside here is where we establish the 
     // new socket.io connection 
-    const io = require('socket.io')(server);
+
+    // const io = require('socket.io')(server);
+
+    // old version of connect above 
+
+    const io = require('./socket').init(httpServer);
     // now we can use io to set up some event listeners 
     io.on('connection', socket => {
         // the 'socket' above is an argument that 

@@ -3,6 +3,8 @@ const path = require('path');
 
 const { validationResult } = require('express-validator/check');
 
+const io = require('../socket');
+
 const Post = require('../models/post');
 const User = require('../models/user');
 
@@ -54,6 +56,12 @@ exports.createPost = async (req, res, next) => {
     const user = await User.findById(req.userId);
     user.posts.push(post);
     await user.save();
+    // below we can call the emit method to inform 
+    // all connected users of the post creation
+    io.getIO().emit('posts', {
+      action: 'create',
+      post: post
+    });
     res.status(201).json({
       message: 'Post created successfully!',
       post: post,
