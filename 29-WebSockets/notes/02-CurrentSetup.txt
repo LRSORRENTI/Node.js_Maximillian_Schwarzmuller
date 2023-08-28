@@ -15,7 +15,7 @@ We can use websockets instead of HTTP
 
 Websockets establish via HTTP, with a 'handshake'
 
-Websockets use defined protocol which determine how 
+Websockets use a defined protocol which determines how 
 the communications occur 
 
 With HTTP it's request / reponse 

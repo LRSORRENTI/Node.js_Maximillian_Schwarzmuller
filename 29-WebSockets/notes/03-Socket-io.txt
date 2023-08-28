@@ -1,0 +1,23 @@
+=========
+Socket.io 
+=========
+
+Socket.io is a package that uses websockets and 
+provides a lot of convenience features around 
+that protocol 
+
+It streamlines the prcess of setting up a channel 
+between client and server
+
+Socket.io is just one package that helps utilize 
+websockets, but it's not required, there are other 
+ways of implementing websockets without utilizing 
+Socket.io 
+
+We'll need to add socket.io on both the front and 
+backend of our application, client and server 
+will communicate through websockets, we need 
+to establish that communications channel on both 
+ends 
+
+npm install --save socket.io
