@@ -19,3 +19,5 @@ backend of our application, client and server
 will communicate through websockets, we need 
 to establish that communications channel on both 
 ends 
+
+npm install --save socket.io
