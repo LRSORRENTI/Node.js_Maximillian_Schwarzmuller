@@ -1,0 +1,63 @@
+==================
+WebSockets Wrap Up
+==================
+
+In this module we learned why WebSockets and socket io 
+are so useful, we can push changes made to all users
+
+If one user updates a post, or deletes a post, another 
+logged in user will see those changes directly 
+without the need to refresh the page 
+
+We emit the event on the backend, specifying 
+an action like 'delete' or 'update' 
+
+Then on the frontend we:  
+
+    this.loadPosts();
+    const socket = openSocket('http://localhost:8080');
+    socket.on('posts', (data) => {
+      if(data.action === 'create'){
+        this.addPost(data.post)
+      } else if(data.action === 'update'){
+        this.updatePost(data.post);
+      } else if(data.action === 'delete'){
+        this.loadPosts();
+      }
+    })
+  
+  So the backend emits and frontend checks for that event 
+
+
+  Socket.io is just one way to work with WebSockets, 
+  and WebSockets themselves are in essence a 
+  way of pushing data to clients in real 
+  time, very popular with chat applications 
+
+  They are build on HTTP, we establish them as a
+  handshake, we need a running HTTP server like we 
+  have in app.js: 
+
+  
+mongoose.connect(MONGODB_URI)
+.then(result => {
+
+   const httpServer = app.listen(8080);
+
+    const io = require('./socket').init(httpServer);
+   
+    io.on('connection', socket => {
+        // the 'socket' above is an argument that 
+        // will house every connection to the websocket 
+        // and will execute for every new client 
+        console.log('Client connected successfully')
+    })
+})
+.catch(err => console.log(err))
+
+
+https://socket.io/get-started/chat/
+
+Alternative to WebSockets: 
+
+https://www.npmjs.com/package/express-ws
