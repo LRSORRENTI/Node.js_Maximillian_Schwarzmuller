@@ -117,7 +117,11 @@ exports.updatePost = async (req, res, next) => {
     throw error;
   }
   try {
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate('creator');
+    // We'll also append .populate() to add creator data, 
+    // this takes the creator id stored in the post object, 
+    // checks the users collection in mongodb, fetch the 
+    // data for that user, then add it in the post 
     if (!post) {
       const error = new Error('Could not find post.');
       error.statusCode = 404;
@@ -135,6 +139,11 @@ exports.updatePost = async (req, res, next) => {
     post.imageUrl = imageUrl;
     post.content = content;
     const result = await post.save();
+    // We also want to emit an event on updated posts 
+    io.getIO('posts', {
+      action: 'update',
+      post: result
+    });
     res.status(200).json({ message: 'Post updated!', post: result });
   } catch (err) {
     if (!err.statusCode) {
