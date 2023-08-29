@@ -1,0 +1,21 @@
+================
+Intro to GRAPHQL
+================
+
+GraphQL is an alternative to building a REST API,
+and is used in the same kinds of scenarios as 
+REST 
+
+Just like with REST, where we ditched the MVC pattern, 
+in GRAPHQL, we also won't be rendering views, or 
+working with templating engines like PUG or EJS 
+
+GRAPHQL is also a de-coupled just like REST was 
+
+In this module we'll learn: 
+
+- What GRAPHQL is and why it's used 
+
+- GRAPHQL VS REST API 
+
+- How to use GRAPHQL 
