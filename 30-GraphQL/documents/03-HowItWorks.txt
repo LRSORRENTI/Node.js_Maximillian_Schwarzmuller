@@ -1,0 +1,81 @@
+==============================
+How Graph Query Language Works
+==============================
+
+Well we have our client and server, on the server 
+we have the logic for accessing the database, and 
+the server side logic 
+
+In GRAPHQL we only send one kind of request to the 
+server:
+
+POST/graphql 
+
+That's the only endpoint where we send a request 
+
+For a post request, we attach a request body, which 
+houses the query expression, and that query expression 
+defines that data we want returned to the frontend 
+
+That's how Graph Query Language works, 
+and a typical query may look like: 
+
+{
+    query{
+        user{
+            name
+            age 
+        }
+    }
+}
+
+query is the operation type, the operation types are:
+
+- query (grabbing data)
+- mutation(used to edit, insert, changing)
+- subscription(Used to setup real time data subscriptions 
+             for things like websockets)
+
+Then we have the operation endpoints defined by the backend 
+like user above is the operation endpoint 
+
+name and age are the requested fields 
+
+So we need the operation type: query
+Then the operation endpoint: user
+Then the data for those fields: name age 
+
+So query is similar to REST GET requests 
+
+Mutation is similar to REST POST, PUT, PATCH, DELETE 
+
+Subscription is used for setting connections via websockets
+
+In summary, we have a client that sends a request to the 
+server, the server sends POST/graphql
+
+Then we have type definitions, query definitions, 
+mutation definitions, and subscription definitions
+which are like routes 
+
+Then we have Resolvers, that contain server side 
+logic, similar to controllers 
+
+=======
+GRAPHQL
+=======
+
+- Used with a normal node / express server, but can be 
+  used with anything, not just node / express just 
+  like a REST API 
+
+- One single defined endpoint, usually /graphql 
+
+- Uses POST because the request body defines the 
+  structure of retrieved data, which can be confusing
+  since getting data with POST seems wrong but that's 
+  how GRAPHQL works   
+
+- Server side RESOLVERS that analyze request bodies, 
+  fetch, prepare then return data based on that 
+  query expression inside that request body 
