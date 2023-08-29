@@ -62,6 +62,26 @@ class Feed extends Component {
     });
   };
 
+
+// Now we add the updatePost function since we have that 
+// new creator data populated on the backend
+
+updatePost = post => {
+  this.setState(prevState => {
+    const updatedPosts = [...prevState.posts];
+    const updatePostIndex = updatedPosts.findIndex((p) => {
+      p._id === post._id
+    });
+    if(updatePostIndex > -1){
+      updatedPosts[updatePostIndex] = post;
+    }
+    return{
+      posts: updatedPosts
+    }
+  })
+}
+
+
   loadPosts = direction => {
     if (direction) {
       this.setState({ postsLoading: true, posts: [] });
