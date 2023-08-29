@@ -1,0 +1,55 @@
+=======================
+What really is GRAPHQL?
+=======================
+
+Let's compare GRAPHQL to a REST API to help 
+illustrate what it is 
+
+Remember, a REST API is stateless, client-independent
+API for data exchange, defined by HTTP methods, and 
+clearly defined api endpoints, no views, no sessions,
+we don't care about the client, we get requests, parse 
+them, and return responses with data  
+
+GRAPHQL API is not that different, it's also stateless, 
+client independent API where data is exchanged, but 
+with higher query flexibility 
+
+====================
+REST API LIMITATIONS
+====================
+
+In a REST API, maybe we have an endpoint like: 
+'GET/post' 
+
+This will fetch us a post from the database or file, and 
+return that data 
+
+{
+    id: '1', 
+    title: 'first post',
+    content: '......',
+    creator: {......}
+}
+
+But what if we only want the title and creator, 
+and we don't care about the other data fields? 
+
+One solution is to just create more clear endpoints, 
+create a new REST API endpoint for just those specific 
+data fields needed, or just specify to the user that 
+they'll need to manually parse the entire data field 
+on their end and filter / extract the data they
+need that way 
+
+But the issue with that approach is much more data 
+is being sent constantly, and if we take the endpoint 
+approach we end up having many possible endpoint 
+configurations, that all need to be defined, which 
+can lead to a lot of time spent for the backend devs 
+creating endpoints for frontend devs 
+
+Graph Query Language helps with this, it's almost 
+like a query Language for a database, where we 
+query the data we need, and only the data we need 
+
