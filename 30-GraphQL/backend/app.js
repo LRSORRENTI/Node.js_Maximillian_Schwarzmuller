@@ -8,7 +8,8 @@ const dbPassword = process.env.DB_PASSWORD;
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
 const express = require('express');
 const bodyParser = require('body-parser');
- const graphqlHTTP  = require('./graphql/graphHTTP');
+//  const graphqlHTTP  = require('./graphql/graphHTTP');
+const graphqlHTTP  = require('express-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 
@@ -61,7 +62,7 @@ app.use('/graphql', graphqlHTTP({
     // the schema and resolver from each of those files 
 
     schema: graphqlSchema,
-    root: graphqlResolver
+    rootValue: graphqlResolver
  }));
 
 
