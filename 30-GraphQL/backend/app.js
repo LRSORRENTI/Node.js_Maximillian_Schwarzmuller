@@ -1,15 +1,11 @@
-  require('dotenv').config({path: './util/my.env'});
+require('dotenv').config({path: './util/my.env'});
+const path = require('path');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
-
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
-
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
-
-const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 
