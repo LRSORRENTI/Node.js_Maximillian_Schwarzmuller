@@ -8,6 +8,9 @@ const dbPassword = process.env.DB_PASSWORD;
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
 const express = require('express');
 const bodyParser = require('body-parser');
+const {graphqlHttp} = require('express-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 
 const app = express();
@@ -50,6 +53,16 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
     next()
 })
+
+// Below we'll add another middleware for graphql
+app.use('/graphql', graphqlHttp({
+    // inside this we need to pass in the graphqlHttp 
+    // from the graphql package, and we also require 
+    // the schema and resolver from each of those files 
+    
+    schema: graphqlSchema,
+    root: graphqlResolver
+ }));
 
 
 app.use((error, req, res, next) => {
