@@ -1,20 +1,18 @@
-  require('dotenv').config({path: './util/my.env'});
+require('dotenv').config({path: './util/my.env'});
+const path = require('path');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
-
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
-
 const MONGODB_URI = `mongodb+srv://${dbUser}:${dbPassword}@maxnode.mppqkhv.mongodb.net/messages?retryWrites=true`
-
-const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
+//  const graphqlHTTP  = require('./graphql/graphHTTP');
+const graphqlHTTP  = require('express-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
-const feedRoutes = require('./routes/feed');
-const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -57,10 +55,16 @@ app.use((req, res, next) => {
     next()
 })
 
+// Below we'll add another middleware for graphql
+app.use('/graphql', graphqlHTTP({
+    // inside this we need to pass in the graphqlHttp 
+    // from the graphql package, and we also require 
+    // the schema and resolver from each of those files 
 
-app.use('/feed', feedRoutes);
+    schema: graphqlSchema,
+    rootValue: graphqlResolver
+ }));
 
-app.use('/auth', authRoutes)
 
 app.use((error, req, res, next) => {
     console.log(error)
@@ -76,24 +80,6 @@ app.use((error, req, res, next) => {
 
 mongoose.connect(MONGODB_URI)
 .then(result => {
-    // we can store our server in a constant 
-    // this is so we can pass it as an argument 
-    // to the socket.io function 
    const httpServer = app.listen(8080);
-    // inside here is where we establish the 
-    // new socket.io connection 
-
-    // const io = require('socket.io')(server);
-
-    // old version of connect above 
-
-    const io = require('./socket').init(httpServer);
-    // now we can use io to set up some event listeners 
-    io.on('connection', socket => {
-        // the 'socket' above is an argument that 
-        // will house every connection to the websocket 
-        // and will execute for every new client 
-        console.log('Client connected successfully')
-    })
 })
 .catch(err => console.log(err))
