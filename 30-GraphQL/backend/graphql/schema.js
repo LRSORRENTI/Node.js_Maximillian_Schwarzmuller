@@ -3,8 +3,14 @@
 const {buildSchema} = require('graphql');
 
 module.exports = buildSchema(`
-    type RootQuery{
-        hello: String!
+    type TestData {
+        text: String!
+        views: Int!
+    }
+
+
+    type RootQuery {
+        hello: TestData!
     }    
 
 schema {
@@ -19,4 +25,7 @@ schema {
 
 // We can also make the value for the return 
 // by appending a '!', this means it's required to 
-// be a string 
+// be a string
+
+// Also note there are no commas in the schema, just 
+// use new lines 
