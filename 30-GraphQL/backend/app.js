@@ -62,7 +62,34 @@ app.use('/graphql', graphqlHTTP({
     // the schema and resolver from each of those files 
 
     schema: graphqlSchema,
-    rootValue: graphqlResolver
+    rootValue: graphqlResolver,
+    // we also want to pass in graphiql to true, 
+    // this is a special tool, when set to true, 
+    // and the server is running, go to 
+    // http://localhost:8080/graphql and you'll see 
+    // a special way to play around with your graphql
+    // api 
+    graphiql: true
+    // On that page in the browser: 
+    // mutation{
+    //     createUser(userInput:{email: "test@test.com",name:"Luke",  password:"tester"}){
+    //       _id
+    //       email
+    //     }
+    //   } 
+
+    // This returns:
+
+    // {
+    //     "data": {
+    //       "createUser": {
+    //         "_id": "64f49ea6d04e3f4cc897e905",
+    //         "email": "test@test.com"
+    //       }
+    //     }
+    //   }
+
+    // AND if we now check mongoDB, we see that user 
  }));
 
 

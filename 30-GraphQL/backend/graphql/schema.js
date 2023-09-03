@@ -33,11 +33,16 @@ input UserInputData {
     password: String!
 }
 
+type RootQuery {
+    hello: String
+}
+
 type RootMutation {
    createUser(userInput: UserInputData): User!
 }
 
 schema {
+        query: RootQuery
         mutation: RootMutation
     }
 `)
@@ -53,3 +58,4 @@ schema {
 
 // Also note there are no commas in the schema, just 
 // use new lines 
+
