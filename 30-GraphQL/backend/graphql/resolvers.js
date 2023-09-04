@@ -31,7 +31,15 @@ module.exports = {
       !validator.default.isLength(userInput.password, {min: 5})){
             errors.push({message: 'Password too short!' })    
        }
-      
+      // Now that above we have all these if checks, 
+      // we check to see if the erorrs array has a lentgth 
+      // greater than zero, then  we know we've got 
+      // some problems :
+
+      if(errors.length > 0){
+        const error = new Error('Invalid Input');
+        throw error;
+      }
         // const email = userInput.email
         const existingUser = await User.findOne({email: userInput.email})
         if(existingUser){
