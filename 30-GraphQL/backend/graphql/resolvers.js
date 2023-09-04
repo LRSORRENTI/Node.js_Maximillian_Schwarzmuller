@@ -20,6 +20,18 @@ module.exports = {
     // We can also use object destructuing: 
 
     createUser: async function({ userInput }, req ){
+      // Add validation logic:
+      const errors = [];
+      if(!Validator.default.isEmail(userInput.email)){
+        // so if the user input email is not an email 
+        // address
+        errors.push({message: 'Email invalid!'})
+      }
+      if(validator.default.isEmpty(userInput.password) || 
+      !validator.default.isLength(userInput.password, {min: 5})){
+            errors.push({message: 'Password too short!' })    
+       }
+      
         // const email = userInput.email
         const existingUser = await User.findOne({email: userInput.email})
         if(existingUser){
