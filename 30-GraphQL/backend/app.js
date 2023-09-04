@@ -52,6 +52,11 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
 
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization' );
+   
+    if(req.method === "OPTIONS"){
+        return res.sendStatus(200)
+    }
+
     next()
 })
 
@@ -62,7 +67,52 @@ app.use('/graphql', graphqlHTTP({
     // the schema and resolver from each of those files 
 
     schema: graphqlSchema,
-    rootValue: graphqlResolver
+    rootValue: graphqlResolver,
+    // we also want to pass in graphiql to true, 
+    // this is a special tool, when set to true, 
+    // and the server is running, go to 
+    // http://localhost:8080/graphql and you'll see 
+    // a special way to play around with your graphql
+    // api 
+    graphiql: true,
+    formatError(err){
+        // if we just return err, we maintain 
+        // the same format as the default
+        // return err
+        // But we can check if in the error we 
+        // don't have the original error
+        if(!err.originalError) {
+            return err;
+        }
+        const data = err.originalError.data;
+        const message = err.message || 'An error occured';
+        const code = err.originalError.code || 500;
+        return {
+            messgae: message, 
+            status: code,
+            data: data
+        }
+    }
+    // On that page in the browser: 
+    // mutation{
+    //     createUser(userInput:{email: "test@test.com",name:"Luke",  password:"tester"}){
+    //       _id
+    //       email
+    //     }
+    //   } 
+
+    // This returns:
+
+    // {
+    //     "data": {
+    //       "createUser": {
+    //         "_id": "64f49ea6d04e3f4cc897e905",
+    //         "email": "test@test.com"
+    //       }
+    //     }
+    //   }
+
+    // AND if we now check mongoDB, we see that user 
  }));
 
 
