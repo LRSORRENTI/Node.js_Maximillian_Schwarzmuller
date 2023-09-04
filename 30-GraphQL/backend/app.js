@@ -69,7 +69,25 @@ app.use('/graphql', graphqlHTTP({
     // http://localhost:8080/graphql and you'll see 
     // a special way to play around with your graphql
     // api 
-    graphiql: true
+    graphiql: true,
+    formatError(err){
+        // if we just return err, we maintain 
+        // the same format as the default
+        // return err
+        // But we can check if in the error we 
+        // don't have the original error
+        if(!err.originalError) {
+            return err;
+        }
+        const data = err.originalError.data;
+        const message = err.message || 'An error occured';
+        const code = err.originalError.code || 500;
+        return {
+            messgae: message, 
+            status: code,
+            data: data
+        }
+    }
     // On that page in the browser: 
     // mutation{
     //     createUser(userInput:{email: "test@test.com",name:"Luke",  password:"tester"}){

@@ -38,6 +38,8 @@ module.exports = {
 
       if(errors.length > 0){
         const error = new Error('Invalid Input');
+        error.data = errors;
+        error.code = 422;
         throw error;
       }
         // const email = userInput.email
