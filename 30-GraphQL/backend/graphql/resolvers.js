@@ -1,7 +1,7 @@
 // The resolver is an exported object where we 
 // need a hello method from our schema.js definition
 const bcrypt = require('bcryptjs')
-const Validator = require('validator')
+const validator = require('validator')
 
 const User = require('../models/user')
 
@@ -22,7 +22,7 @@ module.exports = {
     createUser: async function({ userInput }, req ){
       // Add validation logic:
       const errors = [];
-      if(!Validator.default.isEmail(userInput.email)){
+      if(!validator.default.isEmail(userInput.email)){
         // so if the user input email is not an email 
         // address
         errors.push({message: 'Email invalid!'})
