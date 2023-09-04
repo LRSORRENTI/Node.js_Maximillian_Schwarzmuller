@@ -1,9 +1,10 @@
 // The resolver is an exported object where we 
 // need a hello method from our schema.js definition
-const bcrypt = require('bcryptjs')
-const validator = require('validator')
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
+const jwt = require('jsonwebtoken');
 
-const User = require('../models/user')
+const User = require('../models/user');
 
 module.exports = {
     // createUser(args, req){
@@ -67,6 +68,25 @@ module.exports = {
         // so we only get the data we want otherwise 
         // it'll contain lots of meta data 
         return {...createdUser._doc, _id: createdUser._id.toString()}
-    }
-
+    },
+    login: async function({ email, password }){
+        const user = await User.findOne({email: email})
+        if(!user){
+          const error = new Error('User not found')
+          error.code = 401;
+          throw error
+        }
+       const isEqual = await bcrypt.compare(password, user.password)
+        if(!isEqual){
+          const error = new Error('Password not correct');
+          error.code = 401;
+          throw error;
+        }
+       const token = jwt.sign({
+        userId: user._id.toString(),
+        email: user.email
+       }, 'somesupersecretsecret',
+       {expiresIn: '1h'})
+       return {token: token, userId: user._id.toString()}
+      }
 };
