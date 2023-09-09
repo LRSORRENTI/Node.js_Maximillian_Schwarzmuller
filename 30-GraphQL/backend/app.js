@@ -61,6 +61,15 @@ app.use((req, res, next) => {
     next()
 })
 
+// Below we'll add a app.put for sending images 
+
+app.put('/post-image', (req, res, next ) => {
+    if(!req.file){
+        return res.status(200).json({message: 'No File Provided' })
+    }
+})
+
+
 app.use(auth);
 
 
