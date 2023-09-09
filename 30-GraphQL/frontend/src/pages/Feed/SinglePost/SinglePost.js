@@ -14,10 +14,27 @@ class SinglePost extends Component {
 
   componentDidMount() {
     const postId = this.props.match.params.postId;
-    fetch('http://localhost:8080/feed/post/' + postId, {
-      headers: {
-        Authorization: 'Bearer ' + this.props.token
+    const graphqlQuery = {
+      query: `
+      post(id: "${postId}"){
+        title 
+        content 
+        imageUrl
+        creator {
+          name
+        }
+        createdAt
       }
+      
+      `
+    }
+    fetch('http://localhost:8080/graphql', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(graphqlQuery)
     })
       .then(res => {
         if (res.status !== 200) {
