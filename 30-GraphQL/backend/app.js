@@ -63,9 +63,15 @@ app.use((req, res, next) => {
     next()
 })
 
+
+app.use(auth);
+
 // Below we'll add a app.put for sending images 
 
 app.put('/post-image', (req, res, next ) => {
+    if(!req.isAuth){
+        throw new Error('Not Authenticated! ')
+    }
     if(!req.file){
         return res.status(200).json({message: 'No File Provided' })
     }
@@ -82,9 +88,6 @@ app.put('/post-image', (req, res, next ) => {
         filePath: req.file.path
         })
 })
-
-
-app.use(auth);
 
 
 // Below we'll add another middleware for graphql
