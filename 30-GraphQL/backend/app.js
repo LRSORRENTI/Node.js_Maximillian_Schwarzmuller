@@ -1,5 +1,7 @@
 require('dotenv').config({path: './util/my.env'});
 const path = require('path');
+const fs = require('fs');
+
 const mongoose = require('mongoose');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
@@ -67,6 +69,18 @@ app.put('/post-image', (req, res, next ) => {
     if(!req.file){
         return res.status(200).json({message: 'No File Provided' })
     }
+    if(req.body.oldPath){
+        // if an old path was passed with the incoming 
+        // request, then clear the old image 
+        clearImage(req.body.oldPath);
+    }
+    // So when we make it inside here, we know we 
+    // have successfully grabbed a new image, then 
+    // cleared out the old image 
+    return res.statusCode(201).json({
+        message: 'File Stored',
+        filePath: req.file.path
+        })
 })
 
 
@@ -146,3 +160,9 @@ mongoose.connect(MONGODB_URI)
    const httpServer = app.listen(8080);
 })
 .catch(err => console.log(err))
+
+const clearImage = filePath => {
+    filePath = path.join(__dirname, '..', filePath);
+    fs.unlink(filePath, err => console.log(err));
+  };
+  
