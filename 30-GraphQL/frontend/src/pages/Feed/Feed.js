@@ -208,23 +208,21 @@ class Feed extends Component {
     fetch('http://localhost:8080/post-image', {
     method: 'PUT',
     headers: {
-      Authorization: 'Bearer ' + this.props.token,
-        'Content-Type': 'application/json'
+      Authorization: 'Bearer ' + this.props.token
     },
     body: formData
   })
   .then(res => res.json())
   .then(fileResData => {
     const imageUrl = fileResData.filePath;
-  })
-
+    
     let graphqlQuery = {
       query: `
         mutation {
           createPost(postInput:{ 
             title: "${postData.title}", 
             content: "${postData.content}",
-            imageUrl: "someURL"}) {
+            imageUrl: "${imageUrl}"}) {
               _id 
               title
               content 
@@ -239,7 +237,7 @@ class Feed extends Component {
       `
     }
 
-     fetch('http://localhost:8080/graphql', {
+    return fetch('http://localhost:8080/graphql', {
       method: 'POST',
       body: JSON.stringify(graphqlQuery) ,
       headers: {
@@ -247,6 +245,7 @@ class Feed extends Component {
         'Content-Type': 'application/json'
       }
     })
+  })
       .then(res => {
         return res.json();
       })
