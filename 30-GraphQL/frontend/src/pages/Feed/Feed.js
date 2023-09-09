@@ -109,6 +109,7 @@ class Feed extends Component {
             _id
             title 
             content
+            imageUrl
             creator {
               name
             }
@@ -197,17 +198,31 @@ class Feed extends Component {
       editLoading: true
     });
     const formData = new FormData();
-    formData.append('title', postData.title);
-    formData.append('content', postData.content);
     formData.append('image', postData.image);
+    // we check if we're in edit mode: 
+    if(this.state.editPost){
+      formData.append('oldPath', this.state.editPost.imagePath)
+    }
 
+    // Before we send the query: 
+    fetch('http://localhost:8080/post-image', {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + this.props.token
+    },
+    body: formData
+  })
+  .then(res => res.json())
+  .then(fileResData => {
+    const imageUrl = fileResData.filePath;
+    
     let graphqlQuery = {
       query: `
         mutation {
           createPost(postInput:{ 
             title: "${postData.title}", 
             content: "${postData.content}",
-            imageUrl: "someURL"}) {
+            imageUrl: "${imageUrl}"}) {
               _id 
               title
               content 
@@ -222,7 +237,30 @@ class Feed extends Component {
       `
     }
 
-     fetch('http://localhost:8080/graphql', {
+    if(this.state.editPost){
+      // if we're edting: 
+      graphqlQuery = {
+        query: `
+        mutation {
+          updatePost(id: "${this.state.editPost._id}", postInput:{ 
+            title: "${postData.title}", 
+            content: "${postData.content}",
+            imageUrl: "${imageUrl}"}) {
+              _id 
+              title
+              content 
+              imageUrl
+              creator {
+                name
+              }
+              createdAt
+            }
+        }
+        `
+      }
+    }
+
+    return fetch('http://localhost:8080/graphql', {
       method: 'POST',
       body: JSON.stringify(graphqlQuery) ,
       headers: {
@@ -230,6 +268,7 @@ class Feed extends Component {
         'Content-Type': 'application/json'
       }
     })
+  })
       .then(res => {
         return res.json();
       })
@@ -244,12 +283,17 @@ class Feed extends Component {
           throw new Error('User login failed!')
         }
         console.log(resData);
+        let resDataField = 'createPost';
+        if(this.state.editPost){
+          resDataField = 'updatePost'
+        }
         const post = {
-          _id: resData.data.createPost._id,
-          title: resData.data.createPostt.title,
-          content: resData.data.createPost.content,
-          creator: resData.data.createPost.creator,
-          createdAt: resData.data.createPost.createdAt
+          _id: resData.data[resDataField]._id,
+          title: resData.data[resDataField].title,
+          content: resData.data[resDataField].content,
+          creator: resData.data[resDataField].creator,
+          createdAt: resData.data[resDataField].createdAt,
+          imagePath: resData.data[resDataField].imageUrl
         };
         this.setState(prevState => {
           let updatedPosts = [...prevState.posts];
