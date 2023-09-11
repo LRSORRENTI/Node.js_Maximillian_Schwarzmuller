@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Post = require('../models/post');
-const { clearImage } = require('../util/file')
+const { clearImage } = require('../util/file');
+const user = require('../models/user');
 
 
 module.exports = {
@@ -246,6 +247,11 @@ module.exports = {
             error.code = 403;
             throw error;
         }
-
+        clearImage(post.imageUrl);
+        await Post.findByIdAndRemove(id);
+        const user = await User.findById(req.userId);
+        user.posts.pull(id);
+        await user.save();
+        return true;
       }
 };
