@@ -303,7 +303,9 @@ class Feed extends Component {
             );
             updatedPosts[postIndex] = post;
           } else {
-            updatedPosts.pop();
+            if (prevState.posts.length >= 2) {
+              updatedPosts.pop();
+          }
             // the .pop will remove one element, and 
             // add a new one at the beginning with unshift
             updatedPosts.unshift(post);
