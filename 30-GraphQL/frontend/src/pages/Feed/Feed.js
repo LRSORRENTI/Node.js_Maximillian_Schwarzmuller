@@ -173,7 +173,7 @@ class Feed extends Component {
     event.preventDefault();
     const graphqlQuery = {
       query: `
-      mutation UpdateUserStatus($userStatus: String) {
+      mutation UpdateUserStatus($userStatus: String!) {
         updateStatus(status: $userStatus){
           status
         }
@@ -244,14 +244,14 @@ class Feed extends Component {
   })
   .then(res => res.json())
   .then(fileResData => {
-    const imageUrl = fileResData.filePath;
+    const imageUrl = fileResData.filePath || "undefined";
     
     let graphqlQuery = {
       query: `
         mutation CreateNewPost(
-          $title: String,
-           $content: String,
-            $imageUrl: String) {
+          $title: String!,
+           $content: String!,
+            $imageUrl: String!) {
           createPost(postInput: { 
             title: $title, 
             content: $content,
@@ -279,10 +279,10 @@ class Feed extends Component {
       // if we're edting: 
       graphqlQuery = {
         query: `
-        mutation UpdateExistingPost($postId: ID,
-                                    $title: String,
-                                    $content: String,
-                                    $imageUrl: String ) {
+        mutation UpdateExistingPost($postId: ID!,
+                                    $title: String!,
+                                    $content: String!,
+                                    $imageUrl: String! ) {
           updatePost(
             id: $postId,
             postInput:{ 
@@ -387,10 +387,13 @@ class Feed extends Component {
     this.setState({ postsLoading: true });
     const graphqlQuery = {
       query: `
-        mutation {
-          deletePost(id: "${postId}")
+        mutation DeletePost($id: ID!){
+          deletePost(id: $id)
         }
-      `
+      `,
+      variables: {
+        id: postId
+      }
     }
     fetch('http://localhost:8080/graphql', {
       method: 'POST',
