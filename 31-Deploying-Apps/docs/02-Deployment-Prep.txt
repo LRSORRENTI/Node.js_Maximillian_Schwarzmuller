@@ -1,0 +1,33 @@
+===============
+Deployment Prep
+===============
+
+To prepare for deploymen, one thing we'll 
+add, which I already added, are environment 
+variables, the .env files which contain data 
+that shouldn't be freely available, like API keys 
+
+We also need to sanitize the error messages, 
+we don't want to offer sensitive error  info to 
+potential bad actors 
+
+It's fine to use detailed errors in development, but 
+when we actually push an app to production, we need 
+to review those error objects 
+
+We also need to set secure response headers, learn 
+how and why to set them 
+
+Asset compression, adding sone ways to reduce response 
+size improves overall app performance since the client 
+requires few download amounts 
+
+Configure logging, since we're not testing the server, 
+but we have end users, we want to log interactions 
+to be up to date on what's happening 
+
+Using SSL, TLS, where data is encrpyted in transit
+
+The last three points, asset compression, logging, 
+and SSL / TLS are often handled by the hosting 
+provider 
