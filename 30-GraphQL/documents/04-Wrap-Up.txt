@@ -1,0 +1,40 @@
+==============
+Module Summary
+==============
+
+We've successfully changed our RESTFUL API into 
+a graphql API
+
+We learned some core concepts about graphql: 
+
+- Stateless, client independent API 
+
+- Higher flexibility than REST API's due to 
+  custom query language that's exposed to the client 
+
+- Queries are used to mutate and manage data in 
+  all the ways REST API's can, we only send POST requests 
+  and define the schemas ourselves 
+
+- All graphql requests are directed to a single endpoint: 
+  POST/graphql
+
+- The server parses that incoming query expression,
+  and calls the appropriate defined resolver 
+
+- Graphql can be implemented in any frontend, not 
+  just React.js like we used in this course  
+
+===============
+Graphql VS REST 
+===============
+
+REST API's are still very useful: 
+
+- REST is great for static data requirements like 
+  file upload, scenarios where data is needed all the 
+  time 
+
+- Graphql does provide more flexibility by exposing 
+  an entire query language, vs all the different 
+  possible REST API endpoint configurations
