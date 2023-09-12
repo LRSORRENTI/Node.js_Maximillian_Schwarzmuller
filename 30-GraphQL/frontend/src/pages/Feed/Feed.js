@@ -115,8 +115,8 @@ class Feed extends Component {
     }
     const graphqlQuery = {
       query: `
-      {
-        posts(page: ${page}){
+      query FetchPosts($page: Int) {
+        posts(page: $page){
           posts {
             _id
             title 
@@ -131,7 +131,14 @@ class Feed extends Component {
         }
       }
       
-      `
+      `,
+      variables: {
+        page: page
+        // Now that we deffined this variable 
+        // we can use it instead of the string 
+        // templete injection we were using in the 
+        // query above, syntax for that is $page 
+      }
     }
     fetch('http://localhost:8080/graphql', {
       method: 'POST',
@@ -187,7 +194,7 @@ class Feed extends Component {
       })
       .then(resData => {
         if(resData.errors){
-          throw new Error('Fetching post failed')
+          throw new Error('Fetching posts failed')
         }
         console.log(resData);
       })
