@@ -1,0 +1,23 @@
+==========
+SSL / TLS
+==========
+
+We always need to protect data, especially if 
+we have any sensitive information 
+
+We can use SSL and TLS to assist with the 
+protection 
+
+Once SSL / TLS is in place, eavesdropping on 
+information becomes much more difficult
+
+To enable SSL / TLS, we work with a public / 
+private key pair, we only ever use and expose 
+the private key to us, on the server, only we 
+should have access to the private key
+
+The public key howwever is exposed, this is for 
+encrypting, that can only be decrypted by a matching 
+private key, they are a pair, and the corresponding 
+private key can decrypt 
+
