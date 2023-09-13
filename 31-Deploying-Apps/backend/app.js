@@ -14,8 +14,10 @@ const bodyParser = require('body-parser');
 const graphqlHTTP  = require('express-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
-const { clearImage } = require('./util/file')
-const helmet = require('helmet')
+const { clearImage } = require('./util/file');
+const helmet = require('helmet');
+const compression = require('compression');
+
 
 const auth = require('./middleware/auth');
 
@@ -42,6 +44,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 app.use(helmet());
+app.use(compression())
 
 app.use(bodyParser.json());
 
