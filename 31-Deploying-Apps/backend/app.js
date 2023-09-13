@@ -17,6 +17,7 @@ const graphqlResolver = require('./graphql/resolvers');
 const { clearImage } = require('./util/file');
 const helmet = require('helmet');
 const compression = require('compression');
+const morgan = require('morgan');
 
 
 const auth = require('./middleware/auth');
@@ -43,8 +44,26 @@ const fileFilter = (req, file, cb) => {
 
 }
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
+ {flags: 'a'}
+ )
+
+ /*
+Besides using morgan to log requests in general,
+ you can also add your own log messages in your code.
+
+For one, you can of course use the good 
+old console.log() command to write logs.
+
+For a more advanced/ detailed approach on
+ logging (with higher control),
+  see this article: 
+  https://blog.risingstack.com/node-js-logging-tutorial/
+ */
+
 app.use(helmet());
-app.use(compression())
+app.use(compression());
+app.use(morgan('combined', {stream: accessLogStream} ));
 
 app.use(bodyParser.json());
 
