@@ -1,0 +1,33 @@
+=========================
+Deploying Apps To The Web
+=========================
+
+NOTE: MAX MOVES BACK TO MVC PATTERN FOR 
+THE REMAINDER OF THE COURSE 
+
+In this module we'll learn best practices for 
+configuring and deploying apps to the web, preparing 
+for deployment and security
+
+And so far in this course we've built 
+apps using MVC where we have server rendered views 
+using both vanilla HTML and templating engines 
+like EJS, PUG, and HANDLEBARS 
+
+We also ditched the MVC pattern for REST API data 
+interpolation, as well as graphql API's 
+
+But do these types of apps need to have different 
+deployment configurations? 
+
+Keep in mind how the app behaves, requests, and 
+data acceptance / returns are code we wrote, but 
+in both we use node, and express 
+
+So in turn we have similar hosting requirements for 
+both types of apps, so when we move our code to a web
+server, we do the same thing, we spool up our 
+node server, and wait for incoming requests 
+
+Therefore we don't need to config differently for 
+MVC vs REST vs graphql
