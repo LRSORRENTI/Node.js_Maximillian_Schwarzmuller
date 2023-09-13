@@ -1,6 +1,7 @@
 require('dotenv').config({path: './util/my.env'});
 const path = require('path');
 const fs = require('fs');
+const https = require('https');
 
 const mongoose = require('mongoose');
 const multer = require('multer');
@@ -23,6 +24,10 @@ const morgan = require('morgan');
 const auth = require('./middleware/auth');
 
 const app = express();
+
+const privateKey = fs.readFileSync('server.key');
+const certificate = fs.readFileSync('server.cert');
+
 
 const fileStorage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -189,6 +194,19 @@ mongoose.connect(MONGODB_URI)
    const httpServer = app.listen(8080);
 })
 .catch(err => console.log(err))
+
+// SSL VERSION OF ABOVE: 
+// BUT KEEP IN MIND, USUALLY HOSTING PROVIDERS TAKE 
+// CARE OF THIS, TYPICALLY WON'T WRITE CODE LIKE THIS 
+// ON YOUR OWN 
+/*
+mongoose.connect(MONGODB_URI)
+.then(result => {
+    https.createServer( {key: privateKey, cert: certificate}, app )
+    .listen(3000)
+})
+.catch(err => console.log(err))
+*/
 
 // const clearImage = filePath => {
 //     filePath = path.join(__dirname, '..', filePath);
