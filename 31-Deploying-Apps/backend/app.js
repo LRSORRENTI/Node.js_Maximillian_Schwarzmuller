@@ -15,7 +15,7 @@ const graphqlHTTP  = require('express-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const { clearImage } = require('./util/file')
-
+const helmet = require('helmet')
 
 const auth = require('./middleware/auth');
 
@@ -40,6 +40,8 @@ const fileFilter = (req, file, cb) => {
      }
 
 }
+
+app.use(helmet());
 
 app.use(bodyParser.json());
 
