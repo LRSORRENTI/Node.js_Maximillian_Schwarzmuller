@@ -116,4 +116,4 @@ Basic HTML + CSS knowledge helps but is NOT required
 Who this course is for:
 Beginner or advanced web developers who want to dive into backend (server-side) development with NodeJS
 Everyone who's interested in building modern, scalable and high-performing web applications
-Experienced NodeJS developers who want to dive into specific features like using GraphQL with NodeJS
+Experienced NodeJS developers who want to dive into specific features like using GraphQL with NodeJS.
