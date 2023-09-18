@@ -1,0 +1,28 @@
+=================
+Testing Node Apps
+=================
+
+So far in the course we've manually tested our node 
+app, but the downside to this approach is that it's 
+easy to forget to test, or test too little 
+
+Maybe a new feature introduces unforeseen cascading 
+changes elsewhere in the application that causes 
+some problems 
+
+This is where Automated Testing comes into play, 
+where we write code that tests the app, we 
+define scenarios to test our app, and these tests 
+can run after every change
+
+The advantage of Automated Testing is we can 
+test core features of the app after every change
+
+The thing to keep in mind however, we need to ensure 
+we test the right things, there's no point setting 
+up tests for scenarios that are not even in the 
+code, or testing for the wrong thing 
+
+And automated tests are only what we define, 
+a user may run into a problem in the UI, a 
+situation we didn't test for 
