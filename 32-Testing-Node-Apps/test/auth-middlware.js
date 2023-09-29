@@ -17,11 +17,24 @@ const authMiddleware = require('../middleware/is-auth.js');
 //       throw error;
 //     }
 
-it('should throw error if no auth middleware is present', function(){
-    const req = {
-        get: function() {
-            return null;
+describe('Auth middleware', function(){
+
+    it('should throw error if no auth middleware is present', function(){
+        const req = {
+            get: function() {
+                return null;
+            }
         }
-    }
-    expect(authMiddleware.bind(this, req, {}, () => {})).to.throw('Not authenticated.');
-});
+        expect(authMiddleware.bind(this, req, {}, () => {})).to.throw('Not authenticated.');
+    });
+    
+    it('Should throw err if auth header is single string', function(){
+        const req = {
+            get: function() {
+                return 'xyz';
+            }
+        }
+        expect(authMiddleware.bind(this, req, {}, () => {})).to.throw()
+    });
+
+})
