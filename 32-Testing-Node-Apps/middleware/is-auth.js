@@ -11,6 +11,9 @@ module.exports = (req, res, next) => {
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, 'somesupersecretsecret');
+    // Note that testing .verify shouldn't occur, it's the 
+    // owners of the third party packages that test their 
+    // package code 
   } catch (err) {
     err.statusCode = 500;
     throw err;
