@@ -1,0 +1,23 @@
+==================
+Modern JS and Node
+==================
+
+Back when node was first created, JavaScript 
+didn't have the same amount of features it does 
+now 
+
+So core node js is missing some of those new features,
+node, but node now has acceess to both 
+ES Modules, and Promises within core node API's like 
+the filesystem api node ships with, which are 
+traditionally callback based 
+
+But what are ES Modules? 
+
+In this course we've primarily worked with the 
+require() syntax, but we can utilize ES Modules for 
+a cleaner import/export syntax:
+
+One file can have: export const doSomething(){...};
+
+Then it can be imported with: import { doSomething } from 'filename.js'

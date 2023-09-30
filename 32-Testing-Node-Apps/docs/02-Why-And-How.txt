@@ -1,0 +1,26 @@
+===================
+Why And How To Test 
+===================
+
+Automated tests are defined by us, 
+and we can configure them to test after 
+every new feature or code adjustment
+
+Makes it easier to detect breaking 
+changes that maybe aren't expected 
+
+The tools and setup we'll use are going to 
+use automated tests 
+
+We need a tool to execute the test code, which returns 
+an output of which tests have passed / failed 
+
+The second tool is one that allow us to define 
+the conditions which must always be met, we asset 
+certain results 
+
+We'll use Mocha and Chai for testing in this module, 
+Jest is another popular testing tool 
+
+But for managing side effects and external 
+dependencies we'll use a tool called Sinan
