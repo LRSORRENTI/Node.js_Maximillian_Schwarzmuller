@@ -1,0 +1,18 @@
+=========================
+Promises in core node API
+=========================
+
+So far in the course, we used a callback 
+based approach when utilizing things like 
+readFile
+
+Node, when it was first introduced, preceded 
+promises and other async methods, it was 
+callback based 
+
+And on the official docs, we see that there's 
+a fs.Promises API 
+
+And we can use them by importing them: 
+
+import fs from 'fs/promises'
