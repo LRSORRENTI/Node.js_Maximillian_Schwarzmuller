@@ -1,0 +1,11 @@
+======================
+Node JS and TypeScript
+======================
+
+In this module we'll learn how to integrate TS 
+into our node applications for a more type safe 
+approach to building node apps 
+
+TypeScript is popular since it's just a superset of 
+JS, but adds type safety 
+
