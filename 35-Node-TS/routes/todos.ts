@@ -3,7 +3,7 @@ import { Router }from 'express';
 
 import { ToDo } from '../models/singleTodo'
 
-const todos: ToDo[] = [];
+let todos: ToDo[] = [];
 
 
 const router = Router();
@@ -36,6 +36,12 @@ router.put('/todo/:todoId', (req, res, next) => {
         return res.status(200).json({message: 'updated Todo', todos: todos })
     }
     res.status(404).json({message: 'Could not find todo with that id'})
+})
+
+router.delete('/todo/:todoId', (req, res, next) => {
+     todos = todos.filter(todoItem => todoItem.id !== req.params.todoId)
+     // if the todo item id doesn't equal the req params todoid,
+     res.status(200).json({message: 'Deleted Todo', todos: todos });
 })
 
 export default router;
