@@ -1,9 +1,9 @@
 import { Router }from 'express';
 
 
-import { ToDo } from '../models/singleTodo'
+import { Todo } from '../models/singleTodo'
 
-let todos: ToDo[] = [];
+let todos: Todo[] = [];
 
 
 const router = Router();
@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/todo', (req, res, next) => {
-     const newTodo: ToDo = {
+     const newTodo: Todo = {
         id: new Date().toISOString(),
         text: req.body.text
      }
