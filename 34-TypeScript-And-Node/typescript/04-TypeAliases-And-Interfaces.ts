@@ -75,11 +75,13 @@ function createPerson(type: 'student' | 'teacher', name: string, age: number): P
 
 const person1 = createPerson('student', 'Alice', 20);
 const person2 = createPerson('teacher', 'Bob', 30);
-const person3 = createPerson('invalid', 'Invalid', 40); // Error message is logged
+// const person3 = createPerson('invalid', 'Invalid', 40); 
+// Error message is logged
 
 console.log(person1);
 console.log(person2);
-console.log(person3); // null, as an invalid type was passed
+// console.log(person3); 
+// null, as an invalid type was passed
 
 /*
 
