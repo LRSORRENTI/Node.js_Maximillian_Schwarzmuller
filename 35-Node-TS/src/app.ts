@@ -1,6 +1,6 @@
 import express from 'express'
 
-import bodyParser, { BodyParser } from 'body-parser';
+import bodyParser from 'body-parser';
 
 import todosRoutes from './routes/todos'
 
@@ -9,6 +9,6 @@ const app = express();
 
 app.use(bodyParser.json())
 
-app.use()
+app.use(todosRoutes)
 
 app.listen(3000)
