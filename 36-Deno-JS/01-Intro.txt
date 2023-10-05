@@ -1,0 +1,40 @@
+================================
+Deno JS - An alternative to Node
+================================
+
+Deno, an anagram of the work Node, 
+was created as an alternative to Node 
+
+It's similar to Node, it also utilizes JS, 
+but there are some key differences 
+
+In this module we'll go over what it is. why 
+it exists and when you may want to switch to Deno 
+over Node 
+
+=============
+What is Deno?
+=============
+
+Deno is a runtime based on Chromes V8 JavaScript 
+Engine, the same engine Node uses 
+
+Deno allows you to run JS outside of the browser
+
+One key difference is Node needs to compile all TypeScript
+into JavaScript before executing, Deno doesn't, 
+Deno can execute TypeScript without needing to 
+first turn it into JavaScript
+
+=====================
+Why was Deno created?
+=====================
+
+Deno was created as a quest to make a better Node.js 
+
+Deno supports many new JS features out of the box, 
+comes with more security enhancements
+
+Ryan Dahl wasn't satisfied with many aspects of 
+Node, and wanted to create something better, 
+and more featured than Node
